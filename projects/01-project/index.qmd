@@ -1,0 +1,14 @@
+---
+title: "Project 1"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Building a website and practicing with command-line tools"
+date: 2024-10-24
+knitr: true
+draft: false
+---
+
+TBA

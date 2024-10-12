@@ -1,0 +1,21 @@
+---
+title: "Welcome"
+---
+
+Welcome to the Course Website for PH.140.777 Statistical Programming Paradigms and Workflows!
+
+## Overview 
+
+Computing and programming are fundamental skills for applied statisticians to efficiently demonstrate the performance of their models with data, to develop reproducible data analyses or robust software, and to effectively communicate their own research interests. However, these skills are often not taught in the classroom, often making it challenging to learn these skills "on the job". 
+
+This hands-on course will cover advanced statistical computing programming paradigms and workflows required for the research and application of statistical methods. Students will be expected to complete readings prior to class, attend lectures to dive deeper into those topics in class, participate in classroom activities, complete projects (both solo and group) practicing and reinforcing the computing and programming skills. There will be a final group project, which will include a major class presentation. 
+
+## Course Information
+
+- Course Staff: [Prof. Stephanie Hicks](https://www.stephaniehicks.com), Joe Sartini, and Wenxuan Lu
+- Lectures: 1:30-2:50pm Tuesday and Thursday. See CoursePlus for location details.
+- Office Hours: See CoursePlus for location details.
+
+## Course Details
+
+All course details are available on the [Course](lectures.qmd) page. The syllabus is available on CoursePlus. 

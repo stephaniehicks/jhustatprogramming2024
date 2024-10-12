@@ -1,0 +1,90 @@
+---
+title: "Data Collection"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "add here"
+date: 2024-11-07
+draft: false
+---
+
+# Pre-lecture activities
+
+::: callout-important
+
+In advance of class, please install the following R packages
+
+1. `jsonlite` (<https://jeroen.cran.dev/jsonlite>)
+2. `httr` (<https://httr.r-lib.org>)
+
+
+```{r}
+#| eval: false
+install.packages("jsonlite")
+install.packages("httr")
+```
+
+:::
+
+In addition, please read through
+
+- [Data collection with APIs](../../readings/04-data-collection-apis/index.qmd)
+- [Data collection from HTMLs](../../readings/04-data-collection-html/index.qmd)
+
+::: callout-note
+
+## How much should I prepare for before class? 
+
+:::
+
+
+# Lecture 
+
+## Acknowledgements
+
+Material for this lecture was borrowed and adopted from
+
+- <https://jhu-advdatasci.github.io/2019/lectures/04-gettingdata-api.html>
+- <https://aws.amazon.com/what-is/api>
+- <https://bookdown.org/paul/apis_for_social_scientists/github.com-api.html>
+- <https://statisticsglobe.com/api-in-r>
+
+
+## Learning objectives
+
+::: callout-note
+### Learning objectives
+
+**At the end of this lesson you will:**
+
+- Describe what the difference is between "raw" vs "clean" data
+- Learn about what are JSON files and how we can convert them into data frames in R 
+- Describe some best practices on sharing data with collaborators
+- Know what does API mean and state four types of API architectures
+- Practice with two APIs: the GitHub API and the openFDA API
+
+:::
+
+
+## Slides 
+
+- <add here>
+
+
+# Post-lecture
+
+## Summary 
+
+- 
+
+## Additional practice
+
+Here are some additional practice questions to help you think about the material discussed.
+
+::: callout-note
+### Questions
+
+1. 
+:::

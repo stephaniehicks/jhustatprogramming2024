@@ -1,0 +1,612 @@
+---
+title: "Functional Programming with `purrr`"
+author: 
+  - name: Stephanie Hicks
+    url: https://www.stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Introduction to tools to work with functions and vectors in R"
+date: 2024-11-05
+knitr: true
+draft: false
+---
+
+# Motivation 
+
+If you have ever heard the phrase 
+
+> "R is a __functional__ language."
+
+you might have asked yourself what does this means exactly? Generally, this means that R lends itself nice to a particular __style__ of programming, namely a **functional style** of programming (will explain more below), which is often very helpful to the types of problems you encounter when doing a data analysis. 
+
+## Functional programming language
+
+A **functional style** of programming is contrast to a the formal definition of a **functional language** (or **functional programming**, which can be complementary to object-oriented programming), which are languages that use functions to create conditional expressions to perform specific computations. 
+
+:::{.callout-note}
+
+### Differences between functional and object-oriented programming
+
+From [this resource](https://www.indeed.com/career-advice/career-development/functional-programming-languages) some differences are: 
+
+- **Basic elements**: The fundamental elements of object-oriented languages are objects and methods, while the elements of functional programming are functions and variables. 
+
+- **States**: Object-oriented languages can change objects within the program, which means it has states or current modifications that affect the result of inputs. Functional languages do not use imperative programming, so they do not keep track of current states.
+
+- **Parallel programming**: This type of programming involves multiple computational processes occurring at the same time. Object-oriented languages have little support for parallel programming, but functional languages have extensive support for it.
+
+- **Order**: In object-oriented programming, computations occur in a specific order. In functional programming, computations can occur in any order.
+
+- **Iterative data**: Object-oriented programming uses loops, meaning repeated execution, for iterative data. Functional programming uses recursion for iterative data, meaning it attempts to solve problems using simpler versions of the same problem.
+
+:::
+
+A traditional weakness of functional languages are poorer performance and sometimes unpredictable memory usage, but these have been much reduced in recent years.
+
+
+## Characteristics of a functional language
+
+There are many definitions for precisely what makes a language functional, but there are two common threads and/or characteristics. 
+
+### 1. First-class functions
+
+At it is core, functional programming treats functions equally as other data structures, called **first class functions**. 
+
+> In R, this means that you can do many of the things with a function that you can do with a vector: you can assign them to variables, store them in lists, pass them as arguments to other functions, create them inside functions, and even return them as the result of a function.
+
+
+:::{.callout-tip}
+
+### Examples of cool things you can do with functions in R
+
+1. Assign a function to a variable (`foo`):
+
+```{r}
+foo <- function(){
+  return("This is foo.")
+}
+class(foo)
+foo
+foo()
+```
+
+2. You can store functions in a `list`:
+
+```{r}
+foo_list <- list( 
+  fun_1 = function() return("foo_1"),
+  fun_2 = function() return("foo_2")
+)
+
+str(foo_list)
+foo_list$fun_1()
+foo_list$fun_2()
+```
+
+3. You can pass functions as arguments to other functions:
+
+```{r}
+shell_fn <- function(f) f()
+shell_fn(foo_list$fun_1)
+shell_fn(foo_list$fun_2)
+```
+
+4. You can **create functions inside of functions** and return them as the result of a function
+```{r}
+foo_wrap <- function(){
+  foo_2 <- function(){
+    return("This is foo_2.")
+  }
+  return(foo_2)
+}
+
+foo_wrap()
+(foo_wrap())()
+```
+
+The bottom line, you can manipulate functions as the same way as you can to a vector or a matrix. 
+
+:::
+
+### 2. Pure functions
+
+A function is **pure**, if it satisfies two properties:
+
+* The output only depends on the inputs, i.e. if you call it again with the 
+  same inputs, you get the same outputs. This excludes functions like `runif()`,
+  `read.csv()`, or `Sys.time()` that can return different values.
+
+* The function has no side-effects, like changing the value of a global 
+  variable, writing to disk, or displaying to the screen. This excludes 
+  functions like `print()`, `write.csv()` and `<-`.
+ 
+Pure functions are much easier to reason about, but obviously have significant downsides: imagine doing a data analysis where you could not generate random numbers or read files from disk. 
+
+:::{.callout-important}
+
+To be clear, **R is not formally a functional programming language** as it does not require pure functions to be used when writing code. 
+
+:::
+
+So you might be asking yourself, why are we talking about this then? 
+
+The formal definition of a functional programming language introduces a new style of programming, namely a **functional style** of programming. 
+
+:::{.callout-note}
+
+The key idea of a **functional style** is this programming style encourages programmers to write a big function as many smaller isolated functions, where each function addresses one specific task.
+
+:::
+
+You can always adopt a **functional style** for certain parts of your code! For example, this style of writing code motivates more humanly readable code, and recyclable code.
+
+```{r}
+#| eval: false
+
+"data_set.csv" |> 
+  import_data_from_file() |> 
+  data_cleaning() |> 
+  run_regression() |>
+  model_diagnostics() |>
+  model_visualization()
+
+"data_set2.csv" |> 
+  import_data_from_file() |> 
+  data_cleaning() |> 
+  run_different_regression() |>
+  model_diagnostics() |>
+  model_visualization()
+```
+
+
+## Functional style
+
+At a high-level, a **functional style** is the concept of decomposing a big problem into smaller components, then solving each piece with a function or combination of functions. 
+
+- When using a functional style, you strive to decompose components of the problem into isolated functions that operate independently. 
+- Each function taken by itself is simple and straightforward to understand; complexity is handled by composing functions in various ways.
+
+### Functionals
+
+In this lecture, we will focus on one type of functional technique, namely **functionals**, which are functions that take another function as an argument and returns a vector as output.
+
+Functionals allow you to take a function that solves the problem for a single input and generalize it to handle any number of inputs. Once you learn about them, you will find yourself using them all the time in data analysis.
+
+:::{.callout-note}
+
+### Example of a functional
+
+Here's a simple functional: it calls the function provided as input with 1000 random uniform numbers. 
+
+```{r}
+randomise <- function(f) f(runif(1e3))
+randomise(mean)
+randomise(mean)
+randomise(sum)
+```
+
+:::
+
+The chances are that you have already used a functional. You might have used for-loop replacements like base R's `lapply()`, `apply()`, and `tapply()` or maybe you have used a mathematical functional like `integrate()` or `optim()`. 
+
+One of the most common use of functionals is an alternative to `for` loops. 
+
+For loops have a bad rap in R because many people believe they are slow, but the real downside of for loops is that they're very flexible: a loop conveys that you're iterating, but not what should be done with the results. 
+
+:::{.column-margin}
+
+Typically it is not the for loop itself that is slow, but what you are doing inside of it. A common culprit of slow loops is modifying a data structure, where each modification generates a copy. 
+
+If you're an experienced for loop user, switching to functionals is typically a pattern matching exercise. You look at the for loop and find a functional that matches the basic form. If one does not exist, do not try and torture an existing functional to fit the form you need. Instead, just leave it as a for loop! (Or once you have repeated the same loop two or more times, maybe think about writing your own functional).
+
+:::
+
+Just as it is better to use `while` than `repeat`, and it's better to use `for` than `while`, it is better to use a functional than `for`. 
+
+Each functional is tailored for a specific task, so when you recognize the functional you immediately know why it's being used.
+
+
+# `purrr`: the functional programming toolkit
+
+The R package [`purrr`](https://purrr.tidyverse.org) as one important component of the [`tidyverse`](https://www.tidyverse.org/), provides a interface to manipulate vectors in the _functional style_.
+
+> `purrr` enhances R's functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors.
+
+::: callout-tip
+### `purrr` cheatsheet
+It is very difficult, if not impossible, to remember all functions that a package offers as well as their use cases. 
+
+Hence, `purrr` developers offer a nice compact cheatsheet with visualizations at <https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf>. 
+
+Similar cheat sheets are available for other `tidyverse` packages.
+:::
+
+The most popular function in `purrr` is `map()` which iterates over the supplied data structure and apply a function during the iterations. Beside the `map()` function,`purrr` also offers a series of useful functions to manipulate the `list` data frame. 
+
+## The `map` family
+
+The most fundamental functional in the `purrr` package is the `map(.x, .f)` function. It takes a vector (`.x`) and a function (`.f`), calls the function once for each element of the vector, and returns the results in a list. In other words, `map(1:3, f)` is equivalent to `list(f(1), f(2), f(3))`. 
+
+```{r}
+library(purrr)
+
+# we create a function called "triple"
+triple <- function(x) x * 3
+
+# using for loop to iterate over a vector
+loop_ret <- list()
+for(i in 1:3){
+  loop_ret[i] <- triple(i)
+}
+loop_ret
+```
+
+```{r}
+# map implementation to iterate over a vector
+map_eg1 <- map(.x = 1:3, .f = triple)
+map_eg2 <- map(.x = 1:3, .f = function(x) triple(x)) # create an inline anonymous function
+map_eg3 <- map(.x = 1:3, .f = ~triple(.x)) # same as above, but special purrr syntax with a "twiddle"
+
+
+identical(loop_ret,map_eg1)
+identical(loop_ret,map_eg2)
+identical(loop_ret,map_eg3)
+```
+
+Or, graphically this is what `map()` is doing:
+
+![map](../../images/functionals/map.png)
+
+:::{.callout-tip}
+
+### How does `map` relate to functional programming in base R?
+
+`map()` returns a list, which makes it the most general of the map family because you can put anything in a list. 
+
+The base equivalent to `map(.x, .f)` is `lapply(X, FUN)`. 
+
+Because the arguments include functions (`.f`) besides data (`.x`), `map()` functions are considered as a convenient interface to implement functional programming.
+:::
+
+
+### `map` variants
+
+Sometimes it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants of `map` that make it really a **family of functions** (of syntax `map_*()`). 
+
+- `map_lgl()`
+- `map_int()`
+- `map_dbl()`
+- `map_chr()`
+
+For example, `purrr` uses the convention that suffixes, like `_dbl()`, refer to the output. Each returns an atomic vector of the specified type:
+
+```{r}
+# map_chr() always returns a character vector
+map_chr(.x = mtcars, .f = typeof)
+
+# map_lgl() always returns a logical vector
+map_lgl(.x = mtcars, .f = is.double)
+
+# map_int() always returns a integer vector
+n_unique <- function(x) length(unique(x))
+map_int(.x = mtcars, .f = n_unique)
+
+# map_dbl() always returns a double vector
+map_dbl(.x = mtcars, .f = mean)
+```
+
+:::{.callout-note}
+
+### Pro-tip 
+
+All `map_*()` functions can take any type of vector as input. The examples above rely on two facts: 
+
+1. `mtcars` is a `data.frame`. In R, `data.frame` is a special case of `list`, where each column as one item of the list. Don't confuse with each row as an item.
+
+```{r}
+class(mtcars)
+typeof(mtcars)
+```
+
+2. All `map` functions always return an output vector the same length as the input, which implies that each call to `.f` must return a single value. If it does not, you will get an error:
+
+```{r, error = TRUE}
+pair <- function(x) c(x, x)
+map_dbl(.x = 1:2, .f = pair)
+```
+
+This is similar to the error you will get if `.f` returns the wrong type of result:
+
+```{r, error = TRUE}
+map_dbl(1:2, as.character)
+```
+
+:::
+
+
+:::{.callout-note}
+
+### Question
+
+Let's assume I have a dataframe called `tmp_dat`. How would I use `map()` to calculate the mean for the columns? 
+
+```{r}
+tmp_dat <- data.frame(
+  x = 1:5,
+  y = 6:10
+)
+```
+
+```{r}
+## try it out 
+
+```
+:::
+
+:::{.callout-note}
+
+### Question 
+
+Can we re-write the `map()` function above to use `tmp_data` as input with the `|>` operator? 
+
+```{r}
+## try it out 
+
+```
+
+:::
+
+
+### Passing arguments with `...` 
+
+It is often convenient to pass along additional arguments to the function that you are calling.
+
+For example, you might want to pass `na.rm = TRUE` along to `mean()`. One way to do that is with an anonymous function:
+
+```{r}
+x <- list(1:5, c(1:10, NA))
+map_dbl(x, ~ mean(.x, na.rm = TRUE))
+```
+
+But because the map functions pass `...` along, there is a simpler form available:
+
+```{r}
+map_dbl(x, mean, na.rm = TRUE)
+```
+
+This is easiest to understand with a picture: any arguments that come after `f` in the call to `map()` are inserted _after_ the data in individual calls to `f()`:
+
+![map](../../images/functionals/map-arg.png)
+
+:::{.callout-note}
+
+It's important to note that these arguments are not decomposed; or said another way, `map()` is only vectorised over its first argument. 
+
+If an argument after `f` is a vector, it will be passed along as is:
+
+![map](../../images/functionals/map-arg-recycle.png)
+
+:::
+
+### Stratified analysis with `map`
+
+Before we go on to explore more map variants, let's take a quick look at how you tend to use multiple `purrr` functions to solve a moderately realistic problem: fitting a model to each subgroup and extracting a coefficient of the model. 
+
+For this toy example, I will break the `mtcars` data set down into groups defined by the number of cylinders, using the base `split` function:
+
+```{r}
+# different numbers of cylinders
+unique(mtcars$cyl) 
+```
+
+```{r}
+by_cyl <- split(mtcars, mtcars$cyl)
+length(by_cyl)
+str(by_cyl)
+```
+
+This creates a list of three data frames: the cars with 4, 6, and 8 cylinders respectively.
+
+First, imagine we want to fit a linear model to understand how the miles per gallon (`mpg`) associated with the weight (`wt`). We can do this for all observations in `mtcars` using: 
+
+```{r}
+lm(mpg ~ wt, data = mtcars)
+```
+
+The following code shows how you might do that with `purrr`, which returns a list with output from each lm fit for each cylinder:
+
+```{r}
+by_cyl |>
+  map(.f = ~ lm(mpg ~ wt, data = .x))
+```
+
+:::{.callout-note}
+
+### Question 
+
+Let's say we wanted to extract the second coefficient (i.e. the slope). Using all the observations in `mtcars` (i.e. ignoring `cyl`), it would be something like this: 
+
+```{r}
+lm.fit <- lm(mpg ~ wt, data = mtcars)
+coef(lm.fit)
+coef(lm.fit)[2]
+```
+
+How would we do this with the `map()` family functions if we wanted to stratify the analysis for each `cyl`? 
+
+**Hint**: you can use two `map` functions (e.g. `map()` and `map_dbl(2)` where you can extract a specific element by a specific name or position). 
+
+```{r}
+## try it out 
+
+```
+
+:::
+
+
+Or, of course, you could use a for loop:
+
+```{r}
+slopes <- double(length(by_cyl))
+for (i in seq_along(by_cyl)) {
+  model <- lm(mpg ~ wt, data = by_cyl[[i]])
+  slopes[[i]] <- coef(model)[[2]]
+}
+slopes
+```
+
+It's interesting to note that as you move from purrr to base apply functions to for loops you tend to do more and more in each iteration. 
+
+In purrr we iterate 3 times (`map()`, `map()`, `map_dbl()`), and with a for loop we iterate once. I prefer more, but simpler, steps because I think it makes the code easier to understand and later modify.
+
+:::{.callout-note}
+
+### Question
+
+Now we are interested in calculating the average `mpg` for vehicles with different numbers of cylinders. How can we use `map` functions to do this? You can return a list. 
+
+**Hint**: You can use the syntax `x$mpg` where `x` is a dataframe within a `map` function. 
+
+```{r}
+## try it out 
+
+```
+
+:::
+
+
+### Matrix as the output
+
+The `map` family include functions that organize the output in different data structures, whose names follow the pattern `map_*`. As we've seen, the `map` function return a list. The following functions will return a vector of a specific kind, e.g. `map_lgl` returns a vector of logical variables, `map_chr` returns a vector of strings. 
+
+It is also possible to return the the results as data frames by 
+
+- row binding (`map_dfr`) or 
+- column binding (`map_dfc`)
+
+```{r}
+by_cyl |> 
+  map_dbl(.f = ~mean(.x$mpg)) # returns a vector of doubles
+
+by_cyl |> 
+  map_dfr(.f = ~colMeans(.x)) # return a data frame by row binding
+
+by_cyl |> 
+  map_dfc(.f = ~colMeans(.x)) # return a data frame by col binding
+```
+
+## More map variants
+
+There are 23 primary variants of `map()`. So far, we have learned about five (`map()`, `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()`). That means that you have got 18 (!!) more to learn. That sounds like a lot, but fortunately the design of `purrr` means that you only need to learn five new ideas:
+
+* Output same type as input with `modify()`
+* Iterate over two inputs with `map2()`.
+* Iterate with an index using `imap()`
+* Return nothing with `walk()`.
+* Iterate over any number of inputs with `pmap()`.
+
+The map family of functions has orthogonal input and outputs, meaning that we can organise all the family into a matrix, with inputs in the rows and outputs in the columns. Once you have mastered the idea in a row, you can combine it with any column; once you have mastered the idea in a column, you can combine it with any row. That relationship is summarised in the following table:
+
+|                       | List     | Atomic            | Same type   | Nothing   |
+|-----------------------|----------|-------------------|-------------|-----------|
+| One argument          | `map()`  | `map_lgl()`, ...  | `modify()`  | `walk()`  |
+| Two arguments         | `map2()` | `map2_lgl()`, ... | `modify2()` | `walk2()` |
+| One argument + index  | `imap()` | `imap_lgl()`, ... | `imodify()` | `iwalk()` |
+| N arguments           | `pmap()` | `pmap_lgl()`, ... | ---         | `pwalk()` |
+
+
+### `modify()` 
+
+Imagine you wanted to double every column in a data frame. You might first try using `map()`, but `map()` always returns a list:
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = 6:4
+)
+
+map(df, ~ .x * 2)
+```
+
+If you want to keep the output as a data frame, you can use `modify()`, which always returns the same type of output as the input:
+
+```{r}
+modify(df, ~ .x * 2)
+```
+
+:::{.callout-note}
+
+Despite the name, `modify()` doesn't modify in place, it returns a modified copy, so if you wanted to permanently modify `df`, you'd need to assign it: 
+
+```{r}
+df <- modify(df, ~ .x * 2)
+```
+:::
+
+
+### `map2()` and friends {#map2}
+\indexc{map2()}
+
+`map()` is vectorised over a single argument, `.x`. 
+
+This means it only varies `.x` when calling `.f`, and all other arguments are passed along unchanged, thus making it poorly suited for some problems. 
+
+For example, how would you find a weighted mean when you have a list of observations and a list of weights? Imagine we have the following data:
+
+```{r}
+xs <- map(1:8, ~ runif(10))
+xs[[1]][[1]] <- NA
+ws <- map(1:8, ~ rpois(10, 5) + 1)
+```
+
+You can use `map_dbl()` to compute the unweighted means:
+
+```{r}
+map_dbl(.x = xs, .f = mean)
+```
+
+But passing `ws` as an additional argument does not work because arguments after `.f` are not transformed:
+
+```{r, error = TRUE}
+map_dbl(x. = xs, .f = weighted.mean, w = ws)
+```
+
+We need a new tool: a `map2()`, which is vectorised over two arguments. This means both `.x` and `.y` are varied in each call to `.f`:
+
+```{r}
+map2_dbl(.x = xs, .y = ws, .f = weighted.mean)
+```
+
+The arguments to `map2()` are slightly different to the arguments to `map()` as two vectors come before the function, rather than one. Additional arguments still go afterwards:
+
+```{r}
+map2_dbl(.x = xs, .y = ws, .f = weighted.mean, na.rm = TRUE)
+```
+
+
+
+### `walk()` and friends
+
+Most functions are called for the value that they return, so it makes sense to capture and store the value with a `map()` function. 
+
+But some functions are called primarily for their side-effects (e.g. `cat()`, `write.csv()`, or `ggsave()`) and it does not make sense to capture their results.
+
+Let's consider the example of saving a dataset. In this case, `map` will force an output, e.g. `NULL`. One can consider using `walk` instead. The function `walk` (and `walk2` for more than two inputs) behaves exactly the same as `map` but does not output anything. 
+
+```{R}
+tmp_fldr <- tempdir()
+
+map2(.x = by_cyl,
+     .y = 1:length(by_cyl),
+     .f = ~saveRDS(.x, 
+                   file = paste0(tmp_fldr, "/",.y, ".rds"))
+)
+
+# No output
+walk2(.x = by_cyl,
+      .y = (1:length(by_cyl)),
+      .f = ~saveRDS(.x, 
+                    file = paste0(tmp_fldr, "/",.y, ".rds"))
+)
+```
+

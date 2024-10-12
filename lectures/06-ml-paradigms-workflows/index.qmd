@@ -1,0 +1,72 @@
+---
+title: "Machine learning paradigms and workflows"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "add here"
+date: 2024-11-14
+draft: true
+---
+
+
+# Pre-lecture activities
+
+::: callout-important
+
+In advance of class, please
+
+:::
+
+In addition, please read through
+
+- 
+
+::: callout-note
+
+## How much should I prepare for before class? 
+
+:::
+
+
+# Lecture 
+
+## Acknowledgements
+
+Material for this lecture was borrowed and adopted from
+
+- 
+
+## Learning objectives
+
+::: callout-note
+### Learning objectives
+
+**At the end of this lesson you will:**
+
+-   
+:::
+
+
+
+## Slides 
+
+- <add here>
+
+
+# Post-lecture
+
+## Summary 
+
+- 
+
+## Additional practice
+
+Here are some additional practice questions to help you think about the material discussed.
+
+::: callout-note
+### Questions
+
+1. 
+:::

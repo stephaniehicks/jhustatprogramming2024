@@ -1,0 +1,123 @@
+---
+title: "Introduction to the command-line"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Introduction to the command-line"
+date: 2024-10-29
+---
+
+
+# Announcements
+
+The next lecture falls on `r emojifont::emoji('ghost')` Halloween ! 
+I plan to give the lecture dressed up in a costume. 
+This is entirely optional, but I encourage students to come in costume if you wish! 
+**Candy `r emojifont::emoji('candy')` will be offered to anyone in costume!**
+
+
+# Pre-lecture activities
+
+::: callout-important
+
+In advance of class, please follow the instructions on [Software Carpentry: The Unix Shell](https://swcarpentry.github.io/shell-novice) to 
+
+1. Install a Unix shell on your computer (if it is not already installed)
+2. How to access and open the Unix shell on your computer
+3. How to type commands on the Unix shell
+
+:::
+
+In addition, please read through Chapters 1-7
+
+- <https://swcarpentry.github.io/shell-novice/01-intro>
+- <https://swcarpentry.github.io/shell-novice/02-filedir>
+- <https://swcarpentry.github.io/shell-novice/03-create>
+- <https://swcarpentry.github.io/shell-novice/04-pipefilter>
+- <https://swcarpentry.github.io/shell-novice/05-loop>
+- <https://swcarpentry.github.io/shell-novice/06-script>
+- <https://swcarpentry.github.io/shell-novice/07-find>
+
+
+::: callout-note
+
+## How much should I prepare for before class? 
+
+You should be comfortable with the meaning of most the commands and also executing commands in a Unix shell on your computer before class starts. 
+
+During class, I will give an overview of working in the Unix shell and then we will practice the commands with an in-class activity. If you have not opened a Unix shell before or you are not comfortable with executing commands, it will be challenging to participate in the activity.
+
+:::
+
+
+
+# Lecture 
+
+## Acknowledgements
+
+Material for this lecture was borrowed and adopted from
+
+- [Software Carpentry: The Unix Shell](https://swcarpentry.github.io/shell-novice)
+- [Data Science at the Command line](https://datascienceatthecommandline.com/2e)
+
+## Learning objectives
+
+::: callout-note
+### Learning objectives
+
+**At the end of this lesson you will:**
+
+-   Understand what is a command shell and why would use one.
+-   Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs.
+-   Explain when and why command-line interfaces should be used instead of graphical interfaces.
+-   Create, copy, move, rename, and delete files and folders.
+-   Print and sort file contents.
+-   Search for regular expressions in files.
+-   Execute R commands and scripts in the command line.
+-   Redirect a command’s output to a file with redirect operators (`>`, `>>`).
+-   Construct command pipelines with two or more stages with the pipe operator (`|`).
+-   Write a loop that applies one or more commands separately to each file in a set of files.
+-   Explain why spaces should not be used in file names inside of loops.
+
+
+:::
+
+:::{.callout-tip}
+
+You can practice your command-line skills with the [Command Challenge](https://cmdchallenge.com/)
+
+:::
+
+## Slides 
+
+- <add here>
+
+
+# Post-lecture
+
+## Summary 
+
+- Shell is a text based application for viewing, handling and manipulating files
+- It is also known by the following names
+    - CLI (Command Line Interface)
+    - Terminal
+    - Bash (Bourne Again Shell)
+- Use `Rscript -e` or `R -e` to execute R scripts from the command line
+- RStudio includes a Terminal (from version 1.1.383)
+- Execute commands from shell script in RStudio using Ctrl + Enter
+- RMarkdown and Quarto supports bash, sh and awk
+
+## Additional practice
+
+Here are some additional practice questions to help you think about the material discussed.
+
+::: callout-note
+### Questions
+
+1. Explore the help files of `tar` and `gzip` commands for compressing files.
+2. Move around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the `pwd` and `cd` commands, and the different flags for the `ls` commands. 
+3. Practice using "Tab for Auto-complete" in the shell to autocomplete commands or file names.
+4. Practice your command line knowledge with [Command Challenge](https://cmdchallenge.com/).
+:::

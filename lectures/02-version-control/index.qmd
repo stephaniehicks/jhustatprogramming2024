@@ -1,0 +1,99 @@
+---
+title: "Introduction to version control"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Introduction to version control"
+date: 2024-10-31
+---
+
+# Pre-lecture activities
+
+::: callout-important
+
+In advance of class, please follow the instructions on [Software Carpentry: Version Control with Git](https://swcarpentry.github.io/git-novice) to
+
+1. Installing Git
+2. Creating a GitHub Account
+3. Preparing Your Working Directory
+
+In addition, please **read through Chapters 1-9**.
+
+:::
+
+
+::: callout-note
+
+## How much should I prepare for before class? 
+
+You should be comfortable with the meaning of version control, have git installed, create a GitHub account (if you have not before), prepare your working directory, understand the meaning of most the git commands, and also executing commands on your computer before class starts. 
+
+During class, I will give an overview of these topics and then we will practice using version control in groups of two with an in-class activity. I will walk around the class answering questions and helping to address questions as they arise in practice. If you have not installed git, created a GitHub account, and prepared your working directory, it will be challenging to participate in the activity.
+
+:::
+
+
+# Lecture 
+
+## Acknowledgements
+
+Material for this lecture was borrowed and adopted from
+
+- [Software Carpentry: Version Control with Git](https://swcarpentry.github.io/git-novice)
+
+## Learning objectives
+
+::: callout-note
+### Learning objectives
+
+**At the end of this lesson you will:**
+
+- Understand the benefits of an automated version control system.
+- Understand how to set up git.
+- Understand how to set up a git repository.
+- Understand how to track changes, explore history, and ignore files in a git 
+- Understand git remotes.
+- Understand how to use GitHub.
+- Understand collaborating and merge conflicts.
+
+:::
+
+
+
+## Slides 
+
+- <add here>
+
+
+# Post-lecture
+
+::: {.callout-tip collapse="true"}
+### A Typical Work Session
+
+A short example of a typical workflow in an order that will minimize merge conflicts:
+
+-   Update local repo: `git pull origin main`
+-   Make changes: e.g. `echo 100 >> numbers.txt`
+-   Stage changes: `git add numbers.txt`
+-   Commit changes: `git commit -m "Add 100 to numbers.txt"`
+-   Update remote: `git push origin main`
+:::
+
+Thre are other resources available on the [Software Carpentry](https://swcarpentry.github.io/git-novice)'s website in particularly around: 
+
+- The importance of how version control can help your work more open and support [Open Science](https://swcarpentry.github.io/git-novice/10-open.html). Open scientific work is more useful and more highly cited than closed. 
+- What type of licensing should you consider to include with your work on [Licensing](https://swcarpentry.github.io/git-novice/11-licensing.html). 
+- How to make your work easier to cite with the less on [Citations](https://swcarpentry.github.io/git-novice/12-citation.html). 
+
+
+## Additional practice
+
+Here are some additional practice questions to help you think about the material discussed.
+
+::: callout-note
+### Questions
+
+1. 
+:::

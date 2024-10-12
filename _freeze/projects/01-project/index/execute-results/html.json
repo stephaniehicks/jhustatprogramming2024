@@ -1,0 +1,15 @@
+{
+  "hash": "159a7804089f93acf37846fa73aaaece",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Project 1\"\nauthor: \n  - name: Stephanie Hicks\n    url: https://stephaniehicks.com\n    affiliation: Department of Biostatistics, Johns Hopkins\n    affiliation_url: https://publichealth.jhu.edu\ndescription: \"Building a website and practicing with command-line tools\"\ndate: 2024-10-24\nknitr: true\ndraft: false\n---\n\n\n\n\nTBA\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

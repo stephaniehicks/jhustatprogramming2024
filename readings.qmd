@@ -1,0 +1,19 @@
+---
+title: "Important reading materials"
+listing:
+  id: reading-listings
+  contents: readings
+  sort: "date asc"
+  type: table
+  categories: false
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: false
+date-format: iso
+---
+
+The following contains relevant reading materials you should read prior to each class:
+
+::: {#reading-listings}
+:::

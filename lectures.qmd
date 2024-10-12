@@ -1,0 +1,19 @@
+---
+title: "Course content"
+listing:
+  id: lecture-listings
+  contents: lectures
+  sort: "date asc"
+  type: table
+  categories: false
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: false
+date-format: iso
+---
+
+Course content for each lecture is below: 
+
+::: {#lecture-listings}
+:::
