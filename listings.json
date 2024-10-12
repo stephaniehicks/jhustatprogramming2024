@@ -1,0 +1,26 @@
+[
+  {
+    "listing": "/lectures.html",
+    "items": [
+      "/lectures/00-course-intro/index.html",
+      "/lectures/01-command-line/index.html",
+      "/lectures/02-version-control/index.html",
+      "/lectures/03-functional-programming/index.html",
+      "/lectures/04-data-collection/index.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/01-project/index.html"
+    ]
+  },
+  {
+    "listing": "/readings.html",
+    "items": [
+      "/readings/00-quarto/index.html",
+      "/readings/03-functional-programming/index.html",
+      "/readings/04-data-collection-apis/index.html"
+    ]
+  }
+]

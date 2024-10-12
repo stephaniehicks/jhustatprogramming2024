@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.54">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2024-11-05">
+<meta name="description" content="Introduction to tools to work with functions and vectors in R">
+
+<title>Functional Programming with purrr – Statistical Programming Paradigms and Workflows</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Programming Paradigms and Workflows</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-home" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../lectures.html"> <i class="bi bi-book-half" role="img">
+</i> 
+<span class="menu-text">Course</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-box-seam-fill" role="img">
+</i> 
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../readings.html">
+ <span class="dropdown-text">Pre-reading</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jhustatprogramming2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Functional Programming with <code>purrr</code></h1>
+                  <div>
+        <div class="description">
+          Introduction to tools to work with functions and vectors in R
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://www.stephaniehicks.com">Stephanie Hicks</a> </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Biostatistics, Johns Hopkins
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 5, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
+  <ul class="collapse">
+  <li><a href="#functional-programming-language" id="toc-functional-programming-language" class="nav-link" data-scroll-target="#functional-programming-language">Functional programming language</a></li>
+  <li><a href="#characteristics-of-a-functional-language" id="toc-characteristics-of-a-functional-language" class="nav-link" data-scroll-target="#characteristics-of-a-functional-language">Characteristics of a functional language</a>
+  <ul class="collapse">
+  <li><a href="#first-class-functions" id="toc-first-class-functions" class="nav-link" data-scroll-target="#first-class-functions">1. First-class functions</a></li>
+  <li><a href="#pure-functions" id="toc-pure-functions" class="nav-link" data-scroll-target="#pure-functions">2. Pure functions</a></li>
+  </ul></li>
+  <li><a href="#functional-style" id="toc-functional-style" class="nav-link" data-scroll-target="#functional-style">Functional style</a>
+  <ul class="collapse">
+  <li><a href="#functionals" id="toc-functionals" class="nav-link" data-scroll-target="#functionals">Functionals</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#purrr-the-functional-programming-toolkit" id="toc-purrr-the-functional-programming-toolkit" class="nav-link" data-scroll-target="#purrr-the-functional-programming-toolkit"><code>purrr</code>: the functional programming toolkit</a>
+  <ul class="collapse">
+  <li><a href="#the-map-family" id="toc-the-map-family" class="nav-link" data-scroll-target="#the-map-family">The <code>map</code> family</a>
+  <ul class="collapse">
+  <li><a href="#map-variants" id="toc-map-variants" class="nav-link" data-scroll-target="#map-variants"><code>map</code> variants</a></li>
+  <li><a href="#passing-arguments-with-..." id="toc-passing-arguments-with-..." class="nav-link" data-scroll-target="#passing-arguments-with-...">Passing arguments with <code>...</code></a></li>
+  <li><a href="#stratified-analysis-with-map" id="toc-stratified-analysis-with-map" class="nav-link" data-scroll-target="#stratified-analysis-with-map">Stratified analysis with <code>map</code></a></li>
+  <li><a href="#matrix-as-the-output" id="toc-matrix-as-the-output" class="nav-link" data-scroll-target="#matrix-as-the-output">Matrix as the output</a></li>
+  </ul></li>
+  <li><a href="#more-map-variants" id="toc-more-map-variants" class="nav-link" data-scroll-target="#more-map-variants">More map variants</a>
+  <ul class="collapse">
+  <li><a href="#modify" id="toc-modify" class="nav-link" data-scroll-target="#modify"><code>modify()</code></a></li>
+  <li><a href="#map2" id="toc-map2" class="nav-link" data-scroll-target="#map2"><code>map2()</code> and friends</a></li>
+  <li><a href="#walk-and-friends" id="toc-walk-and-friends" class="nav-link" data-scroll-target="#walk-and-friends"><code>walk()</code> and friends</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<section id="motivation" class="level1 page-columns page-full">
+<h1>Motivation</h1>
+<p>If you have ever heard the phrase</p>
+<blockquote class="blockquote">
+<p>“R is a <strong>functional</strong> language.”</p>
+</blockquote>
+<p>you might have asked yourself what does this means exactly? Generally, this means that R lends itself nice to a particular <strong>style</strong> of programming, namely a <strong>functional style</strong> of programming (will explain more below), which is often very helpful to the types of problems you encounter when doing a data analysis.</p>
+<section id="functional-programming-language" class="level2">
+<h2 class="anchored" data-anchor-id="functional-programming-language">Functional programming language</h2>
+<p>A <strong>functional style</strong> of programming is contrast to a the formal definition of a <strong>functional language</strong> (or <strong>functional programming</strong>, which can be complementary to object-oriented programming), which are languages that use functions to create conditional expressions to perform specific computations.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Differences between functional and object-oriented programming
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>From <a href="https://www.indeed.com/career-advice/career-development/functional-programming-languages">this resource</a> some differences are:</p>
+<ul>
+<li><p><strong>Basic elements</strong>: The fundamental elements of object-oriented languages are objects and methods, while the elements of functional programming are functions and variables.</p></li>
+<li><p><strong>States</strong>: Object-oriented languages can change objects within the program, which means it has states or current modifications that affect the result of inputs. Functional languages do not use imperative programming, so they do not keep track of current states.</p></li>
+<li><p><strong>Parallel programming</strong>: This type of programming involves multiple computational processes occurring at the same time. Object-oriented languages have little support for parallel programming, but functional languages have extensive support for it.</p></li>
+<li><p><strong>Order</strong>: In object-oriented programming, computations occur in a specific order. In functional programming, computations can occur in any order.</p></li>
+<li><p><strong>Iterative data</strong>: Object-oriented programming uses loops, meaning repeated execution, for iterative data. Functional programming uses recursion for iterative data, meaning it attempts to solve problems using simpler versions of the same problem.</p></li>
+</ul>
+</div>
+</div>
+<p>A traditional weakness of functional languages are poorer performance and sometimes unpredictable memory usage, but these have been much reduced in recent years.</p>
+</section>
+<section id="characteristics-of-a-functional-language" class="level2">
+<h2 class="anchored" data-anchor-id="characteristics-of-a-functional-language">Characteristics of a functional language</h2>
+<p>There are many definitions for precisely what makes a language functional, but there are two common threads and/or characteristics.</p>
+<section id="first-class-functions" class="level3">
+<h3 class="anchored" data-anchor-id="first-class-functions">1. First-class functions</h3>
+<p>At it is core, functional programming treats functions equally as other data structures, called <strong>first class functions</strong>.</p>
+<blockquote class="blockquote">
+<p>In R, this means that you can do many of the things with a function that you can do with a vector: you can assign them to variables, store them in lists, pass them as arguments to other functions, create them inside functions, and even return them as the result of a function.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Examples of cool things you can do with functions in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Assign a function to a variable (<code>foo</code>):</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>foo <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="st">"This is foo."</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "function"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>foo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function () 
+{
+    return("This is foo.")
+}</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">foo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is foo."</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>You can store functions in a <code>list</code>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>foo_list <span class="ot">&lt;-</span> <span class="fu">list</span>( </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun_1 =</span> <span class="cf">function</span>() <span class="fu">return</span>(<span class="st">"foo_1"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun_2 =</span> <span class="cf">function</span>() <span class="fu">return</span>(<span class="st">"foo_2"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(foo_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 2
+ $ fun_1:function ()  
+ $ fun_2:function ()  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>foo_list<span class="sc">$</span><span class="fu">fun_1</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "foo_1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>foo_list<span class="sc">$</span><span class="fu">fun_2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "foo_2"</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>You can pass functions as arguments to other functions:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shell_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(f) <span class="fu">f</span>()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shell_fn</span>(foo_list<span class="sc">$</span>fun_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "foo_1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shell_fn</span>(foo_list<span class="sc">$</span>fun_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "foo_2"</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>You can <strong>create functions inside of functions</strong> and return them as the result of a function</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>foo_wrap <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  foo_2 <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"This is foo_2."</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(foo_2)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">foo_wrap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function () 
+{
+    return("This is foo_2.")
+}
+&lt;environment: 0x12b584408&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">foo_wrap</span>())()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is foo_2."</code></pre>
+</div>
+</div>
+<p>The bottom line, you can manipulate functions as the same way as you can to a vector or a matrix.</p>
+</div>
+</div>
+</section>
+<section id="pure-functions" class="level3">
+<h3 class="anchored" data-anchor-id="pure-functions">2. Pure functions</h3>
+<p>A function is <strong>pure</strong>, if it satisfies two properties:</p>
+<ul>
+<li><p>The output only depends on the inputs, i.e.&nbsp;if you call it again with the same inputs, you get the same outputs. This excludes functions like <code>runif()</code>, <code>read.csv()</code>, or <code>Sys.time()</code> that can return different values.</p></li>
+<li><p>The function has no side-effects, like changing the value of a global variable, writing to disk, or displaying to the screen. This excludes functions like <code>print()</code>, <code>write.csv()</code> and <code>&lt;-</code>.</p></li>
+</ul>
+<p>Pure functions are much easier to reason about, but obviously have significant downsides: imagine doing a data analysis where you could not generate random numbers or read files from disk.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To be clear, <strong>R is not formally a functional programming language</strong> as it does not require pure functions to be used when writing code.</p>
+</div>
+</div>
+<p>So you might be asking yourself, why are we talking about this then?</p>
+<p>The formal definition of a functional programming language introduces a new style of programming, namely a <strong>functional style</strong> of programming.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The key idea of a <strong>functional style</strong> is this programming style encourages programmers to write a big function as many smaller isolated functions, where each function addresses one specific task.</p>
+</div>
+</div>
+<p>You can always adopt a <strong>functional style</strong> for certain parts of your code! For example, this style of writing code motivates more humanly readable code, and recyclable code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="st">"data_set.csv"</span> <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_data_from_file</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_cleaning</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">run_regression</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model_diagnostics</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model_visualization</span>()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="st">"data_set2.csv"</span> <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import_data_from_file</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_cleaning</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">run_different_regression</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model_diagnostics</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model_visualization</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="functional-style" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="functional-style">Functional style</h2>
+<p>At a high-level, a <strong>functional style</strong> is the concept of decomposing a big problem into smaller components, then solving each piece with a function or combination of functions.</p>
+<ul>
+<li>When using a functional style, you strive to decompose components of the problem into isolated functions that operate independently.</li>
+<li>Each function taken by itself is simple and straightforward to understand; complexity is handled by composing functions in various ways.</li>
+</ul>
+<section id="functionals" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="functionals">Functionals</h3>
+<p>In this lecture, we will focus on one type of functional technique, namely <strong>functionals</strong>, which are functions that take another function as an argument and returns a vector as output.</p>
+<p>Functionals allow you to take a function that solves the problem for a single input and generalize it to handle any number of inputs. Once you learn about them, you will find yourself using them all the time in data analysis.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example of a functional
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here’s a simple functional: it calls the function provided as input with 1000 random uniform numbers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>randomise <span class="ot">&lt;-</span> <span class="cf">function</span>(f) <span class="fu">f</span>(<span class="fu">runif</span>(<span class="fl">1e3</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">randomise</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4970731</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">randomise</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4969248</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">randomise</span>(sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 488.5322</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>The chances are that you have already used a functional. You might have used for-loop replacements like base R’s <code>lapply()</code>, <code>apply()</code>, and <code>tapply()</code> or maybe you have used a mathematical functional like <code>integrate()</code> or <code>optim()</code>.</p>
+<p>One of the most common use of functionals is an alternative to <code>for</code> loops.</p>
+<p>For loops have a bad rap in R because many people believe they are slow, but the real downside of for loops is that they’re very flexible: a loop conveys that you’re iterating, but not what should be done with the results.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Typically it is not the for loop itself that is slow, but what you are doing inside of it. A common culprit of slow loops is modifying a data structure, where each modification generates a copy.</p>
+<p>If you’re an experienced for loop user, switching to functionals is typically a pattern matching exercise. You look at the for loop and find a functional that matches the basic form. If one does not exist, do not try and torture an existing functional to fit the form you need. Instead, just leave it as a for loop! (Or once you have repeated the same loop two or more times, maybe think about writing your own functional).</p>
+</div></div><p>Just as it is better to use <code>while</code> than <code>repeat</code>, and it’s better to use <code>for</code> than <code>while</code>, it is better to use a functional than <code>for</code>.</p>
+<p>Each functional is tailored for a specific task, so when you recognize the functional you immediately know why it’s being used.</p>
+</section>
+</section>
+</section>
+<section id="purrr-the-functional-programming-toolkit" class="level1">
+<h1><code>purrr</code>: the functional programming toolkit</h1>
+<p>The R package <a href="https://purrr.tidyverse.org"><code>purrr</code></a> as one important component of the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, provides a interface to manipulate vectors in the <em>functional style</em>.</p>
+<blockquote class="blockquote">
+<p><code>purrr</code> enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>purrr</code> cheatsheet
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is very difficult, if not impossible, to remember all functions that a package offers as well as their use cases.</p>
+<p>Hence, <code>purrr</code> developers offer a nice compact cheatsheet with visualizations at <a href="https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf" class="uri">https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf</a>.</p>
+<p>Similar cheat sheets are available for other <code>tidyverse</code> packages.</p>
+</div>
+</div>
+<p>The most popular function in <code>purrr</code> is <code>map()</code> which iterates over the supplied data structure and apply a function during the iterations. Beside the <code>map()</code> function,<code>purrr</code> also offers a series of useful functions to manipulate the <code>list</code> data frame.</p>
+<section id="the-map-family" class="level2">
+<h2 class="anchored" data-anchor-id="the-map-family">The <code>map</code> family</h2>
+<p>The most fundamental functional in the <code>purrr</code> package is the <code>map(.x, .f)</code> function. It takes a vector (<code>.x</code>) and a function (<code>.f</code>), calls the function once for each element of the vector, and returns the results in a list. In other words, <code>map(1:3, f)</code> is equivalent to <code>list(f(1), f(2), f(3))</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we create a function called "triple"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>triple <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># using for loop to iterate over a vector</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>loop_ret <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  loop_ret[i] <span class="ot">&lt;-</span> <span class="fu">triple</span>(i)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>loop_ret</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 3
+
+[[2]]
+[1] 6
+
+[[3]]
+[1] 9</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map implementation to iterate over a vector</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>map_eg1 <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="at">.x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">.f =</span> triple)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>map_eg2 <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="at">.x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">.f =</span> <span class="cf">function</span>(x) <span class="fu">triple</span>(x)) <span class="co"># create an inline anonymous function</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>map_eg3 <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="at">.x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">.f =</span> <span class="sc">~</span><span class="fu">triple</span>(.x)) <span class="co"># same as above, but special purrr syntax with a "twiddle"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(loop_ret,map_eg1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(loop_ret,map_eg2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(loop_ret,map_eg3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Or, graphically this is what <code>map()</code> is doing:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/functionals/map.png" class="img-fluid figure-img"></p>
+<figcaption>map</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How does <code>map</code> relate to functional programming in base R?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>map()</code> returns a list, which makes it the most general of the map family because you can put anything in a list.</p>
+<p>The base equivalent to <code>map(.x, .f)</code> is <code>lapply(X, FUN)</code>.</p>
+<p>Because the arguments include functions (<code>.f</code>) besides data (<code>.x</code>), <code>map()</code> functions are considered as a convenient interface to implement functional programming.</p>
+</div>
+</div>
+<section id="map-variants" class="level3">
+<h3 class="anchored" data-anchor-id="map-variants"><code>map</code> variants</h3>
+<p>Sometimes it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants of <code>map</code> that make it really a <strong>family of functions</strong> (of syntax <code>map_*()</code>).</p>
+<ul>
+<li><code>map_lgl()</code></li>
+<li><code>map_int()</code></li>
+<li><code>map_dbl()</code></li>
+<li><code>map_chr()</code></li>
+</ul>
+<p>For example, <code>purrr</code> uses the convention that suffixes, like <code>_dbl()</code>, refer to the output. Each returns an atomic vector of the specified type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map_chr() always returns a character vector</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_chr</span>(<span class="at">.x =</span> mtcars, <span class="at">.f =</span> typeof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     mpg      cyl     disp       hp     drat       wt     qsec       vs 
+"double" "double" "double" "double" "double" "double" "double" "double" 
+      am     gear     carb 
+"double" "double" "double" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map_lgl() always returns a logical vector</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_lgl</span>(<span class="at">.x =</span> mtcars, <span class="at">.f =</span> is.double)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
+TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map_int() always returns a integer vector</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>n_unique <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x))</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map_int</span>(<span class="at">.x =</span> mtcars, <span class="at">.f =</span> n_unique)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
+  25    3   27   22   22   29   30    2    2    3    6 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map_dbl() always returns a double vector</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="at">.x =</span> mtcars, <span class="at">.f =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       mpg        cyl       disp         hp       drat         wt       qsec 
+ 20.090625   6.187500 230.721875 146.687500   3.596563   3.217250  17.848750 
+        vs         am       gear       carb 
+  0.437500   0.406250   3.687500   2.812500 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All <code>map_*()</code> functions can take any type of vector as input. The examples above rely on two facts:</p>
+<ol type="1">
+<li><code>mtcars</code> is a <code>data.frame</code>. In R, <code>data.frame</code> is a special case of <code>list</code>, where each column as one item of the list. Don’t confuse with each row as an item.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>All <code>map</code> functions always return an output vector the same length as the input, which implies that each call to <code>.f</code> must return a single value. If it does not, you will get an error:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pair <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">c</span>(x, x)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="at">.x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">.f =</span> pair)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `map_dbl()`:
+ℹ In index: 1.
+Caused by error:
+! Result must be length 1, not 2.</code></pre>
+</div>
+</div>
+<p>This is similar to the error you will get if <code>.f</code> returns the wrong type of result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, as.character)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `map_dbl()`:
+ℹ In index: 1.
+Caused by error:
+! Can't coerce from a string to a double.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s assume I have a dataframe called <code>tmp_dat</code>. How would I use <code>map()</code> to calculate the mean for the columns?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>tmp_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## try it out </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can we re-write the <code>map()</code> function above to use <code>tmp_data</code> as input with the <code>|&gt;</code> operator?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## try it out </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="passing-arguments-with-..." class="level3">
+<h3 class="anchored" data-anchor-id="passing-arguments-with-...">Passing arguments with <code>...</code></h3>
+<p>It is often convenient to pass along additional arguments to the function that you are calling.</p>
+<p>For example, you might want to pass <code>na.rm = TRUE</code> along to <code>mean()</code>. One way to do that is with an anonymous function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cn">NA</span>))</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.0 5.5</code></pre>
+</div>
+</div>
+<p>But because the map functions pass <code>...</code> along, there is a simpler form available:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(x, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.0 5.5</code></pre>
+</div>
+</div>
+<p>This is easiest to understand with a picture: any arguments that come after <code>f</code> in the call to <code>map()</code> are inserted <em>after</em> the data in individual calls to <code>f()</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/functionals/map-arg.png" class="img-fluid figure-img"></p>
+<figcaption>map</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s important to note that these arguments are not decomposed; or said another way, <code>map()</code> is only vectorised over its first argument.</p>
+<p>If an argument after <code>f</code> is a vector, it will be passed along as is:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/functionals/map-arg-recycle.png" class="img-fluid figure-img"></p>
+<figcaption>map</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stratified-analysis-with-map" class="level3">
+<h3 class="anchored" data-anchor-id="stratified-analysis-with-map">Stratified analysis with <code>map</code></h3>
+<p>Before we go on to explore more map variants, let’s take a quick look at how you tend to use multiple <code>purrr</code> functions to solve a moderately realistic problem: fitting a model to each subgroup and extracting a coefficient of the model.</p>
+<p>For this toy example, I will break the <code>mtcars</code> data set down into groups defined by the number of cylinders, using the base <code>split</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># different numbers of cylinders</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6 4 8</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>by_cyl <span class="ot">&lt;-</span> <span class="fu">split</span>(mtcars, mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(by_cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(by_cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ 4:'data.frame':  11 obs. of  11 variables:
+  ..$ mpg : num [1:11] 22.8 24.4 22.8 32.4 30.4 33.9 21.5 27.3 26 30.4 ...
+  ..$ cyl : num [1:11] 4 4 4 4 4 4 4 4 4 4 ...
+  ..$ disp: num [1:11] 108 146.7 140.8 78.7 75.7 ...
+  ..$ hp  : num [1:11] 93 62 95 66 52 65 97 66 91 113 ...
+  ..$ drat: num [1:11] 3.85 3.69 3.92 4.08 4.93 4.22 3.7 4.08 4.43 3.77 ...
+  ..$ wt  : num [1:11] 2.32 3.19 3.15 2.2 1.61 ...
+  ..$ qsec: num [1:11] 18.6 20 22.9 19.5 18.5 ...
+  ..$ vs  : num [1:11] 1 1 1 1 1 1 1 1 0 1 ...
+  ..$ am  : num [1:11] 1 0 0 1 1 1 0 1 1 1 ...
+  ..$ gear: num [1:11] 4 4 4 4 4 4 3 4 5 5 ...
+  ..$ carb: num [1:11] 1 2 2 1 2 1 1 1 2 2 ...
+ $ 6:'data.frame':  7 obs. of  11 variables:
+  ..$ mpg : num [1:7] 21 21 21.4 18.1 19.2 17.8 19.7
+  ..$ cyl : num [1:7] 6 6 6 6 6 6 6
+  ..$ disp: num [1:7] 160 160 258 225 168 ...
+  ..$ hp  : num [1:7] 110 110 110 105 123 123 175
+  ..$ drat: num [1:7] 3.9 3.9 3.08 2.76 3.92 3.92 3.62
+  ..$ wt  : num [1:7] 2.62 2.88 3.21 3.46 3.44 ...
+  ..$ qsec: num [1:7] 16.5 17 19.4 20.2 18.3 ...
+  ..$ vs  : num [1:7] 0 0 1 1 1 1 0
+  ..$ am  : num [1:7] 1 1 0 0 0 0 1
+  ..$ gear: num [1:7] 4 4 3 3 4 4 5
+  ..$ carb: num [1:7] 4 4 1 1 4 4 6
+ $ 8:'data.frame':  14 obs. of  11 variables:
+  ..$ mpg : num [1:14] 18.7 14.3 16.4 17.3 15.2 10.4 10.4 14.7 15.5 15.2 ...
+  ..$ cyl : num [1:14] 8 8 8 8 8 8 8 8 8 8 ...
+  ..$ disp: num [1:14] 360 360 276 276 276 ...
+  ..$ hp  : num [1:14] 175 245 180 180 180 205 215 230 150 150 ...
+  ..$ drat: num [1:14] 3.15 3.21 3.07 3.07 3.07 2.93 3 3.23 2.76 3.15 ...
+  ..$ wt  : num [1:14] 3.44 3.57 4.07 3.73 3.78 ...
+  ..$ qsec: num [1:14] 17 15.8 17.4 17.6 18 ...
+  ..$ vs  : num [1:14] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ am  : num [1:14] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ gear: num [1:14] 3 3 3 3 3 3 3 3 3 3 ...
+  ..$ carb: num [1:14] 2 4 3 3 3 4 4 4 2 2 ...</code></pre>
+</div>
+</div>
+<p>This creates a list of three data frames: the cars with 4, 6, and 8 cylinders respectively.</p>
+<p>First, imagine we want to fit a linear model to understand how the miles per gallon (<code>mpg</code>) associated with the weight (<code>wt</code>). We can do this for all observations in <code>mtcars</code> using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt, data = mtcars)
+
+Coefficients:
+(Intercept)           wt  
+     37.285       -5.344  </code></pre>
+</div>
+</div>
+<p>The following code shows how you might do that with <code>purrr</code>, which returns a list with output from each lm fit for each cylinder:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>by_cyl <span class="sc">|&gt;</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="at">.f =</span> <span class="sc">~</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> .x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`4`
+
+Call:
+lm(formula = mpg ~ wt, data = .x)
+
+Coefficients:
+(Intercept)           wt  
+     39.571       -5.647  
+
+
+$`6`
+
+Call:
+lm(formula = mpg ~ wt, data = .x)
+
+Coefficients:
+(Intercept)           wt  
+      28.41        -2.78  
+
+
+$`8`
+
+Call:
+lm(formula = mpg ~ wt, data = .x)
+
+Coefficients:
+(Intercept)           wt  
+     23.868       -2.192  </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s say we wanted to extract the second coefficient (i.e.&nbsp;the slope). Using all the observations in <code>mtcars</code> (i.e.&nbsp;ignoring <code>cyl</code>), it would be something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>lm.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm.fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)          wt 
+  37.285126   -5.344472 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm.fit)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       wt 
+-5.344472 </code></pre>
+</div>
+</div>
+<p>How would we do this with the <code>map()</code> family functions if we wanted to stratify the analysis for each <code>cyl</code>?</p>
+<p><strong>Hint</strong>: you can use two <code>map</code> functions (e.g.&nbsp;<code>map()</code> and <code>map_dbl(2)</code> where you can extract a specific element by a specific name or position).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">## try it out </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Or, of course, you could use a for loop:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>slopes <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="fu">length</span>(by_cyl))</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(by_cyl)) {</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> by_cyl[[i]])</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  slopes[[i]] <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)[[<span class="dv">2</span>]]</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>slopes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -5.647025 -2.780106 -2.192438</code></pre>
+</div>
+</div>
+<p>It’s interesting to note that as you move from purrr to base apply functions to for loops you tend to do more and more in each iteration.</p>
+<p>In purrr we iterate 3 times (<code>map()</code>, <code>map()</code>, <code>map_dbl()</code>), and with a for loop we iterate once. I prefer more, but simpler, steps because I think it makes the code easier to understand and later modify.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now we are interested in calculating the average <code>mpg</code> for vehicles with different numbers of cylinders. How can we use <code>map</code> functions to do this? You can return a list.</p>
+<p><strong>Hint</strong>: You can use the syntax <code>x$mpg</code> where <code>x</code> is a dataframe within a <code>map</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">## try it out </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-as-the-output" class="level3">
+<h3 class="anchored" data-anchor-id="matrix-as-the-output">Matrix as the output</h3>
+<p>The <code>map</code> family include functions that organize the output in different data structures, whose names follow the pattern <code>map_*</code>. As we’ve seen, the <code>map</code> function return a list. The following functions will return a vector of a specific kind, e.g.&nbsp;<code>map_lgl</code> returns a vector of logical variables, <code>map_chr</code> returns a vector of strings.</p>
+<p>It is also possible to return the the results as data frames by</p>
+<ul>
+<li>row binding (<code>map_dfr</code>) or</li>
+<li>column binding (<code>map_dfc</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>by_cyl <span class="sc">|&gt;</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dbl</span>(<span class="at">.f =</span> <span class="sc">~</span><span class="fu">mean</span>(.x<span class="sc">$</span>mpg)) <span class="co"># returns a vector of doubles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       4        6        8 
+26.66364 19.74286 15.10000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>by_cyl <span class="sc">|&gt;</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(<span class="at">.f =</span> <span class="sc">~</span><span class="fu">colMeans</span>(.x)) <span class="co"># return a data frame by row binding</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 11
+    mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  26.7     4  105.  82.6  4.07  2.29  19.1 0.909 0.727  4.09  1.55
+2  19.7     6  183. 122.   3.59  3.12  18.0 0.571 0.429  3.86  3.43
+3  15.1     8  353. 209.   3.23  4.00  16.8 0     0.143  3.29  3.5 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>by_cyl <span class="sc">|&gt;</span> </span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfc</span>(<span class="at">.f =</span> <span class="sc">~</span><span class="fu">colMeans</span>(.x)) <span class="co"># return a data frame by col binding</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 3
+       `4`     `6`     `8`
+     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  26.7    19.7    15.1  
+ 2   4       6       8    
+ 3 105.    183.    353.   
+ 4  82.6   122.    209.   
+ 5   4.07    3.59    3.23 
+ 6   2.29    3.12    4.00 
+ 7  19.1    18.0    16.8  
+ 8   0.909   0.571   0    
+ 9   0.727   0.429   0.143
+10   4.09    3.86    3.29 
+11   1.55    3.43    3.5  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="more-map-variants" class="level2">
+<h2 class="anchored" data-anchor-id="more-map-variants">More map variants</h2>
+<p>There are 23 primary variants of <code>map()</code>. So far, we have learned about five (<code>map()</code>, <code>map_lgl()</code>, <code>map_int()</code>, <code>map_dbl()</code> and <code>map_chr()</code>). That means that you have got 18 (!!) more to learn. That sounds like a lot, but fortunately the design of <code>purrr</code> means that you only need to learn five new ideas:</p>
+<ul>
+<li>Output same type as input with <code>modify()</code></li>
+<li>Iterate over two inputs with <code>map2()</code>.</li>
+<li>Iterate with an index using <code>imap()</code></li>
+<li>Return nothing with <code>walk()</code>.</li>
+<li>Iterate over any number of inputs with <code>pmap()</code>.</li>
+</ul>
+<p>The map family of functions has orthogonal input and outputs, meaning that we can organise all the family into a matrix, with inputs in the rows and outputs in the columns. Once you have mastered the idea in a row, you can combine it with any column; once you have mastered the idea in a column, you can combine it with any row. That relationship is summarised in the following table:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 13%">
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>List</th>
+<th>Atomic</th>
+<th>Same type</th>
+<th>Nothing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>One argument</td>
+<td><code>map()</code></td>
+<td><code>map_lgl()</code>, …</td>
+<td><code>modify()</code></td>
+<td><code>walk()</code></td>
+</tr>
+<tr class="even">
+<td>Two arguments</td>
+<td><code>map2()</code></td>
+<td><code>map2_lgl()</code>, …</td>
+<td><code>modify2()</code></td>
+<td><code>walk2()</code></td>
+</tr>
+<tr class="odd">
+<td>One argument + index</td>
+<td><code>imap()</code></td>
+<td><code>imap_lgl()</code>, …</td>
+<td><code>imodify()</code></td>
+<td><code>iwalk()</code></td>
+</tr>
+<tr class="even">
+<td>N arguments</td>
+<td><code>pmap()</code></td>
+<td><code>pmap_lgl()</code>, …</td>
+<td>—</td>
+<td><code>pwalk()</code></td>
+</tr>
+</tbody>
+</table>
+<section id="modify" class="level3">
+<h3 class="anchored" data-anchor-id="modify"><code>modify()</code></h3>
+<p>Imagine you wanted to double every column in a data frame. You might first try using <code>map()</code>, but <code>map()</code> always returns a list:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(df, <span class="sc">~</span> .x <span class="sc">*</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x
+[1] 2 4 6
+
+$y
+[1] 12 10  8</code></pre>
+</div>
+</div>
+<p>If you want to keep the output as a data frame, you can use <code>modify()</code>, which always returns the same type of output as the input:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modify</span>(df, <span class="sc">~</span> .x <span class="sc">*</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  x  y
+1 2 12
+2 4 10
+3 6  8</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Despite the name, <code>modify()</code> doesn’t modify in place, it returns a modified copy, so if you wanted to permanently modify <code>df</code>, you’d need to assign it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">modify</span>(df, <span class="sc">~</span> .x <span class="sc">*</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="map2" class="level3">
+<h3 class="anchored" data-anchor-id="map2"><code>map2()</code> and friends</h3>
+<p><code>map()</code> is vectorised over a single argument, <code>.x</code>.</p>
+<p>This means it only varies <code>.x</code> when calling <code>.f</code>, and all other arguments are passed along unchanged, thus making it poorly suited for some problems.</p>
+<p>For example, how would you find a weighted mean when you have a list of observations and a list of weights? Imagine we have the following data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="sc">~</span> <span class="fu">runif</span>(<span class="dv">10</span>))</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>xs[[<span class="dv">1</span>]][[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>ws <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="sc">~</span> <span class="fu">rpois</span>(<span class="dv">10</span>, <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can use <code>map_dbl()</code> to compute the unweighted means:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="at">.x =</span> xs, <span class="at">.f =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]        NA 0.4450152 0.5623547 0.4502445 0.3897789 0.5388952 0.6386748
+[8] 0.4631156</code></pre>
+</div>
+</div>
+<p>But passing <code>ws</code> as an additional argument does not work because arguments after <code>.f</code> are not transformed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(<span class="at">x. =</span> xs, <span class="at">.f =</span> weighted.mean, <span class="at">w =</span> ws)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in map_dbl(x. = xs, .f = weighted.mean, w = ws): argument ".x" is missing, with no default</code></pre>
+</div>
+</div>
+<p>We need a new tool: a <code>map2()</code>, which is vectorised over two arguments. This means both <code>.x</code> and <code>.y</code> are varied in each call to <code>.f</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map2_dbl</span>(<span class="at">.x =</span> xs, <span class="at">.y =</span> ws, <span class="at">.f =</span> weighted.mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]        NA 0.4327699 0.6139050 0.4299140 0.4148889 0.5457753 0.6565083
+[8] 0.4514225</code></pre>
+</div>
+</div>
+<p>The arguments to <code>map2()</code> are slightly different to the arguments to <code>map()</code> as two vectors come before the function, rather than one. Additional arguments still go afterwards:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map2_dbl</span>(<span class="at">.x =</span> xs, <span class="at">.y =</span> ws, <span class="at">.f =</span> weighted.mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5210555 0.4327699 0.6139050 0.4299140 0.4148889 0.5457753 0.6565083
+[8] 0.4514225</code></pre>
+</div>
+</div>
+</section>
+<section id="walk-and-friends" class="level3">
+<h3 class="anchored" data-anchor-id="walk-and-friends"><code>walk()</code> and friends</h3>
+<p>Most functions are called for the value that they return, so it makes sense to capture and store the value with a <code>map()</code> function.</p>
+<p>But some functions are called primarily for their side-effects (e.g.&nbsp;<code>cat()</code>, <code>write.csv()</code>, or <code>ggsave()</code>) and it does not make sense to capture their results.</p>
+<p>Let’s consider the example of saving a dataset. In this case, <code>map</code> will force an output, e.g.&nbsp;<code>NULL</code>. One can consider using <code>walk</code> instead. The function <code>walk</code> (and <code>walk2</code> for more than two inputs) behaves exactly the same as <code>map</code> but does not output anything.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>tmp_fldr <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(<span class="at">.x =</span> by_cyl,</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">.y =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(by_cyl),</span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">.f =</span> <span class="sc">~</span><span class="fu">saveRDS</span>(.x, </span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">file =</span> <span class="fu">paste0</span>(tmp_fldr, <span class="st">"/"</span>,.y, <span class="st">".rds"</span>))</span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`4`
+NULL
+
+$`6`
+NULL
+
+$`8`
+NULL</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No output</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">walk2</span>(<span class="at">.x =</span> by_cyl,</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">.y =</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(by_cyl)),</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">.f =</span> <span class="sc">~</span><span class="fu">saveRDS</span>(.x, </span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">file =</span> <span class="fu">paste0</span>(tmp_fldr, <span class="st">"/"</span>,.y, <span class="st">".rds"</span>))</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
