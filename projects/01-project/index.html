@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -119,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jhustatprogramming2024"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/stephaniehicks/jhustatprogramming2024"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -134,8 +168,27 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a>
+  <ul class="collapse">
+  <li><a href="#to-submit-your-project" id="toc-to-submit-your-project" class="nav-link" data-scroll-target="#to-submit-your-project">To submit your project</a></li>
+  </ul></li>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link" data-scroll-target="#part-1">Part 1</a></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a>
+  <ul class="collapse">
+  <li><a href="#create-a-github-repo-for-your-website" id="toc-create-a-github-repo-for-your-website" class="nav-link" data-scroll-target="#create-a-github-repo-for-your-website">1. Create a GitHub repo for your website</a></li>
+  <li><a href="#build-a-website-using-quarto" id="toc-build-a-website-using-quarto" class="nav-link" data-scroll-target="#build-a-website-using-quarto">2. Build a website using Quarto</a></li>
+  <li><a href="#include-a-readme.md-file" id="toc-include-a-readme.md-file" class="nav-link" data-scroll-target="#include-a-readme.md-file">3. Include a <code>README.md</code> file</a></li>
+  <li><a href="#deploy-your-website" id="toc-deploy-your-website" class="nav-link" data-scroll-target="#deploy-your-website">4. Deploy your website</a></li>
+  <li><a href="#share-your-website" id="toc-share-your-website" class="nav-link" data-scroll-target="#share-your-website">5. Share your website</a></li>
+  </ul></li>
+  <li><a href="#part-3" id="toc-part-3" class="nav-link" data-scroll-target="#part-3">Part 3</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -183,9 +236,159 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>TBA</p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p><strong>Due date: November 8 at 11:59pm</strong></p>
+<p>The goal of this assignment is to practice some of the skills we have been learning about in class around quarto, command-line, and version control by building and deploying a website. You also are asked to practice with some command-line skills more formally.</p>
+<section id="to-submit-your-project" class="level3">
+<h3 class="anchored" data-anchor-id="to-submit-your-project">To submit your project</h3>
+<p>Please use this Quarto file (<code>.qmd</code>) and fill in the requested components by adding the URLs pointing to the GitHub repositories and deployed websites. Render this file to a <strong>HTML file</strong>.</p>
+<p>You will push the <code>.qmd</code> file and rendered HTML file to a private GitHub repostory on GitHub classroom. The link to create a private GitHub repository for yourself to complete Project 1 will be posted in CoursePlus (<strong>Note</strong>: this creates an empty repository and you will need to push your code in your locate remote repository to GitHub when ready). Please <strong>show all your code</strong>, if relevant to a section.</p>
+<p>The TAs will grade the contents in the GitHub repo by cloning the repo and checking for all the things described below.</p>
+</section>
+</section>
+<section id="part-1" class="level1">
+<h1>Part 1</h1>
+<ol type="1">
+<li>Read this blogpost titled <a href="https://www.stephaniehicks.com/blog/building-a-brand-as-a-scientist">Building a brand as a scientist</a>.</li>
+<li>Reflect on the questions in the “Defining your brand” section.</li>
+<li>Write two paragraphs (4-6 sentences) max here answering one (or more) of the questions asked in the section above.</li>
+</ol>
+</section>
+<section id="part-2" class="level1">
+<h1>Part 2</h1>
+<p>Next, with the reflections from Part 1 in mind, you will create a public GitHub repository on your own GitHub account and build a small website to introduce yourself to others in the course. You will also create a small data analysis on one of the webpages to practice literate programming in <a href="https://quarto.org">Quarto</a>.</p>
+<p><img src="../../images/quarto_schematic.png" class="img-fluid"></p>
+<section id="create-a-github-repo-for-your-website" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-github-repo-for-your-website">1. Create a GitHub repo for your website</h2>
+<p>Create a new public GitHub repository titled <code>biostat777-intro-&lt;firstname&gt;-&lt;lastname&gt;</code> (where you replace <code>&lt;firstname&gt;</code> with your first name and <code>&lt;lastname&gt;</code> with your last name) in your own personal GitHub account (e.g.&nbsp;<code>https://github.com/&lt;yourgithubusername&gt;/biostat777-intro-&lt;firstname&gt;-&lt;lastname&gt;</code>).</p>
+</section>
+<section id="build-a-website-using-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-website-using-quarto">2. Build a website using Quarto</h2>
+<p>Create a new project locally within RStudio and build a website for yourself. Your website should include the following:</p>
+<ol type="1">
+<li>A home/landing page. This is home page that someone will land on your website. At minimum it should include your name, a short summary about yourself (max 2-3 sentences), and a picture of something you enjoy to do for fun (or a picture of yourself if you are comfortable sharing one).</li>
+<li>A page titled ‘About’. This page should describe who you are in greater detail. It could include your professional interests and your educational and/or professional background and/or experience. It could also include any personal information you feel conformable sharing on the website.</li>
+<li>A data analysis page called ‘Example analysis’. You can pick any dataset you wish you analyze. In this webpage, you will analyze a dataset and summarize the results. The requirements for this webpage are the following:
+<ul>
+<li>You must describe what is the question you aim to answer with the data and data analysis.</li>
+<li>You must describe who is the intended audience for the data analysis.</li>
+<li>You must describe and link to where the original data come from that you chose.</li>
+<li>You must include a link to a data dictionary for the data or create one inside the webpage.</li>
+<li>Your analysis must include some minimal form of data wrangling with you using at least five different functions from <code>dplyr</code> or <code>tidyr</code>.</li>
+<li>Your analysis should include at least three plots with you using at least three different <code>geom_*()</code> functions from <code>ggplot2</code> (or another package with <code>geom_*()</code> functions).</li>
+<li>Plots should have titles, subtitles, captions, and human-understandable axis labels.</li>
+<li>At least one plot should using a type of faceting (<code>facet_grid()</code> or <code>facet_wrap()</code>).</li>
+<li>Your analysis must include one image or table (not one you created yourself, but one you have saved locally or one from the web).</li>
+<li>Your analysis must include at least two different <a href="https://quarto.org/docs/authoring/callouts.html">callout blocks</a>.</li>
+<li>Your analysis must include a <code>.bib</code> file, which you use to reference at least three unique citations. For example, it could be to a website or paper from where the original data came from or it could be to a paper describing a method you are using to analyze the data.</li>
+<li>Your analysis must include the use of at least 1 <a href="https://www.stephaniehicks.com/jhustatprogramming2023/posts/2023-10-26-build-website/#margin-content">margin content</a>.</li>
+<li>You must summarize your analysis and/or results with a paragraph (4-6 sentences).</li>
+<li>At the end of the data analysis, list out each of the functions you used from each of the packages (<code>dplyr</code>, <code>tidyr</code>, and <code>ggplot2</code>) to help the TA with respect to making sure you met all the requirements described above.</li>
+</ul></li>
+</ol>
+</section>
+<section id="include-a-readme.md-file" class="level2">
+<h2 class="anchored" data-anchor-id="include-a-readme.md-file">3. Include a <code>README.md</code> file</h2>
+<p>Your local repository should include a <code>README.md</code> file describing who is the author of the website and a link to the website after it has been deployed. Other things you might include are the technical details for how the website was created and/or deployed.</p>
+</section>
+<section id="deploy-your-website" class="level2">
+<h2 class="anchored" data-anchor-id="deploy-your-website">4. Deploy your website</h2>
+<p>Deploy your website using <a href="https://quarto.org/docs/publishing/quarto-pub.html">Quarto Pub</a>, <a href="https://quarto.org/docs/publishing/github-pages.html">GitHub pages</a>, or <a href="https://quarto.org/docs/publishing/netlify.html">Netlify</a>. (<strong>Note</strong>: Deploying your website to RPubs will not be accepted).</p>
+</section>
+<section id="share-your-website" class="level2">
+<h2 class="anchored" data-anchor-id="share-your-website">5. Share your website</h2>
+<p>Go to the Discussion Board in CoursePlus and write a short post with a link (URL) to your website (and URL to the corresponding GitHub repository) that you created. Also, list the URLs below for the purposes of grading.</p>
+<p>As you read the introductions from other folks in the class, feel free to comment/reply using Discussion board.</p>
+<ul>
+<li><p><strong>Link to your GitHub repository</strong>: [Delete this text and replace the text with the link to the public GitHub repo you created above for your website]</p></li>
+<li><p><strong>Link to your deployed website</strong>: [Delete this and replace the text with the link to the public deployed website you created above]</p></li>
+</ul>
+</section>
+</section>
+<section id="part-3" class="level1">
+<h1>Part 3</h1>
+<p>Consider the dataset called <code>students.csv</code> with the following contents:</p>
+<pre><code>ID,Name,Age,Gender,Grade,Subject
+1,Alice,20,F,88,Math
+2,Bob,22,M,76,History
+3,Charlie,23,M,90,Math
+4,Diana,21,F,85,Science
+5,Eve,20,F,92,Math
+6,Frank,22,M,72,History
+7,Grace,23,F,78,Science
+8,Heidi,21,F,88,Math
+9,Ivan,20,M,85,Science
+10,Judy,22,F,79,History</code></pre>
+<ol type="1">
+<li>Use <a href="https://www.gnu.org/software/wget"><code>wget</code></a> to download the <code>students.csv</code> file locally from <a href="https://github.com/stephaniehicks/jhustatprogramming2024/blob/main/projects/01-project/students.csv">here</a>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Display the contents of the <code>students.csv</code> file using the <code>cat</code> command.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Display only the first 5 lines of the file using <code>head</code> to show the first few lines.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Display only the last 3 lines of the file using <code>tail</code> to show the last few lines.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Count the number of lines in the file using the <code>wc</code> command to count the lines.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Find all students who are taking “Math” as a subject using <code>grep</code> to filter lines with the subject “Math”.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>Find all female students using <code>grep</code> or <code>awk</code> to filter based on gender.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="8" type="1">
+<li>Sort the file by the students’ ages in ascending order. Use <code>sort</code> to order by the “Age” column.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="9" type="1">
+<li>Find the unique subjects listed in the file. Use <code>cut</code> and <code>sort | uniq</code> to extract unique subjects.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="10" type="1">
+<li>Calculate the average grade of the students. Use <code>awk</code> to sum the grades and divide by the number of students.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="11" type="1">
+<li>Replace all occurrences of “Math” with “Mathematics” in the file. Use <code>sed</code> to perform the replacement.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your solution here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -280,7 +483,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/stephaniehicks\.github\.io\/jhustatprogramming2024\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

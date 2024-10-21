@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -119,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jhustatprogramming2024"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/stephaniehicks/jhustatprogramming2024"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -229,6 +229,8 @@ Learning objectives
 <div class="callout-body-container callout-body">
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
+<li>Get an overview of the course (including staff, format, grading, etc)</li>
+<li>Be able to recognize and operate an Integrated Developer Evironment (IDE) to perform statistial programming and data analysis.</li>
 <li>Be able to describe reasons why having a personal website can be useful.</li>
 <li>Recognize what is Quarto and how it’s different from RMarkdown.</li>
 <li>Be able to create a Quarto project and Quarto website.</li>
@@ -239,7 +241,7 @@ Learning objectives
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
 <ul>
-<li><add here=""></add></li>
+<li><a href="https://docs.google.com/presentation/d/1wBY5Er6vCDOgyaju7wEbycjqOOFcymzfKTVPKaNQwSs/edit?usp=sharing">Lecture 0: Welcome and Introductions</a></li>
 </ul>
 </section>
 </section>
@@ -248,7 +250,12 @@ Learning objectives
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
-<li></li>
+<li>Access all course material on CoursePlus and course website (<a href="https://www.stephaniehicks.com/jhustatprogramming2024" class="uri">https://www.stephaniehicks.com/jhustatprogramming2024</a>)</li>
+<li>Lectures will be recorded followed by an in-class activity. Later in the course, the in-class activity will be to work on the final project</li>
+<li>Complete the <a href="">pre-survey questionnaire</a> (not graded)</li>
+<li>At the end of each class, fill out the <a href="https://forms.gle/YE9kpBf7aVnx8VMdA">reflection card</a> (not graded, but helpful to both the student and instructor)</li>
+<li>Quarto is an open-source scientific and technical publishing system to create reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, and more</li>
+<li>You can think of Quarto as a natural successor to RMarkdown</li>
 </ul>
 </section>
 <section id="additional-practice" class="level2">
@@ -265,7 +272,7 @@ Questions
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>Create a new Quarto document using <em>File &gt; New File &gt; Quarto Document</em>. Read the instructions. Practice running the chunks individually. Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.</p></li>
+<li><p>If using RStudio, create a new Quarto document using <em>File &gt; New File &gt; Quarto Document</em>. Read the instructions. Practice running the chunks individually. Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.</p></li>
 <li><p>Create one new Quarto document for each of the three built-in formats: HTML, PDF and Word. Render each of the three documents. How do the outputs differ? How do the inputs differ? (You may need to install LaTeX in order to build the PDF output — RStudio will prompt you if this is necessary.)</p></li>
 </ol>
 </div>
@@ -368,7 +375,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/stephaniehicks\.github\.io\/jhustatprogramming2024\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

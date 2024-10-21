@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/jhustatprogramming2024"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/stephaniehicks/jhustatprogramming2024"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -553,7 +553,7 @@ $ node_id                     &lt;chr&gt; "MDEwOlJlcG9zaXRvcnkxNjAxOTQxMjM=", "M
 $ name                        &lt;chr&gt; "2018-bioinfosummer-scrnaseq", "advdatasci…
 $ full_name                   &lt;chr&gt; "stephaniehicks/2018-bioinfosummer-scrnase…
 $ private                     &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, …
-$ owner                       &lt;df[,18]&gt; &lt;data.frame[26 x 18]&gt;
+$ owner                       &lt;df[,19]&gt; &lt;data.frame[26 x 19]&gt;
 $ html_url                    &lt;chr&gt; "https://github.com/stephaniehicks/201…
 $ description                 &lt;chr&gt; NA, NA, "Repo to share code for the atlas-…
 $ fork                        &lt;lgl&gt; FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FAL…
@@ -677,7 +677,7 @@ Example
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>jsonDataAll <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(github_url))</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(jsonDataAll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 90 79</code></pre>
+<pre><code>[1] 91 79</code></pre>
 </div>
 </div>
 <p>We now get all the public repositories! yay!</p>
@@ -750,7 +750,7 @@ Example
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response [https://api.github.com/user]
-  Date: 2024-10-12 18:10
+  Date: 2024-10-21 07:13
   Status: 401
   Content-Type: application/json; charset=utf-8
   Size: 109 B
@@ -929,26 +929,26 @@ More about <code>GET</code>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dplyr_details <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(httr<span class="sc">::</span><span class="fu">content</span>(req, <span class="at">as =</span> <span class="st">'text'</span>)))</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>dplyr_details</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 84 × 31
+<pre><code># A tibble: 83 × 31
    url         repository_url labels_url comments_url events_url html_url     id
    &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;
- 1 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.58e9
+ 1 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.56e9
  2 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.56e9
- 3 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.56e9
+ 3 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.53e9
  4 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.53e9
- 5 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.53e9
+ 5 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.51e9
  6 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.51e9
- 7 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.51e9
+ 7 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.49e9
  8 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.49e9
- 9 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.49e9
-10 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.44e9
-# ℹ 74 more rows
+ 9 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.44e9
+10 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.43e9
+# ℹ 73 more rows
 # ℹ 24 more variables: node_id &lt;chr&gt;, number &lt;int&gt;, title &lt;chr&gt;,
-#   user &lt;df[,18]&gt;, labels &lt;list&gt;, state &lt;chr&gt;, locked &lt;lgl&gt;,
-#   assignee &lt;df[,18]&gt;, assignees &lt;list&gt;, milestone &lt;lgl&gt;, comments &lt;int&gt;,
+#   user &lt;df[,19]&gt;, labels &lt;list&gt;, state &lt;chr&gt;, locked &lt;lgl&gt;,
+#   assignee &lt;df[,19]&gt;, assignees &lt;list&gt;, milestone &lt;lgl&gt;, comments &lt;int&gt;,
 #   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, closed_at &lt;lgl&gt;,
-#   author_association &lt;chr&gt;, active_lock_reason &lt;chr&gt;, body &lt;chr&gt;,
-#   closed_by &lt;lgl&gt;, reactions &lt;df[,10]&gt;, timeline_url &lt;chr&gt;, …</code></pre>
+#   author_association &lt;chr&gt;, active_lock_reason &lt;chr&gt;, draft &lt;lgl&gt;,
+#   pull_request &lt;df[,5]&gt;, body &lt;chr&gt;, closed_by &lt;lgl&gt;, reactions &lt;df[,10]&gt;, …</code></pre>
 </div>
 </div>
 </div>
@@ -1011,7 +1011,7 @@ More about <code>GET</code>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>raw_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response [https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact]
-  Date: 2024-10-12 18:10
+  Date: 2024-10-21 07:13
   Status: 200
   Content-Type: application/json; charset=utf-8
   Size: 687 B
@@ -1020,7 +1020,7 @@ More about <code>GET</code>
     "disclaimer": "Do not rely on openFDA to make decisions regarding medical...
     "terms": "https://open.fda.gov/terms/",
     "license": "https://open.fda.gov/license/",
-    "last_updated": "2024-10-02"
+    "last_updated": "2024-10-09"
   },
   "results": [
     {
@@ -1049,25 +1049,25 @@ Pro-tip
  $ url        : chr "https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact"
  $ status_code: int 200
  $ headers    :List of 22
-  ..$ date                            : chr "Sat, 12 Oct 2024 18:10:43 GMT"
+  ..$ date                            : chr "Mon, 21 Oct 2024 07:13:50 GMT"
   ..$ content-type                    : chr "application/json; charset=utf-8"
   ..$ vary                            : chr "Accept-Encoding"
   ..$ access-control-allow-credentials: chr "true"
   ..$ access-control-allow-origin     : chr "*"
-  ..$ age                             : chr "0"
+  ..$ age                             : chr "2"
   ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
   ..$ content-security-policy         : chr "default-src 'none'"
-  ..$ etag                            : chr "W/\"2af-nwG+2gvYCXzyxDmQGgqnb0JhFsU\""
+  ..$ etag                            : chr "W/\"2af-kzeGYZ5sbF20j240zNA2Ty8op0c\""
   ..$ strict-transport-security       : chr "max-age=31536000;"
   ..$ strict-transport-security       : chr "max-age=31536000; preload"
   ..$ vary                            : chr "Accept-Encoding"
   ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  ..$ x-api-umbrella-request-id       : chr "cig7mfg8p8svkvllpdc0"
+  ..$ x-api-umbrella-request-id       : chr "cilnmcmpdgdn2o6234d0"
   ..$ x-cache                         : chr "MISS"
   ..$ x-content-type-options          : chr "nosniff"
   ..$ x-ratelimit-limit               : chr "240"
   ..$ x-ratelimit-remaining           : chr "239"
-  ..$ x-vcap-request-id               : chr "4008c51b-3996-4549-6822-21b9e423a814"
+  ..$ x-vcap-request-id               : chr "df65f4ce-f4ea-48f8-508f-00514612ea65"
   ..$ x-xss-protection                : chr "1; mode=block"
   ..$ x-frame-options                 : chr "deny"
   ..$ content-encoding                : chr "gzip"
@@ -1077,25 +1077,25 @@ Pro-tip
   .. ..$ status : int 200
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 22
-  .. .. ..$ date                            : chr "Sat, 12 Oct 2024 18:10:43 GMT"
+  .. .. ..$ date                            : chr "Mon, 21 Oct 2024 07:13:50 GMT"
   .. .. ..$ content-type                    : chr "application/json; charset=utf-8"
   .. .. ..$ vary                            : chr "Accept-Encoding"
   .. .. ..$ access-control-allow-credentials: chr "true"
   .. .. ..$ access-control-allow-origin     : chr "*"
-  .. .. ..$ age                             : chr "0"
+  .. .. ..$ age                             : chr "2"
   .. .. ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
   .. .. ..$ content-security-policy         : chr "default-src 'none'"
-  .. .. ..$ etag                            : chr "W/\"2af-nwG+2gvYCXzyxDmQGgqnb0JhFsU\""
+  .. .. ..$ etag                            : chr "W/\"2af-kzeGYZ5sbF20j240zNA2Ty8op0c\""
   .. .. ..$ strict-transport-security       : chr "max-age=31536000;"
   .. .. ..$ strict-transport-security       : chr "max-age=31536000; preload"
   .. .. ..$ vary                            : chr "Accept-Encoding"
   .. .. ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  .. .. ..$ x-api-umbrella-request-id       : chr "cig7mfg8p8svkvllpdc0"
+  .. .. ..$ x-api-umbrella-request-id       : chr "cilnmcmpdgdn2o6234d0"
   .. .. ..$ x-cache                         : chr "MISS"
   .. .. ..$ x-content-type-options          : chr "nosniff"
   .. .. ..$ x-ratelimit-limit               : chr "240"
   .. .. ..$ x-ratelimit-remaining           : chr "239"
-  .. .. ..$ x-vcap-request-id               : chr "4008c51b-3996-4549-6822-21b9e423a814"
+  .. .. ..$ x-vcap-request-id               : chr "df65f4ce-f4ea-48f8-508f-00514612ea65"
   .. .. ..$ x-xss-protection                : chr "1; mode=block"
   .. .. ..$ x-frame-options                 : chr "deny"
   .. .. ..$ content-encoding                : chr "gzip"
@@ -1109,8 +1109,8 @@ Pro-tip
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:687] 7b 0a 20 20 ...
- $ date       : POSIXct[1:1], format: "2024-10-12 18:10:43"
- $ times      : Named num [1:6] 0 0.0361 0.1094 0.1891 0.3751 ...
+ $ date       : POSIXct[1:1], format: "2024-10-21 07:13:50"
+ $ times      : Named num [1:6] 0 0.0742 0.1536 0.2337 0.4189 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -1167,10 +1167,10 @@ Note
   ..$ disclaimer  : chr "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data"| __truncated__
   ..$ terms       : chr "https://open.fda.gov/terms/"
   ..$ license     : chr "https://open.fda.gov/license/"
-  ..$ last_updated: chr "2024-10-02"
+  ..$ last_updated: chr "2024-10-09"
  $ results:'data.frame':    4 obs. of  2 variables:
   ..$ term : chr [1:4] "Voluntary: Firm initiated" "FDA Mandated" "N/A" ""
-  ..$ count: int [1:4] 26109 396 6 2</code></pre>
+  ..$ count: int [1:4] 26136 396 6 2</code></pre>
 </div>
 </div>
 </div>
@@ -1182,7 +1182,7 @@ Note
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ts_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       term count
-1 Voluntary: Firm initiated 26109
+1 Voluntary: Firm initiated 26136
 2              FDA Mandated   396
 3                       N/A     6
 4                               2</code></pre>
@@ -1336,7 +1336,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/stephaniehicks\.github\.io\/jhustatprogramming2024\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

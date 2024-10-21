@@ -1,5 +1,13 @@
 [
   {
+    "listing": "/readings.html",
+    "items": [
+      "/readings/00-quarto/index.html",
+      "/readings/03-functional-programming/index.html",
+      "/readings/04-data-collection-apis/index.html"
+    ]
+  },
+  {
     "listing": "/lectures.html",
     "items": [
       "/lectures/00-course-intro/index.html",
@@ -13,14 +21,6 @@
     "listing": "/projects.html",
     "items": [
       "/projects/01-project/index.html"
-    ]
-  },
-  {
-    "listing": "/readings.html",
-    "items": [
-      "/readings/00-quarto/index.html",
-      "/readings/03-functional-programming/index.html",
-      "/readings/04-data-collection-apis/index.html"
     ]
   }
 ]
