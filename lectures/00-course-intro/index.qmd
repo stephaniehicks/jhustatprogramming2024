@@ -9,7 +9,6 @@ description: "Overview of course and Hello Quarto!"
 date: 2024-10-24
 ---
 
-
 # Pre-lecture activities
 
 Before each class, there will be a set of pre-lecture activities and/or readings for you to complete. **It is important these activities be done before class so that you can benefit the most from the in-class activities**. 
@@ -33,6 +32,8 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
+-   Get an overview of the course (including staff, format, grading, etc)
+-   Be able to recognize and operate an Integrated Developer Evironment (IDE) to perform statistial programming and data analysis. 
 -   Be able to describe reasons why having a personal website can be useful.
 -   Recognize what is Quarto and how it's different from RMarkdown.
 -   Be able to create a Quarto project and Quarto website.
@@ -43,14 +44,19 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- <add here>
+- [Lecture 0: Welcome and Introductions](https://docs.google.com/presentation/d/1wBY5Er6vCDOgyaju7wEbycjqOOFcymzfKTVPKaNQwSs/edit?usp=sharing)
 
 
 # Post-lecture
 
 ## Summary 
 
-- 
+- Access all course material on CoursePlus and course website (<https://www.stephaniehicks.com/jhustatprogramming2024>)
+- Lectures will be recorded followed by an in-class activity. Later in the course, the in-class activity will be to work on the final project
+- Complete the [pre-survey questionnaire]() (not graded)
+- At the end of each class, fill out the [reflection card](https://forms.gle/YE9kpBf7aVnx8VMdA) (not graded, but helpful to both the student and instructor)
+- Quarto is an open-source scientific and technical publishing system to create reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, and more
+- You can think of Quarto as a natural successor to RMarkdown
 
 ## Additional practice
 
@@ -59,7 +65,7 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1.  Create a new Quarto document using *File \> New File \> Quarto Document*. Read the instructions. Practice running the chunks individually. Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.
+1.  If using RStudio, create a new Quarto document using *File \> New File \> Quarto Document*. Read the instructions. Practice running the chunks individually. Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.
 
 2.  Create one new Quarto document for each of the three built-in formats: HTML, PDF and Word. Render each of the three documents. How do the outputs differ? How do the inputs differ? (You may need to install LaTeX in order to build the PDF output --- RStudio will prompt you if this is necessary.)
 
