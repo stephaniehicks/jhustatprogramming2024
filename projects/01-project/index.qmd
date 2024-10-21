@@ -102,7 +102,7 @@ ID,Name,Age,Gender,Grade,Subject
 10,Judy,22,F,79,History
 ```
 
-1. Use [`wget`](https://www.gnu.org/software/wget) to download the `students.csv` file from [here](https://github.com/stephaniehicks/jhustatprogramming2024/projects/01-project/raw/main/data/students.csv)
+1. Use [`wget`](https://www.gnu.org/software/wget) to download the `students.csv` file locally from [here](https://github.com/stephaniehicks/jhustatprogramming2024/blob/main/projects/01-project/students.csv).
 
 ``` {bash}
 # Add your solution here

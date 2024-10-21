@@ -27,7 +27,7 @@ website:
           - text: "Projects"
             href: projects.qmd
       - icon: github
-        href: https://github.com/jhustatprogramming2024
+        href: https://github.com/stephaniehicks/jhustatprogramming2024
 format:
   html:
     theme: simplex
