@@ -7,15 +7,16 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to the command-line"
 date: 2024-10-29
+engine: knitr
 ---
 
 
 # Announcements
 
-The next lecture falls on `r emojifont::emoji('ghost')` Halloween ! 
+The next lecture falls on `{r} emojifont::emoji('ghost')` Halloween ! 
 I plan to give the lecture dressed up in a costume. 
 This is entirely optional, but I encourage students to come in costume if you wish! 
-**Candy `r emojifont::emoji('candy')` will be offered to anyone in costume!**
+**Candy `{r} emojifont::emoji('candy')` will be offered to anyone in costume!** 
 
 
 # Pre-lecture activities
