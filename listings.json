@@ -12,9 +12,7 @@
     "items": [
       "/lectures/00-course-intro/index.html",
       "/lectures/01-command-line/index.html",
-      "/lectures/02-version-control/index.html",
-      "/lectures/03-functional-programming/index.html",
-      "/lectures/04-data-collection/index.html"
+      "/lectures/02-version-control/index.html"
     ]
   },
   {

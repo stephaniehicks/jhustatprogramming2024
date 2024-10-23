@@ -224,48 +224,6 @@
     "text": "Freeze Results and avoid recomputing\nFreezing code output is generally used when you have either\n\nA large number of collaborators or\nMany computational documents created over a longer period of time\nA project with different types of file formats from different languages (e.g. .qmd, .ipynb, .Rmd)\n\nIn the above cases, it can be challenging to fully re-execute every document when you render the site.\nThis could be because some documents have esoteric or environment-specific requirements (e.g. require access/authentication to a data source) or due to general fragility of dependencies over time.\nUsing freeze ensures that you can always reproducibly render your site.\nThe computational results of documents executed with freeze are stored in the _freeze/ directory, and re-used when needed to fulfill document renders.\nYou should check the contents of _freeze/ into version control so that others rendering the project don’t need to reproduce your computational environment to render it in their environment.\n\n\n\n\n\n\nNote\n\n\n\nYou will still want to take care to fully re-render your project when things outside of source code change (e.g. input data).\nYou can remove previously frozen output by deleting the _freeze folder at the root of your project.\n\n\nFor example, consider the _quarto.yml file.\nOne argument in the file is the freeze option to denote that computational documents should never be re-rendered during a global project render, or alternatively only be re-rendered when their source file changes:\nproject:\n  title: \"qmd_rmd\"\n  type: website\n  output-dir: docs\n  \nexecute:\n  freeze: true  # never re-render during project render\nproject:\n  title: \"qmd_rmd\"\n  type: website\n  output-dir: docs\n\nexecute:\n  freeze: auto  # re-render only when source changes\n\n\n\n\n\n\nNote\n\n\n\nThe freeze option in the _quarto.yml file controls whether execution occurs during global project renders.\nIf you do an incremental render of either a single document or a project sub-directory then code is always executed. For example:\n\n\nTerminal\n\n# render single document (always executes code)\nquarto render document.qmd\n\n# render project subdirectory (always executes code)\nquarto render articles"
   },
   {
-    "objectID": "lectures/04-data-collection/index.html",
-    "href": "lectures/04-data-collection/index.html",
-    "title": "Data Collection",
-    "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please install the following R packages\n\njsonlite (https://jeroen.cran.dev/jsonlite)\nhttr (https://httr.r-lib.org)\n\n\ninstall.packages(\"jsonlite\")\ninstall.packages(\"httr\")\n\n\n\nIn addition, please read through\n\nData collection with APIs\nData collection from HTMLs\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
-  },
-  {
-    "objectID": "lectures/04-data-collection/index.html#acknowledgements",
-    "href": "lectures/04-data-collection/index.html#acknowledgements",
-    "title": "Data Collection",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nhttps://jhu-advdatasci.github.io/2019/lectures/04-gettingdata-api.html\nhttps://aws.amazon.com/what-is/api\nhttps://bookdown.org/paul/apis_for_social_scientists/github.com-api.html\nhttps://statisticsglobe.com/api-in-r"
-  },
-  {
-    "objectID": "lectures/04-data-collection/index.html#learning-objectives",
-    "href": "lectures/04-data-collection/index.html#learning-objectives",
-    "title": "Data Collection",
-    "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nDescribe what the difference is between “raw” vs “clean” data\nLearn about what are JSON files and how we can convert them into data frames in R\nDescribe some best practices on sharing data with collaborators\nKnow what does API mean and state four types of API architectures\nPractice with two APIs: the GitHub API and the openFDA API"
-  },
-  {
-    "objectID": "lectures/04-data-collection/index.html#slides",
-    "href": "lectures/04-data-collection/index.html#slides",
-    "title": "Data Collection",
-    "section": "Slides",
-    "text": "Slides"
-  },
-  {
-    "objectID": "lectures/04-data-collection/index.html#summary",
-    "href": "lectures/04-data-collection/index.html#summary",
-    "title": "Data Collection",
-    "section": "Summary",
-    "text": "Summary"
-  },
-  {
-    "objectID": "lectures/04-data-collection/index.html#additional-practice",
-    "href": "lectures/04-data-collection/index.html#additional-practice",
-    "title": "Data Collection",
-    "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions"
-  },
-  {
     "objectID": "readings.html",
     "href": "readings.html",
     "title": "Important reading materials",
@@ -298,7 +256,7 @@
     "href": "lectures/02-version-control/index.html#slides",
     "title": "Introduction to version control",
     "section": "Slides",
-    "text": "Slides"
+    "text": "Slides\n\nWill be posted here."
   },
   {
     "objectID": "lectures/02-version-control/index.html#additional-practice",
@@ -382,7 +340,7 @@
     "href": "lectures.html",
     "title": "Course content",
     "section": "",
-    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/01-command-line/index.html",
@@ -403,14 +361,14 @@
     "href": "lectures/01-command-line/index.html#learning-objectives",
     "title": "Introduction to the command-line",
     "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nExplain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.\nExplain when and why command-line interfaces should be used instead of graphical interfaces.\nCreate, copy, move, rename, and delete files and folders.\nPrint and sort file contents.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\nExplain why spaces should not be used in file names inside of loops.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nExplain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.\nCreate, copy, move, rename, and delete files and folders.\nPrint and sort file contents.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\nExplain why spaces should not be used in file names inside of loops.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
   },
   {
     "objectID": "lectures/01-command-line/index.html#slides",
     "href": "lectures/01-command-line/index.html#slides",
     "title": "Introduction to the command-line",
     "section": "Slides",
-    "text": "Slides"
+    "text": "Slides\n\nWill be posted here."
   },
   {
     "objectID": "lectures/01-command-line/index.html#summary",
@@ -586,48 +544,6 @@
     "title": "Syllabus",
     "section": "Typos and corrections",
     "text": "Typos and corrections\nFeel free to submit typos/errors/etc via the github repository associated with the class: https://github.com/stephaniehicks/jhustatprogramming2023. You will have the thanks of your grateful instructor!"
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html",
-    "href": "lectures/03-functional-programming/index.html",
-    "title": "Functional programming",
-    "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please install\n\npurrr - this provides a consistent functional programming interface to work with functions and vectors\n\nYou can do this by calling\n\ninstall.packages(\"purrr\")\n\nAnd load the package using:\n\nlibrary(purrr)\n\n\n\nIn addition, please read through\n\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html#acknowledgements",
-    "href": "lectures/03-functional-programming/index.html#acknowledgements",
-    "title": "Functional programming",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nhttps://adv-r.hadley.nz/fp.html\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf"
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html#learning-objectives",
-    "href": "lectures/03-functional-programming/index.html#learning-objectives",
-    "title": "Functional programming",
-    "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nBe familiar with the concept of functional languages and functional styles of programming\nGet comfortable with the major functions in purrr (e.g. the map family of functions)\nWrite your loops with map functions instead of the for loop"
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html#slides",
-    "href": "lectures/03-functional-programming/index.html#slides",
-    "title": "Functional programming",
-    "section": "Slides",
-    "text": "Slides"
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html#summary",
-    "href": "lectures/03-functional-programming/index.html#summary",
-    "title": "Functional programming",
-    "section": "Summary",
-    "text": "Summary\n\nIntroduction to functional programming.\nThe R package purrr provides a nice interface to functional programming and list manipulation.\nThe function map and its aternative map_* provide a neat way to iterate over a list or vector with the output in different data structures.\nThe function map2 and pmap allow having more than one list as input.\nThe function walk and its alternatives walk2, walk_*, which do not provide any output."
-  },
-  {
-    "objectID": "lectures/03-functional-programming/index.html#additional-practice",
-    "href": "lectures/03-functional-programming/index.html#additional-practice",
-    "title": "Functional programming",
-    "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nUse as_mapper() to explore how purrr generates anonymous functions for the integer, character, and list helpers. What helper allows you to extract attributes? Read the documentation to find out.\nmap(1:3, ~ runif(2)) is a useful pattern for generating random numbers, but map(1:3, runif(2)) is not. Why not? Can you explain why it returns the result that it does?\nCan you write a section of code to demonstrate the central limit theorem primarily using the purrr package and/or using the R base package?\nUse the appropriate map() function to:\n\nCompute the standard deviation of every column in a numeric data frame.\nCompute the standard deviation of every numeric column in a mixed data frame. (Hint: you will need to do it in two steps.)\nCompute the number of levels for every factor in a data frame.\n\nThe following code simulates the performance of a t-test for non-normal data. Extract the p-value from each test, then visualise.\n\ntrials &lt;- map(1:100, ~ t.test(rpois(10, 10), rpois(7, 10)))\n\nUse map() to fit linear models to the mtcars dataset using the formulas stored in this list:\n\ndata(mtcars)\nformulas &lt;- list(\n  mpg ~ disp,\n  mpg ~ I(1 / disp),\n  mpg ~ disp + wt,\n  mpg ~ I(1 / disp) + wt\n)\n\nFit the model mpg ~ disp to each of the bootstrap replicates of mtcars in the list below, then extract the \\(R^2\\) of the model fit (Hint: you can compute the \\(R^2\\) with summary().)\n\nbootstrap &lt;- function(df) {\n  df[sample(nrow(df), replace = TRUE), , drop = FALSE]\n}\n\nbootstraps &lt;- map(1:10, ~ bootstrap(mtcars))"
   },
   {
     "objectID": "projects/01-project/index.html",
