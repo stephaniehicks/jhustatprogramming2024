@@ -165,11 +165,10 @@ ID,Name,Age,Gender,Grade,Subject
 
 ```
 
-9. Find the unique subjects listed in the file. Use `cut` and `sort | uniq` to extract unique subjects.
+1. Find the unique subjects listed in the file. Use `cut`, `sort`, and `uniq` to extract unique subjects.
 
 ```{bash}
 # Add your solution here
-
 
 ```
 

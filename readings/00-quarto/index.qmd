@@ -18,25 +18,6 @@ library(here)
 ```
 
 
-# Introduction
-
-A professional web presence through a personal website can be powerful given the world we live in with much of our lives on the web (e.g. zoom meetings).
-
-There are many great tools to be able to help you get started on building a personal website.
-
-::: callout-tip
-### Reasons why creating a personal website can be helpful
-
-1.  A website gives you a home to build a brand for yourself and summarize the work you do.
-2.  You can connect with broader audiences.
-3.  A website can give you broader professional visibility.
-4.  Creating a website demonstrates literacy with working with websites.
-5.  In addition to the scholarship you are creating, a website gives an opportunity for others to connect with you (rather than just learn about your scholarship).
-6.  It helps future employers learn about who you are.
-:::
-
-In this class, we will learn about Quarto and how it can be used to create many types of products, including websites!
-
 # Hello, Quarto!
 
 ## Introduction
@@ -178,7 +159,6 @@ These files are decoupled from RStudio IDE and there are plugins to work with `.
 -   JupyterLab
 -   RStudio
 
-**(Quick demo in VSCode)**
 :::
 
 ### Rendering
@@ -443,11 +423,11 @@ Next, try create two Quarto products:
 1.  A Quarto project
 2.  A Quarto website
 
-To get started with your own `.qmd` file, select *File \> New File \> Quarto Document...* in the menu bar. RStudio will launch a wizard that you can use to pre-populate your file with useful content that reminds you how the key features of Quarto work.
+To get started with your own `.qmd` file. 
 
 ## Project
 
-Here are the general steps for creating a Quarto project:
+Here are the general steps for creating a Quarto project in RStudio:
 
 1.  Create a new Quarto project
 2.  Edit `_quarto.yml` file

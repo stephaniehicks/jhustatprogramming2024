@@ -53,8 +53,8 @@ Material for this lecture was borrowed and adopted from
 
 - Access all course material on CoursePlus and course website (<https://www.stephaniehicks.com/jhustatprogramming2024>)
 - Lectures will be recorded followed by an in-class activity. Later in the course, the in-class activity will be to work on the final project
-- Complete the [pre-survey questionnaire]() (not graded)
 - At the end of each class, fill out the [reflection card](https://forms.gle/YE9kpBf7aVnx8VMdA) (not graded, but helpful to both the student and instructor)
+- Integrated developer environment (IDEs) can make you more efficient as a programmer! 
 - Quarto is an open-source scientific and technical publishing system to create reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, and more
 - You can think of Quarto as a natural successor to RMarkdown
 
@@ -65,7 +65,7 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1.  If using RStudio, create a new Quarto document using *File \> New File \> Quarto Document*. Read the instructions. Practice running the chunks individually. Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.
+1.  In either RStudio or VSCode, create a new Quarto document. Read the instructions. Practice running the chunks individually. Then render the document and practice the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.
 
 2.  Create one new Quarto document for each of the three built-in formats: HTML, PDF and Word. Render each of the three documents. How do the outputs differ? How do the inputs differ? (You may need to install LaTeX in order to build the PDF output --- RStudio will prompt you if this is necessary.)
 
