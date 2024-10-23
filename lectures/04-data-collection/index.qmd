@@ -7,7 +7,7 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "add here"
 date: 2024-11-07
-draft: false
+draft: true
 ---
 
 # Pre-lecture activities
@@ -18,7 +18,6 @@ In advance of class, please install the following R packages
 
 1. `jsonlite` (<https://jeroen.cran.dev/jsonlite>)
 2. `httr` (<https://httr.r-lib.org>)
-
 
 ```{r}
 #| eval: false
