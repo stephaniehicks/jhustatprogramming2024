@@ -72,7 +72,6 @@ Material for this lecture was borrowed and adopted from
 
 -   Understand what is a command shell and why would use one.
 -   Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs.
--   Explain when and why command-line interfaces should be used instead of graphical interfaces.
 -   Create, copy, move, rename, and delete files and folders.
 -   Print and sort file contents.
 -   Search for regular expressions in files.
@@ -81,7 +80,6 @@ Material for this lecture was borrowed and adopted from
 -   Construct command pipelines with two or more stages with the pipe operator (`|`).
 -   Write a loop that applies one or more commands separately to each file in a set of files.
 -   Explain why spaces should not be used in file names inside of loops.
-
 
 :::
 
@@ -93,7 +91,7 @@ You can practice your command-line skills with the [Command Challenge](https://c
 
 ## Slides 
 
-- <add here>
+- Will be posted here. <add here>
 
 
 # Post-lecture
