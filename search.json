@@ -259,11 +259,18 @@
     "text": "Slides\n\nWill be posted here."
   },
   {
+    "objectID": "lectures/02-version-control/index.html#additional-exercises",
+    "href": "lectures/02-version-control/index.html#additional-exercises",
+    "title": "Introduction to version control",
+    "section": "Additional exercises",
+    "text": "Additional exercises\n\n\n\n\n\n\nSwitch Roles and Repeat\n\n\n\n\n\nSwitch roles and repeat the whole process.\n\n\n\n\n\n\n\n\n\nReview Changes\n\n\n\n\n\nThe Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?\n\nOn the command line, the Collaborator can use git fetch origin main to get the remote changes into the local repository, but without merging them. Then by running git diff main origin/main the Collaborator will see the changes output in the terminal.\nOn GitHub, the Collaborator can go to the repository and click on “commits” to view the most recent commits pushed to the repository.\n\n\n\n\n\n\n\n\n\n\nComment Changes in GitHub\n\n\n\n\n\nThe Collaborator has some questions about one line change made by the Owner and has some suggestions to propose.\nWith GitHub, it is possible to comment on the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window.\nThe Collaborator posts their comments and suggestions using the GitHub interface."
+  },
+  {
     "objectID": "lectures/02-version-control/index.html#additional-practice",
     "href": "lectures/02-version-control/index.html#additional-practice",
     "title": "Introduction to version control",
     "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions"
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nInitialize a new Git repository.\n\nCreate a new folder on your computer.\nUse the git init command to turn it into a Git repository.\nConfigure your name and email using git config –global user.name “Your Name”andgit config –global user.email “you@example.com”`.\n\n\nGoal: Learn to set up Git for the first time and understand how Git tracks your identity.\n\nCreate a new file and commit it.\n\nCreate a simple text file in your repository (e.g., README.md).\nUse git add &lt;filename&gt; to stage the file.\nUse git commit -m \"Initial commit\" to commit it to the repository.\n\n\nGoal: Understand how to add and commit files in Git.\n\nModify a file and create a new commit.\n\nMake changes to the file (e.g., add some text to the README.md).\nStage the changes and commit them using git add and git commit.\nUse git log to see the history of your commits.\n\n\nGoal: Learn how to track changes over time and inspect the commit history.\n\nWork with branches.\n\nCreate a new branch using git checkout -b feature-branch.\nMake changes to a file, stage, and commit them.\nSwitch back to the main branch (git checkout main).\nMerge your changes from feature-branch into main using git merge feature-branch.\n\n\nGoal: Understand how branching works and how to merge changes from different branches.\n\nSimulate and resolve a merge conflict.\n\nOn the main branch, edit a line in a file and commit the change.\nSwitch to a new branch (git checkout -b conflicting-branch), edit the same line differently, and commit it.\nMerge the conflicting-branch back into main and resolve the merge conflict manually.\nUse git status to see the files with conflicts and edit them to resolve.\nCommit the resolved changes.\n\n\nGoal: Learn how to handle merge conflicts and understand conflict markers."
   },
   {
     "objectID": "lectures/00-course-intro/index.html",
@@ -382,7 +389,7 @@
     "href": "lectures/01-command-line/index.html#additional-practice",
     "title": "Introduction to the command-line",
     "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nExplore the help files of tar and gzip commands for compressing files.\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nPractice your command line knowledge with Command Challenge."
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nPractice your command line knowledge with Command Challenge."
   },
   {
     "objectID": "projects.html",
