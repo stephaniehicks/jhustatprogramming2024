@@ -23,7 +23,7 @@ The goal of this assignment is to practice some of the skills we have been learn
 
 Please use this Quarto file (`.qmd`) and fill in the requested components by adding the URLs pointing to the GitHub repositories and deployed websites. Render this file to a **HTML file**. 
 
-You will push the `.qmd` file and rendered HTML file to a private GitHub repostory on GitHub classroom. The link to create a private GitHub repository for yourself to complete Project 1 will be posted in CoursePlus (**Note**: this creates an empty repository and you will need to push your code in your locate remote repository to GitHub when ready). Please **show all your code**, if relevant to a section.
+You will push the `.qmd` file and rendered HTML file to a private GitHub repostory on GitHub classroom. The link to create a private GitHub repository for yourself to complete Project 1 will be posted in CoursePlus (**Note**: this creates an empty repository. You will need to clone the reopository locally, add your code, and push your code from your local repo to the remote repository on GitHub Classroom when ready). Please **show all your code**, if relevant to a section.
 
 The TAs will grade the contents in the GitHub repo by cloning the repo and checking for all the things described below. 
 
@@ -46,7 +46,7 @@ Create a new public GitHub repository titled `biostat777-intro-<firstname>-<last
 
 ## 2. Build a website using Quarto
 
-Create a new project locally within RStudio and build a website for yourself. Your website should include the following: 
+Create a new project locally within RStudio or VSCode and build a website for yourself. Your website should include the following: 
 
 1. A home/landing page. This is home page that someone will land on your website. At minimum it should include your name, a short summary about yourself (max 2-3 sentences), and a picture of something you enjoy to do for fun (or a picture of yourself if you are comfortable sharing one). 
 2. A page titled 'About'. This page should describe who you are in greater detail. It could include your professional interests and your educational and/or professional background and/or experience. It could also include any personal information you feel conformable sharing on the website. 
@@ -62,7 +62,7 @@ Create a new project locally within RStudio and build a website for yourself. Yo
     - Your analysis must include one image or table (not one you created yourself, but one you have saved locally or one from the web). 
     - Your analysis must include at least two different [callout blocks](https://quarto.org/docs/authoring/callouts.html).
     - Your analysis must include a `.bib` file, which you use to reference at least three unique citations. For example, it could be to a website or paper from where the original data came from or it could be to a paper describing a method you are using to analyze the data. 
-    - Your analysis must include the use of at least 1 [margin content](https://www.stephaniehicks.com/jhustatprogramming2023/posts/2023-10-26-build-website/#margin-content). 
+    - Your analysis must include the use of at least 1 [margin content](https://quarto.org/docs/authoring/article-layout.html#margin-content). 
     - You must summarize your analysis and/or results with a paragraph (4-6 sentences).
     - At the end of the data analysis, list out each of the functions you used from each of the packages (`dplyr`, `tidyr`, and `ggplot2`) to help the TA with respect to making sure you met all the requirements described above. 
 
@@ -72,7 +72,7 @@ Your local repository should include a `README.md` file describing who is the au
 
 ## 4. Deploy your website
 
-Deploy your website using [Quarto Pub](https://quarto.org/docs/publishing/quarto-pub.html), [GitHub pages](https://quarto.org/docs/publishing/github-pages.html), or [Netlify](https://quarto.org/docs/publishing/netlify.html). (**Note**: Deploying your website to RPubs will not be accepted).
+Deploy your website e.g. using [Quarto Pub](https://quarto.org/docs/publishing/quarto-pub.html), [GitHub pages](https://quarto.org/docs/publishing/github-pages.html), or [Netlify](https://quarto.org/docs/publishing/netlify.html), etc. (**Note**: Deploying your website to RPubs will not be accepted).
 
 ## 5. Share your website
 
