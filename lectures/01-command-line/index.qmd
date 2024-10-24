@@ -10,7 +10,6 @@ date: 2024-10-29
 engine: knitr
 ---
 
-
 # Announcements
 
 The next lecture falls on `{r} emojifont::emoji('ghost')` Halloween ! 
@@ -93,6 +92,126 @@ You can practice your command-line skills with the [Command Challenge](https://c
 
 - Will be posted here. <add here>
 
+# Class activity 
+
+
+::: callout-note
+### Objectives of the activity
+
+For the next 30 minutes, we will 
+
+- Practice using the Unix commands
+- Become familiar with navigating folders on the command line 
+- Enjoy a little fun with Taylor Swift lyrics
+
+:::
+
+Find a partner and work on the following tasks. It's unlikely you will finish all of them, but try to do as many as you can! Also, try to work out the solution for yourselves first and then check the solution afterwards. 
+
+- Create Taylor Swift’s Albums Directory. Navigate to your home directory. Create a directory called `taylor_swift_discography`. Inside `taylor_swift_discography`, create subdirectories for each of her albums: `fearless`, `red`, `1989`, `reputation`, and `lover`.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `cd`, `mkdir`
+
+:::
+
+- List all the album directories in `taylor_swift_discography` in a long format, showing permissions and modification dates.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+`ls -l`
+
+:::
+
+- Navigate to the `red` directory and create a file called `all_too_well.txt`.
+Add the first few lines of the song "All Too Well" to the file using a single Unix command.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+A combo of `touch`, `echo`, `cat`, `nano` / `vim`
+
+:::
+
+- Display the contents of `all_too_well.txt` without opening the file in a text editor.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `cat`, `more`, `less`
+
+:::
+
+- Navigate to the `1989` directory. Create a file called `blank_space.txt` and add some of the lyrics.
+Count how many words are in the song lyrics using a Unix command.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `wc`
+
+:::
+
+- In the `reputation` directory, create a file called `delicate.txt` and add some of the lyrics.
+Use a command to find all occurrences of the word "delicate" in the file.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `grep`
+
+:::
+
+- Move the file `all_too_well.txt` from the `red` directory to a new directory called `favorites` within `taylor_swift_discography`. Copy `blank_space.txt` from `1989` to the `favorites` directory.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `mv`, `cp`
+
+:::
+
+- Navigate to the `favorites` directory and compress both `all_too_well.txt` and `blank_space.txt` into a file called `favorite_lyrics.tar.gz`.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `tar`, `gzip`
+
+:::
+
+- Uncompress the `favorite_lyrics.tar.gz` file and verify that the files have been restored correctly.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected commands: `tar`, `gunzip`
+
+:::
+
+
+- In the `taylor_swift_discography` directory, find all the lines (representing song lyrics) that contain the word “love”. Output the results to a file called `love_songs.txt` in the `favorites` directory.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+`grep -r "love" >> favorites/love_songs.txt`
+
+:::
+
+- In the `taylor_swift_discography` directory, create a file called `song_metadata.csv` that contains columns for album name, song title, duration (in minutes), and year. Each row should represent a song (e.g., "1989, Style, 3.51, 2014").
+
+Use awk to extract and display only the song titles and durations from this file.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+`awk -F, '{print $2, $3}' song_metadata.csv`
+
+:::
 
 # Post-lecture
 
@@ -115,8 +234,7 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. Explore the help files of `tar` and `gzip` commands for compressing files.
-2. Move around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the `pwd` and `cd` commands, and the different flags for the `ls` commands. 
-3. Practice using "Tab for Auto-complete" in the shell to autocomplete commands or file names.
-4. Practice your command line knowledge with [Command Challenge](https://cmdchallenge.com/).
+1. Move around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the `pwd` and `cd` commands, and the different flags for the `ls` commands. 
+2. Practice using "Tab for Auto-complete" in the shell to autocomplete commands or file names.
+3. Practice your command line knowledge with [Command Challenge](https://cmdchallenge.com/).
 :::

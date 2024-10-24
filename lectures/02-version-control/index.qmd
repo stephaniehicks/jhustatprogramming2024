@@ -9,6 +9,7 @@ description: "Introduction to version control"
 date: 2024-10-31
 ---
 
+
 # Pre-lecture activities
 
 ::: callout-important
@@ -66,6 +67,204 @@ Material for this lecture was borrowed and adopted from
 
 - Will be posted here. <add here>
 
+# Class activity 
+
+For the next 30 minutes, we will practice using version control to collaborate with other people. 
+
+::: callout-note
+### Objectives of the activity
+
+-   Clone a remote repository using `git clone`.
+-   Collaborate by using `git add`, `git commit`, `git push`, and `git pull` to a common repository.
+-   Describe the basic collaborative workflow.
+:::
+
+
+First, find a partner. One person will be the "Owner" and the other will be the "Collaborator". The goal is that the Collaborator add changes into the Owner's repository. We will switch roles at the end, so both people will play Owner and Collaborator.
+
+::: callout-warning
+### Working By Yourself
+
+Alternatively, if you are working through this lesson on your own, you can carry on by opening a second terminal window. This window will represent your partner, working on another computer. You won't need to give anyone access on GitHub, because both 'partners' are you.
+:::
+
+The Owner needs to give the Collaborator access. On GitHub, click the "Settings" button on the right, select "Collaborators", click "Add people", and then enter your partner's username.
+
+![](../../images/git/github-add-collaborators.png)
+
+To accept access to the Owner's repo, the Collaborator needs to go to `https://github.com/notifications` or check for email notification. Once there you can accept access to the Owner's repo.
+
+Next, the Collaborator needs to download a copy of the Owner's repository to their machine. This is called "cloning a repo".
+
+The Collaborator doesn't want to overwrite their own version of `planets.git`, so needs to clone the Owner's repository to a different location than their own repository with the same name.
+
+To clone the Owner's repo into their Desktop folder, the Collaborator enters:
+
+```bash
+git clone git@github.com:vlad/planets.git ~/Desktop/vlad-planets
+```
+
+Replace 'vlad' with the Owner's username.
+
+::: {.callout-important}
+
+If you choose to clone without the clone path (`~/Desktop/vlad-planets`) specified at the end, you will clone inside your own `planets` folder! Make sure to navigate to the Desktop folder first. Alternatively, you can create a directory somewhere else, navigate to it, and run `git clone git@github.com:vlad/planets.git` (without the clone path).
+
+:::
+
+![](../../images/git/github-collaboration.svg)
+
+
+The Collaborator can now make a change in their clone of the Owner's repository, exactly the same way as we've been doing before.
+
+Create a new file called `pluto.txt` in the clone of the Owner's repository, and add the following line to it in TextEdit or Notepad.
+
+```default
+It is so a planet!
+```
+
+Check from the command line.
+
+```bash
+cd ~/Desktop/vlad-planets
+cat pluto.txt
+```
+
+```default
+It is so a planet!
+```
+
+Add and commit the changes.
+
+```bash
+git add pluto.txt
+git commit -m "Add notes about Pluto"
+```
+
+```default
+ 1 file changed, 1 insertion(+)
+ create mode 100644 pluto.txt
+```
+
+Then push the change to the _Owner's repository_ on GitHub:
+
+```bash
+git push origin main
+```
+
+```default
+Enumerating objects: 4, done.
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 306 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/vlad/planets.git
+   9272da5..29aba7c  main -> main
+```
+
+Note that we **did not have to create a remote called `origin`**: Git uses this name by default when we clone a repository. (This is why `origin` was a sensible choice earlier when we were setting up remotes by hand.)
+
+Take a look at the Owner's repository on GitHub again, and you should be able to see the new commit made by the Collaborator. You may need to refresh your browser to see the new commit.
+
+
+::: {.callout-note collapse="true"}
+## Some more about remotes
+
+Thus far, our local repository has had a single "remote", called `origin`.
+
+A remote is a copy of the repository that is hosted somewhere else, that we can push to and pull from, and there's no reason that you have to work with only one.
+
+For example, on some large projects you might have your own copy in your own GitHub account (you'd probably call this `origin`) and also the main "upstream" project repository (let's call this `upstream` for the sake of examples). You would pull from `upstream` from time to time to get the latest updates that other people have committed.
+
+Remember that the name you give to a remote only exists locally. It's an alias that you choose - whether `origin`, or `upstream`, or `fred` - and not something intrinsic to the remote repository.
+
+The `git remote` family of commands is used to set up and alter the remotes associated with a repository. Here are some of the most useful ones:
+
+-   `git remote -v` lists all the remotes that are configured (we already used this in the last episode)
+-   `git remote add [name] [url]` is used to add a new remote
+-   `git remote remove [name]` removes a remote. Note that it doesn't affect the remote repository at all - it just removes the link to it from the local repo.
+-   `git remote set-url [name] [newurl]` changes the URL that is associated with the remote. This is useful if it has moved, e.g. to a different GitHub account, or from GitHub to a different hosting service. Or, if we made a typo when adding it!
+-   `git remote rename [oldname] [newname]` changes the local alias by which a remote is known - its name. For example, one could use this to change `upstream` to `fred`.
+:::
+
+
+To download the Collaborator's changes from GitHub, the Owner now enters:
+
+```bash
+git pull origin main
+```
+
+```default
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/vlad/planets
+ * branch            main     -> FETCH_HEAD
+   9272da5..29aba7c  main     -> origin/main
+Updating 9272da5..29aba7c
+Fast-forward
+ pluto.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 pluto.txt
+```
+
+Now the three repositories (Owner's local, Collaborator's local, and Owner's on GitHub) are back in sync.
+
+
+::: callout-note
+## A Basic Collaborative Workflow
+
+In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should `git pull` before making our changes. The basic collaborative workflow would be:
+
+-   update your local repo with `git pull origin main`,
+-   make your changes and stage them with `git add`,
+-   commit your changes with `git commit -m`, and
+-   upload the changes to GitHub with `git push origin main`
+
+It is better to make many commits with smaller changes rather than one commit with massive changes: small commits are easier to read and review.
+:::
+
+
+::: callout-important
+### Key Points
+
+-   `git clone` copies a remote repository to create a local repository with a remote called `origin` automatically set up.
+:::
+
+
+## Additional exercises
+
+::: {.callout-tip collapse="true"}
+### Switch Roles and Repeat
+
+Switch roles and repeat the whole process.
+:::
+
+
+::: {.callout-tip collapse="true"}
+### Review Changes
+
+The Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?
+
+-   On the command line, the Collaborator can use `git fetch origin main` to get the remote changes into the local repository, but without merging them. Then by running `git diff main origin/main` the Collaborator will see the changes output in the terminal.
+
+-   On GitHub, the Collaborator can go to the repository and click on "commits" to view the most recent commits pushed to the repository.
+:::
+
+::: {.callout-tip collapse="true"}
+### Comment Changes in GitHub
+
+The Collaborator has some questions about one line change made by the Owner and has some suggestions to propose.
+
+With GitHub, it is possible to comment on the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window.
+
+The Collaborator posts their comments and suggestions using the GitHub interface.
+:::
+
+
 
 # Post-lecture
 
@@ -95,5 +294,42 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+- **Initialize a new Git repository**. 
+   1. Create a new folder on your computer.
+   2. Use the git init command to turn it into a Git repository. 
+   3. Configure your name and email using   git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"`.
+
+Goal: Learn to set up Git for the first time and understand how Git tracks your identity.
+
+- **Create a new file and commit it**. 
+   1. Create a simple text file in your repository (e.g., README.md).
+   2. Use `git add <filename>` to stage the file.
+   3. Use `git commit -m "Initial commit"` to commit it to the repository.
+  
+Goal: Understand how to add and commit files in Git.
+
+- **Modify a file and create a new commit**.
+   1. Make changes to the file (e.g., add some text to the README.md).
+   2. Stage the changes and commit them using git add and git commit.
+   3. Use `git log` to see the history of your commits.
+
+Goal: Learn how to track changes over time and inspect the commit history.
+
+- **Work with branches**.
+  1. Create a new branch using `git checkout -b feature-branch`.
+  2. Make changes to a file, stage, and commit them.
+  3. Switch back to the main branch (`git checkout main`).
+  4. Merge your changes from `feature-branch` into `main` using `git merge feature-branch`.
+
+Goal: Understand how branching works and how to merge changes from different branches.
+
+- **Simulate and resolve a merge conflict**.
+  1. On the main branch, edit a line in a file and commit the change.
+  2. Switch to a new branch (`git checkout -b conflicting-branch`), edit the same line differently, and commit it.
+  3. Merge the `conflicting-branch` back into `main` and resolve the merge conflict manually.
+  4. Use `git status` to see the files with conflicts and edit them to resolve.
+  5. Commit the resolved changes.
+
+Goal: Learn how to handle merge conflicts and understand conflict markers.
+
 :::
