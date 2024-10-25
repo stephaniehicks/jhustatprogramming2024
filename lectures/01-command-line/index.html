@@ -259,6 +259,7 @@ How much should I prepare for before class?
 <ul>
 <li><a href="https://swcarpentry.github.io/shell-novice">Software Carpentry: The Unix Shell</a></li>
 <li><a href="https://datascienceatthecommandline.com/2e">Data Science at the Command line</a></li>
+<li><a href="https://github.com/quinlan-lab/applied-computational-genomics">Applied Computational Genomics</a></li>
 </ul>
 </section>
 <section id="learning-objectives" class="level2">
@@ -276,15 +277,12 @@ Learning objectives
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
 <li>Understand what is a command shell and why would use one.</li>
-<li>Explain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.</li>
 <li>Create, copy, move, rename, and delete files and folders.</li>
-<li>Print and sort file contents.</li>
 <li>Search for regular expressions in files.</li>
 <li>Execute R commands and scripts in the command line.</li>
 <li>Redirect a command’s output to a file with redirect operators (<code>&gt;</code>, <code>&gt;&gt;</code>).</li>
 <li>Construct command pipelines with two or more stages with the pipe operator (<code>|</code>).</li>
 <li>Write a loop that applies one or more commands separately to each file in a set of files.</li>
-<li>Explain why spaces should not be used in file names inside of loops.</li>
 </ul>
 </div>
 </div>
@@ -305,7 +303,7 @@ Tip
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
 <ul>
-<li>Will be posted here. <add here=""></add></li>
+<li><a href="https://docs.google.com/presentation/d/1SSx6P4t_N66GIiB316PjBWrmKtTkwYLRVRMs44iCBhU/edit?usp=sharing">Lecture 01: Introduction to the command-line</a></li>
 </ul>
 </section>
 </section>
@@ -321,10 +319,9 @@ Objectives of the activity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For the next 30 minutes, we will</p>
+<p>For our in-class activity today, we will</p>
 <ul>
-<li>Practice using the Unix commands</li>
-<li>Become familiar with navigating folders on the command line</li>
+<li>Practice writing commands in the Unix shell</li>
 <li>Enjoy a little fun with Taylor Swift lyrics</li>
 </ul>
 </div>
@@ -383,7 +380,7 @@ Solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A combo of <code>touch</code>, <code>echo</code>, <code>cat</code>, <code>nano</code> / <code>vim</code></p>
+<p>A combo of <code>touch</code>, <code>echo</code>, <code>cat</code></p>
 </div>
 </div>
 </div>
@@ -521,9 +518,8 @@ Solution
 </div>
 </div>
 <ul>
-<li>In the <code>taylor_swift_discography</code> directory, create a file called <code>song_metadata.csv</code> that contains columns for album name, song title, duration (in minutes), and year. Each row should represent a song (e.g., “1989, Style, 3.51, 2014”).</li>
+<li>For each song in <code>favorites</code>, write a <code>for</code> loop to print to the screen the first two lines of each song in the files <code>all_too_well.txt</code> and <code>blank_space.txt</code>.</li>
 </ul>
-<p>Use awk to extract and display only the song titles and durations from this file.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -535,6 +531,54 @@ Solution
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>for <add here=""> in <add here=""> do <add here=""> done</add></add></add></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Create a shell script called <code>top_favorites.sh</code> and place the <code>for</code> loop in the shell script. Run the shell script.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Expected comments: <code>touch</code></p>
+</div>
+</div>
+</div>
+<ul>
+<li>In the <code>taylor_swift_discography</code> directory, create a file called <code>song_metadata.csv</code> that contains columns for album name, song title, duration (in minutes), and year with the following information.</li>
+</ul>
+<pre><code>Album,Song Title,Duration,Year
+Fearless,Love Story,3.55,2008
+Red,All Too Well,5.29,2012
+1989,Blank Space,3.51,2014
+Reputation,Delicate,3.52,2017
+Lover,You Need to Calm Down,2.51,2019
+Folklore,Cardigan,4.00,2020
+Evermore,Willow,3.34,2020
+Midnights,Anti-Hero,3.21,2022</code></pre>
+<p>Use <code>awk</code> to extract and display only the song titles and durations from this file.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>awk -F, '{print $2, $3}' song_metadata.csv</code></p>
 </div>
@@ -575,6 +619,7 @@ Questions
 <ol type="1">
 <li>Move around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the <code>pwd</code> and <code>cd</code> commands, and the different flags for the <code>ls</code> commands.</li>
 <li>Practice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.</li>
+<li>Explore the manual pages of <code>date</code> in the command line to show you what that looks like. Try to figure out what is the argument to print the date since the Unix epoch or 00:00:00 UTC on 1 January 1970 as a function of the number of seconds. Then try to identify what is the argument to display the date in UTC.</li>
 <li>Practice your command line knowledge with <a href="https://cmdchallenge.com/">Command Challenge</a>.</li>
 </ol>
 </div>

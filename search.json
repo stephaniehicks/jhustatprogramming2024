@@ -298,7 +298,7 @@
     "href": "lectures/00-course-intro/index.html#slides",
     "title": "Welcome to the course",
     "section": "Slides",
-    "text": "Slides\n\nLecture 0: Welcome and Introductions"
+    "text": "Slides\n\nLecture 00: Welcome and Introductions"
   },
   {
     "objectID": "lectures/00-course-intro/index.html#summary",
@@ -361,21 +361,21 @@
     "href": "lectures/01-command-line/index.html#acknowledgements",
     "title": "Introduction to the command-line",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nSoftware Carpentry: The Unix Shell\nData Science at the Command line"
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nSoftware Carpentry: The Unix Shell\nData Science at the Command line\nApplied Computational Genomics"
   },
   {
     "objectID": "lectures/01-command-line/index.html#learning-objectives",
     "href": "lectures/01-command-line/index.html#learning-objectives",
     "title": "Introduction to the command-line",
     "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nExplain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.\nCreate, copy, move, rename, and delete files and folders.\nPrint and sort file contents.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\nExplain why spaces should not be used in file names inside of loops.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nCreate, copy, move, rename, and delete files and folders.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
   },
   {
     "objectID": "lectures/01-command-line/index.html#slides",
     "href": "lectures/01-command-line/index.html#slides",
     "title": "Introduction to the command-line",
     "section": "Slides",
-    "text": "Slides\n\nWill be posted here."
+    "text": "Slides\n\nLecture 01: Introduction to the command-line"
   },
   {
     "objectID": "lectures/01-command-line/index.html#summary",
@@ -389,7 +389,7 @@
     "href": "lectures/01-command-line/index.html#additional-practice",
     "title": "Introduction to the command-line",
     "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nPractice your command line knowledge with Command Challenge."
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nExplore the manual pages of date in the command line to show you what that looks like. Try to figure out what is the argument to print the date since the Unix epoch or 00:00:00 UTC on 1 January 1970 as a function of the number of seconds. Then try to identify what is the argument to display the date in UTC.\nPractice your command line knowledge with Command Challenge."
   },
   {
     "objectID": "projects.html",
