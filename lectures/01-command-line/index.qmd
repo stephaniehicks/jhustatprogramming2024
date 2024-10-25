@@ -10,6 +10,7 @@ date: 2024-10-29
 engine: knitr
 ---
 
+
 # Announcements
 
 The next lecture falls on `{r} emojifont::emoji('ghost')` Halloween ! 
@@ -61,6 +62,7 @@ Material for this lecture was borrowed and adopted from
 
 - [Software Carpentry: The Unix Shell](https://swcarpentry.github.io/shell-novice)
 - [Data Science at the Command line](https://datascienceatthecommandline.com/2e)
+- [Applied Computational Genomics](https://github.com/quinlan-lab/applied-computational-genomics)
 
 ## Learning objectives
 
@@ -70,15 +72,12 @@ Material for this lecture was borrowed and adopted from
 **At the end of this lesson you will:**
 
 -   Understand what is a command shell and why would use one.
--   Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs.
 -   Create, copy, move, rename, and delete files and folders.
--   Print and sort file contents.
 -   Search for regular expressions in files.
 -   Execute R commands and scripts in the command line.
 -   Redirect a command’s output to a file with redirect operators (`>`, `>>`).
 -   Construct command pipelines with two or more stages with the pipe operator (`|`).
 -   Write a loop that applies one or more commands separately to each file in a set of files.
--   Explain why spaces should not be used in file names inside of loops.
 
 :::
 
@@ -90,7 +89,7 @@ You can practice your command-line skills with the [Command Challenge](https://c
 
 ## Slides 
 
-- Will be posted here. <add here>
+- [Lecture 01: Introduction to the command-line](https://docs.google.com/presentation/d/1SSx6P4t_N66GIiB316PjBWrmKtTkwYLRVRMs44iCBhU/edit?usp=sharing)
 
 # Class activity 
 
@@ -98,10 +97,9 @@ You can practice your command-line skills with the [Command Challenge](https://c
 ::: callout-note
 ### Objectives of the activity
 
-For the next 30 minutes, we will 
+For our in-class activity today, we will 
 
-- Practice using the Unix commands
-- Become familiar with navigating folders on the command line 
+- Practice writing commands in the Unix shell
 - Enjoy a little fun with Taylor Swift lyrics
 
 :::
@@ -132,7 +130,7 @@ Add the first few lines of the song "All Too Well" to the file using a single Un
 ::: {.callout-tip collapse="true"}
 ### Solution
 
-A combo of `touch`, `echo`, `cat`, `nano` / `vim`
+A combo of `touch`, `echo`, `cat`
 
 :::
 
@@ -202,9 +200,43 @@ Expected commands: `tar`, `gunzip`
 
 :::
 
-- In the `taylor_swift_discography` directory, create a file called `song_metadata.csv` that contains columns for album name, song title, duration (in minutes), and year. Each row should represent a song (e.g., "1989, Style, 3.51, 2014").
+- For each song in `favorites`, write a `for` loop to print to the screen the first two lines of each song in the files `all_too_well.txt` and `blank_space.txt`. 
 
-Use awk to extract and display only the song titles and durations from this file.
+::: {.callout-tip collapse="true"}
+### Solution
+
+for <add here> in <add here>
+do
+    <add here>
+done 
+
+:::
+
+
+- Create a shell script called `top_favorites.sh` and place the `for` loop in the shell script. Run the shell script. 
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+Expected comments: `touch`
+
+:::
+
+- In the `taylor_swift_discography` directory, create a file called `song_metadata.csv` that contains columns for album name, song title, duration (in minutes), and year with the following information. 
+
+```
+Album,Song Title,Duration,Year
+Fearless,Love Story,3.55,2008
+Red,All Too Well,5.29,2012
+1989,Blank Space,3.51,2014
+Reputation,Delicate,3.52,2017
+Lover,You Need to Calm Down,2.51,2019
+Folklore,Cardigan,4.00,2020
+Evermore,Willow,3.34,2020
+Midnights,Anti-Hero,3.21,2022
+```
+
+Use `awk` to extract and display only the song titles and durations from this file.
 
 ::: {.callout-tip collapse="true"}
 ### Solution
@@ -236,5 +268,6 @@ Here are some additional practice questions to help you think about the material
 
 1. Move around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the `pwd` and `cd` commands, and the different flags for the `ls` commands. 
 2. Practice using "Tab for Auto-complete" in the shell to autocomplete commands or file names.
-3. Practice your command line knowledge with [Command Challenge](https://cmdchallenge.com/).
+3. Explore the manual pages of `date` in the command line to show you what that looks like. Try to figure out what is the argument to print the date since the Unix epoch or 00:00:00 UTC on 1 January 1970 as a function of the number of seconds. Then try to identify what is the argument to display the date in UTC.
+4. Practice your command line knowledge with [Command Challenge](https://cmdchallenge.com/).
 :::

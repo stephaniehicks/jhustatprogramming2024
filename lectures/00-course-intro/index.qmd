@@ -44,7 +44,7 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- [Lecture 0: Welcome and Introductions](https://docs.google.com/presentation/d/1wBY5Er6vCDOgyaju7wEbycjqOOFcymzfKTVPKaNQwSs/edit?usp=sharing)
+- [Lecture 00: Welcome and Introductions](https://docs.google.com/presentation/d/1wBY5Er6vCDOgyaju7wEbycjqOOFcymzfKTVPKaNQwSs/edit?usp=sharing)
 
 
 # Post-lecture
