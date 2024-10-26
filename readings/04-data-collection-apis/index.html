@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title-meta-heading">Affiliation</div>
     
       <div class="quarto-title-meta-contents">
-      <p class="author">Stephanie Hicks </p>
+      <p class="author"><a href="https://www.stephaniehicks.com">Stephanie Hicks</a> </p>
     </div>
     <div class="quarto-title-meta-contents">
           <p class="affiliation">
@@ -244,12 +244,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#building-the-url-for-get" id="toc-building-the-url-for-get" class="nav-link" data-scroll-target="#building-the-url-for-get">Building the URL for <code>GET</code></a></li>
   <li><a href="#calling-an-api-with-get" id="toc-calling-an-api-with-get" class="nav-link" data-scroll-target="#calling-an-api-with-get">Calling an API with <code>GET</code></a></li>
   <li><a href="#converting-json-to-a-data.frame" id="toc-converting-json-to-a-data.frame" class="nav-link" data-scroll-target="#converting-json-to-a-data.frame">Converting JSON to a <code>data.frame</code></a></li>
-  </ul></li>
-  <li><a href="#post-lecture-materials" id="toc-post-lecture-materials" class="nav-link" data-scroll-target="#post-lecture-materials">Post-lecture materials</a>
-  <ul class="collapse">
-  <li><a href="#other-good-r-packages-to-know-about" id="toc-other-good-r-packages-to-know-about" class="nav-link" data-scroll-target="#other-good-r-packages-to-know-about">Other good R packages to know about</a></li>
-  <li><a href="#final-questions" id="toc-final-questions" class="nav-link" data-scroll-target="#final-questions">Final Questions</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -750,7 +744,7 @@ Example
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response [https://api.github.com/user]
-  Date: 2024-10-21 07:13
+  Date: 2024-10-26 00:50
   Status: 401
   Content-Type: application/json; charset=utf-8
   Size: 109 B
@@ -1011,7 +1005,7 @@ More about <code>GET</code>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>raw_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response [https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact]
-  Date: 2024-10-21 07:13
+  Date: 2024-10-26 00:50
   Status: 200
   Content-Type: application/json; charset=utf-8
   Size: 687 B
@@ -1020,7 +1014,7 @@ More about <code>GET</code>
     "disclaimer": "Do not rely on openFDA to make decisions regarding medical...
     "terms": "https://open.fda.gov/terms/",
     "license": "https://open.fda.gov/license/",
-    "last_updated": "2024-10-09"
+    "last_updated": "2024-10-16"
   },
   "results": [
     {
@@ -1049,25 +1043,25 @@ Pro-tip
  $ url        : chr "https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact"
  $ status_code: int 200
  $ headers    :List of 22
-  ..$ date                            : chr "Mon, 21 Oct 2024 07:13:50 GMT"
+  ..$ date                            : chr "Sat, 26 Oct 2024 00:50:53 GMT"
   ..$ content-type                    : chr "application/json; charset=utf-8"
   ..$ vary                            : chr "Accept-Encoding"
   ..$ access-control-allow-credentials: chr "true"
   ..$ access-control-allow-origin     : chr "*"
-  ..$ age                             : chr "2"
+  ..$ age                             : chr "0"
   ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
   ..$ content-security-policy         : chr "default-src 'none'"
-  ..$ etag                            : chr "W/\"2af-kzeGYZ5sbF20j240zNA2Ty8op0c\""
+  ..$ etag                            : chr "W/\"2af-aJ2B+UTvZEOibSzVowCdOsJz+QQ\""
   ..$ strict-transport-security       : chr "max-age=31536000;"
   ..$ strict-transport-security       : chr "max-age=31536000; preload"
   ..$ vary                            : chr "Accept-Encoding"
   ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  ..$ x-api-umbrella-request-id       : chr "cilnmcmpdgdn2o6234d0"
+  ..$ x-api-umbrella-request-id       : chr "ciop7000t1q26nifnfug"
   ..$ x-cache                         : chr "MISS"
   ..$ x-content-type-options          : chr "nosniff"
   ..$ x-ratelimit-limit               : chr "240"
   ..$ x-ratelimit-remaining           : chr "239"
-  ..$ x-vcap-request-id               : chr "df65f4ce-f4ea-48f8-508f-00514612ea65"
+  ..$ x-vcap-request-id               : chr "0db6cfda-8692-4b13-7ab4-611c91c93851"
   ..$ x-xss-protection                : chr "1; mode=block"
   ..$ x-frame-options                 : chr "deny"
   ..$ content-encoding                : chr "gzip"
@@ -1077,25 +1071,25 @@ Pro-tip
   .. ..$ status : int 200
   .. ..$ version: chr "HTTP/2"
   .. ..$ headers:List of 22
-  .. .. ..$ date                            : chr "Mon, 21 Oct 2024 07:13:50 GMT"
+  .. .. ..$ date                            : chr "Sat, 26 Oct 2024 00:50:53 GMT"
   .. .. ..$ content-type                    : chr "application/json; charset=utf-8"
   .. .. ..$ vary                            : chr "Accept-Encoding"
   .. .. ..$ access-control-allow-credentials: chr "true"
   .. .. ..$ access-control-allow-origin     : chr "*"
-  .. .. ..$ age                             : chr "2"
+  .. .. ..$ age                             : chr "0"
   .. .. ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
   .. .. ..$ content-security-policy         : chr "default-src 'none'"
-  .. .. ..$ etag                            : chr "W/\"2af-kzeGYZ5sbF20j240zNA2Ty8op0c\""
+  .. .. ..$ etag                            : chr "W/\"2af-aJ2B+UTvZEOibSzVowCdOsJz+QQ\""
   .. .. ..$ strict-transport-security       : chr "max-age=31536000;"
   .. .. ..$ strict-transport-security       : chr "max-age=31536000; preload"
   .. .. ..$ vary                            : chr "Accept-Encoding"
   .. .. ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  .. .. ..$ x-api-umbrella-request-id       : chr "cilnmcmpdgdn2o6234d0"
+  .. .. ..$ x-api-umbrella-request-id       : chr "ciop7000t1q26nifnfug"
   .. .. ..$ x-cache                         : chr "MISS"
   .. .. ..$ x-content-type-options          : chr "nosniff"
   .. .. ..$ x-ratelimit-limit               : chr "240"
   .. .. ..$ x-ratelimit-remaining           : chr "239"
-  .. .. ..$ x-vcap-request-id               : chr "df65f4ce-f4ea-48f8-508f-00514612ea65"
+  .. .. ..$ x-vcap-request-id               : chr "0db6cfda-8692-4b13-7ab4-611c91c93851"
   .. .. ..$ x-xss-protection                : chr "1; mode=block"
   .. .. ..$ x-frame-options                 : chr "deny"
   .. .. ..$ content-encoding                : chr "gzip"
@@ -1109,8 +1103,8 @@ Pro-tip
   ..$ name      : logi(0) 
   ..$ value     : logi(0) 
  $ content    : raw [1:687] 7b 0a 20 20 ...
- $ date       : POSIXct[1:1], format: "2024-10-21 07:13:50"
- $ times      : Named num [1:6] 0 0.0742 0.1536 0.2337 0.4189 ...
+ $ date       : POSIXct[1:1], format: "2024-10-26 00:50:53"
+ $ times      : Named num [1:6] 0 0.0391 0.1145 0.2709 0.4375 ...
   ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
  $ request    :List of 7
   ..$ method    : chr "GET"
@@ -1167,10 +1161,10 @@ Note
   ..$ disclaimer  : chr "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data"| __truncated__
   ..$ terms       : chr "https://open.fda.gov/terms/"
   ..$ license     : chr "https://open.fda.gov/license/"
-  ..$ last_updated: chr "2024-10-09"
+  ..$ last_updated: chr "2024-10-16"
  $ results:'data.frame':    4 obs. of  2 variables:
   ..$ term : chr [1:4] "Voluntary: Firm initiated" "FDA Mandated" "N/A" ""
-  ..$ count: int [1:4] 26136 396 6 2</code></pre>
+  ..$ count: int [1:4] 26139 396 6 2</code></pre>
 </div>
 </div>
 </div>
@@ -1182,62 +1176,13 @@ Note
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ts_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       term count
-1 Voluntary: Firm initiated 26136
+1 Voluntary: Firm initiated 26139
 2              FDA Mandated   396
 3                       N/A     6
 4                               2</code></pre>
 </div>
 </div>
 <p>We could wrangle and visualize the data from here.</p>
-</section>
-</section>
-<section id="post-lecture-materials" class="level1">
-<h1>Post-lecture materials</h1>
-<section id="other-good-r-packages-to-know-about" class="level2">
-<h2 class="anchored" data-anchor-id="other-good-r-packages-to-know-about">Other good R packages to know about</h2>
-<ul>
-<li><a href="https://cran.r-project.org/web/packages/googlesheets4/index.html">googlesheets4</a> to interact with Google Sheets in R</li>
-<li><a href="https://googledrive.tidyverse.org/">googledrive</a> to interact with files on your Google Drive</li>
-</ul>
-</section>
-<section id="final-questions" class="level2">
-<h2 class="anchored" data-anchor-id="final-questions">Final Questions</h2>
-<p>Here are some post-lecture questions to help you think about the material discussed.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Questions
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Using the GitHub API, access the repository information and ask how many open github issues you have?</li>
-<li>Pick another API that we have not discussed here and use <code>httr</code> to retreive data from it.</li>
-</ol>
-</div>
-</div>
-</section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><a href="https://jeroen.cran.dev/jsonlite" class="uri">https://jeroen.cran.dev/jsonlite</a></li>
-<li><a href="https://httr.r-lib.org" class="uri">https://httr.r-lib.org</a></li>
-</ul>
-</div>
-</div>
 
 
 </section>
