@@ -2,12 +2,13 @@
 title: "Retrieving data from APIs with `httr`"
 author: 
   - name: Stephanie Hicks
+    url: https://www.stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to JSON files and interacting with APIs with `httr`"
 date: 2024-11-07
-draft: false
 ---
+
 
 Before we begin, let's load a few R packages
 ```{r}
@@ -628,32 +629,3 @@ ts_df
 ```
 
 We could wrangle and visualize the data from here. 
-
-
-# Post-lecture materials
-
-## Other good R packages to know about 
-
-- [googlesheets4](https://cran.r-project.org/web/packages/googlesheets4/index.html) to interact with Google Sheets in R
-- [googledrive](https://googledrive.tidyverse.org/) to interact with files on your Google Drive
-
-## Final Questions
-
-Here are some post-lecture questions to help you think about the material discussed.
-
-::: callout-note
-### Questions
-
-1.  Using the GitHub API, access the repository information and ask how many open github issues you have?
-2. Pick another API that we have not discussed here and use `httr` to retreive data from it. 
-:::
-
-## Additional Resources
-
-::: callout-tip
-- <https://jeroen.cran.dev/jsonlite>
-- <https://httr.r-lib.org>
-:::
-
-
-

@@ -74,6 +74,12 @@ Material for this lecture was borrowed and adopted from
 
 # Post-lecture
 
+## Other good R packages to know about 
+
+- [googlesheets4](https://cran.r-project.org/web/packages/googlesheets4/index.html) to interact with Google Sheets in R
+- [googledrive](https://googledrive.tidyverse.org/) to interact with files on your Google Drive
+
+
 ## Summary 
 
 - 
@@ -85,5 +91,6 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+1. 1.  Using the GitHub API, access the repository information and ask how many open github issues you have?
+2. Pick another API that we have not discussed here and use `httr` to retreive data from it. 
 :::

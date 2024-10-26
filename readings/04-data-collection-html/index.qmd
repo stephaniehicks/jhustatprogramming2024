@@ -2,13 +2,12 @@
 title: "Scraping data from the web with `rvest`"
 author: 
   - name: Stephanie Hicks
-    url: https://stephaniehicks.com
+    url: https://www.stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to scrape (or harvest) data from web pages"
-date: 2023-12-14
-categories: [module 4, week 8, html, rvest]
-draft: true
+date: 2024-11-07
+draft: false
 ---
 
 # Pre-lecture materials
