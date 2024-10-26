@@ -347,7 +347,7 @@
     "href": "lectures.html",
     "title": "Course content",
     "section": "",
-    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/01-command-line/index.html",
@@ -551,6 +551,48 @@
     "title": "Syllabus",
     "section": "Typos and corrections",
     "text": "Typos and corrections\nFeel free to submit typos/errors/etc via the github repository associated with the class: https://github.com/stephaniehicks/jhustatprogramming2023. You will have the thanks of your grateful instructor!"
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html",
+    "href": "lectures/03-functional-programming/index.html",
+    "title": "Functional programming",
+    "section": "",
+    "text": "Important\n\n\n\nIn advance of class, please install\n\npurrr - this provides a consistent functional programming interface to work with functions and vectors\n\nYou can do this by calling\n\ninstall.packages(\"purrr\")\n\nAnd load the package using:\n\nlibrary(purrr)\n\n\n\nIn addition, please read through\n\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html#acknowledgements",
+    "href": "lectures/03-functional-programming/index.html#acknowledgements",
+    "title": "Functional programming",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nhttps://adv-r.hadley.nz/fp.html\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf"
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html#learning-objectives",
+    "href": "lectures/03-functional-programming/index.html#learning-objectives",
+    "title": "Functional programming",
+    "section": "Learning objectives",
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nBe familiar with the concept of functional languages and functional styles of programming\nGet comfortable with the major functions in purrr (e.g. the map family of functions)\nWrite your loops with map functions instead of the for loop"
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html#slides",
+    "href": "lectures/03-functional-programming/index.html#slides",
+    "title": "Functional programming",
+    "section": "Slides",
+    "text": "Slides\n\nTo be added."
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html#summary",
+    "href": "lectures/03-functional-programming/index.html#summary",
+    "title": "Functional programming",
+    "section": "Summary",
+    "text": "Summary\n\nIntroduction to functional programming.\nThe R package purrr provides a nice interface to functional programming and list manipulation.\nThe function map and its aternative map_* provide a neat way to iterate over a list or vector with the output in different data structures.\nThe function map2 and pmap allow having more than one list as input.\nThe function walk and its alternatives walk2, walk_*, which do not provide any output."
+  },
+  {
+    "objectID": "lectures/03-functional-programming/index.html#additional-practice",
+    "href": "lectures/03-functional-programming/index.html#additional-practice",
+    "title": "Functional programming",
+    "section": "Additional practice",
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nUse as_mapper() to explore how purrr generates anonymous functions for the integer, character, and list helpers. What helper allows you to extract attributes? Read the documentation to find out.\nmap(1:3, ~ runif(2)) is a useful pattern for generating random numbers, but map(1:3, runif(2)) is not. Why not? Can you explain why it returns the result that it does?\nCan you write a section of code to demonstrate the central limit theorem primarily using the purrr package and/or using the R base package?\nUse the appropriate map() function to:\n\nCompute the standard deviation of every column in a numeric data frame.\nCompute the standard deviation of every numeric column in a mixed data frame. (Hint: you will need to do it in two steps.)\nCompute the number of levels for every factor in a data frame.\n\nThe following code simulates the performance of a t-test for non-normal data. Extract the p-value from each test, then visualise.\n\ntrials &lt;- map(1:100, ~ t.test(rpois(10, 10), rpois(7, 10)))\n\nUse map() to fit linear models to the mtcars dataset using the formulas stored in this list:\n\ndata(mtcars)\nformulas &lt;- list(\n  mpg ~ disp,\n  mpg ~ I(1 / disp),\n  mpg ~ disp + wt,\n  mpg ~ I(1 / disp) + wt\n)\n\nFit the model mpg ~ disp to each of the bootstrap replicates of mtcars in the list below, then extract the \\(R^2\\) of the model fit (Hint: you can compute the \\(R^2\\) with summary().)\n\nbootstrap &lt;- function(df) {\n  df[sample(nrow(df), replace = TRUE), , drop = FALSE]\n}\n\nbootstraps &lt;- map(1:10, ~ bootstrap(mtcars))"
   },
   {
     "objectID": "projects/01-project/index.html",
