@@ -1,0 +1,15 @@
+{
+  "hash": "dad3e6e2c218131a141d6b04205bf051",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Project 2\"\nauthor: \n  - name: Stephanie Hicks\n    url: https://stephaniehicks.com\n    affiliation: Department of Biostatistics, Johns Hopkins\n    affiliation_url: https://publichealth.jhu.edu\ndescription: \"Building a website and practicing with command-line tools\"\ndate: 2024-11-05\nknitr: true\ndraft: false\n---\n\n\n\n\n# Background\n\n\n**Due date: November 15 at 11:59pm**\n\nThe goal of this assignment is to practice some of the skills we have been learning about in class around functional programming and data collection paradigms. \n\n### To submit your project \n\nPlease use this Quarto file (`.qmd`). Render this file to a **HTML file**. \n\nThe TAs will grade the contents in the GitHub repo by cloning the repo and checking for all the things described below. \n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

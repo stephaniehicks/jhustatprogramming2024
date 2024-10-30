@@ -1,0 +1,26 @@
+---
+title: "Project 2"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Building a website and practicing with command-line tools"
+date: 2024-11-05
+knitr: true
+draft: false
+---
+
+
+# Background
+
+
+**Due date: November 15 at 11:59pm**
+
+The goal of this assignment is to practice some of the skills we have been learning about in class around functional programming and data collection paradigms. 
+
+### To submit your project 
+
+Please use this Quarto file (`.qmd`). Render this file to a **HTML file**. 
+
+The TAs will grade the contents in the GitHub repo by cloning the repo and checking for all the things described below. 
