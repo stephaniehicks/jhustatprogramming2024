@@ -57,7 +57,7 @@ Material for this lecture was borrowed and adopted from
 - Understand how to track changes, explore history, and ignore files in a git 
 - Understand git remotes.
 - Understand how to use GitHub.
-- Understand collaborating and merge conflicts.
+- Understand collaborating. 
 
 :::
 
