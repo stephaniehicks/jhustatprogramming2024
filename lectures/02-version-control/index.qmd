@@ -79,191 +79,138 @@ For the next 30 minutes, we will practice using version control to collaborate w
 -   Describe the basic collaborative workflow.
 :::
 
+For this in-class activity, you need to find a partner. One person will be the "Owner" of a GitHub repository and the other will be the "Collaborator" on the GitHub repository. 
 
-First, find a partner. One person will be the "Owner" and the other will be the "Collaborator". The goal is that the Collaborator add changes into the Owner's repository. We will switch roles at the end, so both people will play Owner and Collaborator.
+The goal of the activity is that the Collaborator and Owner will alternate adding content to a GitHub repository working on collaboratively on a project. We will switch roles at the end, so both people will play Owner and Collaborator.
 
-::: callout-warning
-### Working By Yourself
+## Part 1: Repository Setup
 
-Alternatively, if you are working through this lesson on your own, you can carry on by opening a second terminal window. This window will represent your partner, working on another computer. You won't need to give anyone access on GitHub, because both 'partners' are you.
-:::
-
-The Owner needs to give the Collaborator access. On GitHub, click the "Settings" button on the right, select "Collaborators", click "Add people", and then enter your partner's username.
-
-![](../../images/git/github-add-collaborators.png)
+- **Create a new repository**. One partner (the "Owner" of the GitHub repo) should create a GitHub repository titled `bikelanes` in their own personal GitHub repository.
+- **Invite a collaborator**. The repository owner needs to invite their partner as a collaborator by going to `Settings > Collaborators > Manage Access`. Specifically, on GitHub, click the "Settings" button on the right, select "Collaborators", click "Add people", and then enter your partner's GitHub username.
 
 To accept access to the Owner's repo, the Collaborator needs to go to `https://github.com/notifications` or check for email notification. Once there you can accept access to the Owner's repo.
 
-Next, the Collaborator needs to download a copy of the Owner's repository to their machine. This is called "cloning a repo".
+- **Clone the repository**. Both the Owner and Collaborator should clone the repository locally to their respective computers. 
 
-The Collaborator doesn't want to overwrite their own version of `planets.git`, so needs to clone the Owner's repository to a different location than their own repository with the same name.
+::: {.callout-tip collapse="true"}
+### Solution
 
-To clone the Owner's repo into their Desktop folder, the Collaborator enters:
+If using SSH:
 
-```bash
-git clone git@github.com:vlad/planets.git ~/Desktop/vlad-planets
-```
+`git clone git@github.com:<change-to-owners-github-username>/bikelanes.git`
 
-Replace 'vlad' with the Owner's username.
+If using HTTPS: 
 
-::: {.callout-important}
-
-If you choose to clone without the clone path (`~/Desktop/vlad-planets`) specified at the end, you will clone inside your own `planets` folder! Make sure to navigate to the Desktop folder first. Alternatively, you can create a directory somewhere else, navigate to it, and run `git clone git@github.com:vlad/planets.git` (without the clone path).
+`git clone https://github.com/<change-to-owners-github-username>/bikelanes.git`
 
 :::
 
-![](../../images/git/github-collaboration.svg)
+## Part 2: Adding content to the repository 
 
+- **Add a CSV file to the local repository**. Consider the dataset called `bike_lanes_data.csv` with the following contents: 
 
-The Collaborator can now make a change in their clone of the Owner's repository, exactly the same way as we've been doing before.
-
-Create a new file called `pluto.txt` in the clone of the Owner's repository, and add the following line to it in TextEdit or Notepad.
-
-```default
-It is so a planet!
+```
+Lane_ID,Street_Name,Length_km,Type,Year_Installed,City
+1,Main St,1.2,Protected,2018,Springfield
+2,Elm St,0.8,Shared,2016,Springfield
+3,Maple Ave,2.3,Buffered,2020,Springfield
+4,Oak St,1.5,Protected,2019,Springfield
+5,Pine St,0.5,Shared,2015,Springfield
+6,River Rd,3.1,Buffered,2021,Springfield
 ```
 
-Check from the command line.
+The Owner should create a new CSV locally titled `bike_lanes_data.csv` and paste the data into the new CSV file. Save the file and commit the file to the local repository using `git` commands. 
 
-```bash
-cd ~/Desktop/vlad-planets
-cat pluto.txt
+::: {.callout-tip collapse="true"}
+### Solution
+
 ```
-
-```default
-It is so a planet!
-```
-
-Add and commit the changes.
-
-```bash
-git add pluto.txt
-git commit -m "Add notes about Pluto"
-```
-
-```default
- 1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
-```
-
-Then push the change to the _Owner's repository_ on GitHub:
-
-```bash
+cd bikelanes
+touch bike_lanes_data.csv # (and paste in the content above)
+git status
+git add bike_lanes_data.csv
+git commit -m "adding bike lanes data"
 git push origin main
 ```
-
-```default
-Enumerating objects: 4, done.
-Counting objects: 4, done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 306 bytes, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/vlad/planets.git
-   9272da5..29aba7c  main -> main
-```
-
-Note that we **did not have to create a remote called `origin`**: Git uses this name by default when we clone a repository. (This is why `origin` was a sensible choice earlier when we were setting up remotes by hand.)
-
-Take a look at the Owner's repository on GitHub again, and you should be able to see the new commit made by the Collaborator. You may need to refresh your browser to see the new commit.
-
-
-::: {.callout-note collapse="true"}
-## Some more about remotes
-
-Thus far, our local repository has had a single "remote", called `origin`.
-
-A remote is a copy of the repository that is hosted somewhere else, that we can push to and pull from, and there's no reason that you have to work with only one.
-
-For example, on some large projects you might have your own copy in your own GitHub account (you'd probably call this `origin`) and also the main "upstream" project repository (let's call this `upstream` for the sake of examples). You would pull from `upstream` from time to time to get the latest updates that other people have committed.
-
-Remember that the name you give to a remote only exists locally. It's an alias that you choose - whether `origin`, or `upstream`, or `fred` - and not something intrinsic to the remote repository.
-
-The `git remote` family of commands is used to set up and alter the remotes associated with a repository. Here are some of the most useful ones:
-
--   `git remote -v` lists all the remotes that are configured (we already used this in the last episode)
--   `git remote add [name] [url]` is used to add a new remote
--   `git remote remove [name]` removes a remote. Note that it doesn't affect the remote repository at all - it just removes the link to it from the local repo.
--   `git remote set-url [name] [newurl]` changes the URL that is associated with the remote. This is useful if it has moved, e.g. to a different GitHub account, or from GitHub to a different hosting service. Or, if we made a typo when adding it!
--   `git remote rename [oldname] [newname]` changes the local alias by which a remote is known - its name. For example, one could use this to change `upstream` to `fred`.
 :::
 
+- **Collaborator needs to pull the new changes locally to their computer**. Next, the collaborator should pull the changes from the remote `bikelanes` GitHub repository to their local computer. This should make the new `bike_lanes_data.csv` appear locally on their computer. 
 
-To download the Collaborator's changes from GitHub, the Owner now enters:
+::: {.callout-tip collapse="true"}
+### Solution
 
-```bash
+```
+cd bikelanes
 git pull origin main
 ```
 
-```default
-remote: Enumerating objects: 4, done.
-remote: Counting objects: 100% (4/4), done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
- * branch            main     -> FETCH_HEAD
-   9272da5..29aba7c  main     -> origin/main
-Updating 9272da5..29aba7c
-Fast-forward
- pluto.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
+:::
+
+- **Add a `README.md` file**. The collaborator should create a new file called `README.md` in the `bikelanes` repository. Please add the following information to it:
+
+1. The names of the owner and collaborator of the project
+2. The emails of the owner and collaborator of the project
+3. Answers to the following questions: 
+    - Do you enjoy biking? 
+    - What type of biking (e.g. road biking, mountain biking, no biking, etc ) do you enjoy? 
+    - If not biking, what hobbies do you enjoy doing? 
+
+After the `README.md` file is complete, add and commit the file to the local repository using `git` commands. Push the changes to the remote `bikelanes` repository on GitHub. 
+
+::: {.callout-tip collapse="true"}
+
+### Solution
+
+```
+touch README.md # (add the content)
+git status
+git add README.md
+git commit -m "adding readme file"
+git push
 ```
 
-Now the three repositories (Owner's local, Collaborator's local, and Owner's on GitHub) are back in sync.
-
-
-::: callout-note
-## A Basic Collaborative Workflow
-
-In practice, it is good to be sure that you have an updated version of the repository you are collaborating on, so you should `git pull` before making our changes. The basic collaborative workflow would be:
-
--   update your local repo with `git pull origin main`,
--   make your changes and stage them with `git add`,
--   commit your changes with `git commit -m`, and
--   upload the changes to GitHub with `git push origin main`
-
-It is better to make many commits with smaller changes rather than one commit with massive changes: small commits are easier to read and review.
 :::
 
 
-::: callout-important
-### Key Points
-
--   `git clone` copies a remote repository to create a local repository with a remote called `origin` automatically set up.
-:::
-
-
-## Additional exercises
+- **Owner needs to pull the new changes locally to their computer**. Next, the owner of the repository should pull the changes from the remote `bikelanes` GitHub repository to their local computer. This should make the new `REAMDE.md` appear locally on their computer. 
 
 ::: {.callout-tip collapse="true"}
-### Switch Roles and Repeat
+### Solution
 
-Switch roles and repeat the whole process.
+```
+cd bikelanes
+git pull
+```
+
 :::
 
+## Part 3: Create GitHub issues to assign tasks
+
+The partners should create at least one Github Issue for a set of future tasks for the project (e.g., "Add bike lane data from our local area" or "Write code to analyze bike lane usage trends").
+
+Assign these issues to each other and set a due date if desired.
+
+## Part 4: Review the git history 
+
+Both partners should review the commit history using `git` commands
 
 ::: {.callout-tip collapse="true"}
-### Review Changes
+### Solution
 
-The Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?
+Expected commands: `git log`
 
--   On the command line, the Collaborator can use `git fetch origin main` to get the remote changes into the local repository, but without merging them. Then by running `git diff main origin/main` the Collaborator will see the changes output in the terminal.
-
--   On GitHub, the Collaborator can go to the repository and click on "commits" to view the most recent commits pushed to the repository.
 :::
 
-::: {.callout-tip collapse="true"}
-### Comment Changes in GitHub
+## Part 5: Switch roles and repeat process 
 
-The Collaborator has some questions about one line change made by the Owner and has some suggestions to propose.
+Switch roles and repeat the whole process. 
 
-With GitHub, it is possible to comment on the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window.
 
-The Collaborator posts their comments and suggestions using the GitHub interface.
-:::
+##  Reflection Questions
 
+- What challenges did you encounter when collaborating on GitHub?
+- How did using Issues help you coordinate work?
+- In what ways could GitHub features be useful for larger projects, such as full bike lane data studies?
 
 
 # Post-lecture

@@ -1,0 +1,7 @@
+Lane_ID,Street_Name,Length_km,Type,Year_Installed,City
+1,Main St,1.2,Protected,2018,Springfield
+2,Elm St,0.8,Shared,2016,Springfield
+3,Maple Ave,2.3,Buffered,2020,Springfield
+4,Oak St,1.5,Protected,2019,Springfield
+5,Pine St,0.5,Shared,2015,Springfield
+6,River Rd,3.1,Buffered,2021,Springfield
