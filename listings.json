@@ -20,6 +20,8 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/02-project/index.html",
+      "/projects/04-project/index.html",
       "/projects/01-project/index.html"
     ]
   }
