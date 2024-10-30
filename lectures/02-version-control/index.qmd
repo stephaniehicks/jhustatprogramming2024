@@ -65,7 +65,8 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- Will be posted here. <add here>
+- [Lecture 02: Introduction to version control](https://docs.google.com/presentation/d/1MyhQ9JMXwpkv6xyOLs-FTE5ZPzweikj-NAaHIZpbZBQ/edit?usp=sharing)
+
 
 # Class activity 
 
@@ -188,7 +189,7 @@ git pull
 
 The partners should create at least one Github Issue for a set of future tasks for the project (e.g., "Add bike lane data from our local area" or "Write code to analyze bike lane usage trends").
 
-Assign these issues to each other and set a due date if desired.
+Assign these issues to each other and set a due date, if desired.
 
 ## Part 4: Review the git history 
 
