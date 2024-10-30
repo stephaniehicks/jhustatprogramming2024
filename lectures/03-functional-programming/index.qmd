@@ -5,7 +5,7 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Using the `purrr` package to work with functions and vectors"
 date: 2024-11-05
 ---
 
