@@ -109,10 +109,10 @@ Give a presentation explaining the importance of the project, an overview of the
 technical challenges, and what you learned. Plan for a few minutes of questions at the end. Also consider the following: 
 
 - Presentation quality: Is the presentation clear on what was the question being investigated? What were the orginal goals and what was accomplished along the way? Was there previous work in this area? Are the slides readable? Do the figures have large enough legends and figure titles? Did you describe the data? 
-- Paradigm Integration: How effectively does your project demonstrate multiple paradigms? 
+- Paradigm integration: How effectively does your project demonstrate multiple paradigms? 
 - Functionality: Does the data analytic product work as intended? Are the components well-integrated?
-- Usability and Documentation: Is the data analytic product easy to use/read and well-documented?
-- Originality and Complexity: Does the project address a non-trivial statistical or programming problem with creativity?
+- Usability and documentation: Is the data analytic product easy to use/read and well-documented?
+- Originality and complexity: Does the project address a non-trivial statistical or programming problem with creativity?
 
 
 ## Final project write up
@@ -124,8 +124,8 @@ Please explain the importance of the project, give an overview of the technical 
 - Write up quality: Is the write up clear on what was the question being investigated? What were the orginal goals and what was accomplished along the way? Was there previous work in this area? Do the figures have large enough legends and figure titles? Did you describe the data? 
 - Is there a README.md in the repo you push to GitHub classroom summarizing key details about the project, including team members and an overview of the final project? 
 - Have you linked to all code and data needed to reproduce your work? 
-- Paradigm Integration: How effectively does your project demonstrate multiple paradigms? 
+- Paradigm integration: How effectively does your project demonstrate multiple paradigms? 
 - Functionality: Does the data analytic product work as intended? Are the components well-integrated?
-- Usability and Documentation: Is the data analytic product easy to use/read and well-documented?
-- Originality and Complexity: Does the project address a non-trivial statistical or programming problem with creativity?
+- Usability and documentation: Is the data analytic product easy to use/read and well-documented?
+- Originality and complexity: Does the project address a non-trivial statistical or programming problem with creativity?
 
