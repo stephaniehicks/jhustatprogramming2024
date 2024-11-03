@@ -1,8 +1,8 @@
 {
-  "hash": "9e768940b9fc6106447c7caa692fd076",
+  "hash": "b9d2cebfe60c7c1ef97fcae7435df2a7",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"Project 3\"\nauthor: \n  - name: Stephanie Hicks\n    url: https://stephaniehicks.com\n    affiliation: Department of Biostatistics, Johns Hopkins\n    affiliation_url: https://publichealth.jhu.edu\ndescription: \"Practicing machine learning paradigms and using SQL databases\"\ndate: 2024-11-12\nknitr: true\ndraft: true\n---\n\n\n\n\n# Background\n\n\n**Due date: November 22 at 11:59pm**\n\nTBA\n",
+    "markdown": "---\ntitle: \"Project 3\"\nauthor: \n  - name: Stephanie Hicks\n    url: https://stephaniehicks.com\n    affiliation: Department of Biostatistics, Johns Hopkins\n    affiliation_url: https://publichealth.jhu.edu\ndescription: \"Practicing machine learning paradigms and using SQL databases\"\ndate: 2024-11-12\nknitr: true\ndraft: true\n---\n\n\n\n\n# Background\n\n\n**Due date: November 22 at 11:59pm**\n\nThe goal of this assignment is to practice some of the skills we have been learning about in class around working with relational databases and machine learning paradigms. \n\n### To submit your project \n\nYou need to create a private GitHub Classroom repository  (only one per group) for you and your partner, which will be posted in CoursePlus. This creates an empty GitHub repository. You need to show all your code and submit both the `.qmd` file and the rendered HTML file. Please include section headers for each of the components below. All plots should have titles, subtitles, captions, and human-understandable axis labels. The TAs will grade the contents in the GitHub Classroom repo by cloning the repo and checking for all the things described below. \n\nBecause you will work with a partner, **please be sure to include the names, emails, and JHED IDs for both individuals in your submitted work**. \n\n# Part 1 \n\nTBA \n\n# Part 2\n\nTBA ",
     "supporting": [
       "index_files"
     ],

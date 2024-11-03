@@ -76,6 +76,233 @@ Material for this lecture was borrowed and adopted from
 
 - To be added. 
 
+# Class activity 
+
+For the rest of the time in class, we will use the `mtcars` dataset to practice using functions from the `purrr` package. The purpose is to demonstrates how functional programming can simplify repeated operations on datasets. This dataset contains various measurements for different car models. Find a partner and complete the activities below together. After running each step, I encourage you to look at the outputs and transformations to understand how `purrr` is working with each column in the dataset.
+
+
+::: callout-note
+### Objectives of the activity
+
+- Use `purrr::map_*` functions to calculate summary statistics for each column.
+- Transform specific columns using functions from `purrr`.
+- Apply a conditional transformation across the dataset.
+
+:::
+
+First, we will load two packages and create a copy of the `mtcars` dataset
+
+```{r}
+#| warning: false
+#| messages: false
+library(purrr)
+library(dplyr)
+
+data <- mtcars
+```
+
+#### Part 1: Basic column summaries
+
+- Use `map_dbl()` to calculate the mean of each column in the mtcars dataset.
+
+Hint: `map_dbl(data, mean)` will apply the mean function to each column and return a vector of means.
+
+- Use `map_dbl()` to calculate the standard deviation of each column.
+
+- Use `map()` to create a named list where each element is the range of values in a column.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# Calculate the mean of each column
+column_means <- map_dbl(data, mean)
+column_means
+
+# Calculate the standard deviation of each column
+column_sds <- map_dbl(data, sd)
+column_sds
+
+# Calculate the range of each column
+column_ranges <- map(data, range)
+column_ranges
+
+```
+
+The first one will return a named vector of mean values for each column. The last one returns a named list where each element is a vector of the minimum and maximum values for each column. 
+
+:::
+
+#### Part 2: Conditional transformation with `map_if()`
+
+- Use `map_if()` to multiply by 100 all columns where the mean is less than 20. For example, if the column represents miles per gallon, multiply each value by 100. 
+- Check the resulting data frame. 
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+transformed_data <- map_if(data, ~ mean(.x) < 20, ~ .x * 100)
+transformed_data <- as.data.frame(transformed_data)  # Convert back to data frame if desired
+transformed_data
+```
+
+This will multiply each element in columns where the mean is less than 20 by 100. Note that the output is a list; converting it back to a data frame makes it easier to view the result.
+
+:::
+
+#### Part 3: Apply a custom function with `map()`
+
+- Write a custom function that takes a column and returns the log-transformed values if the mean of the column is greater than 20, otherwise returns the square root of the values. 
+
+- Use `map()` to apply this custom function to each column.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+transform_column <- function(column) {
+  if (mean(column) > 20) {
+    log(column)
+  } else {
+    sqrt(column)
+  }
+}
+```
+
+```{r}
+transformed_data_custom <- map(data, transform_column)
+transformed_data_custom <- as.data.frame(transformed_data_custom)
+transformed_data_custom
+```
+
+:::
+
+#### Part 4: Create nested lists and summaries
+
+- First, use `split()` to divide mtcars into subsets based on the `cyl` column.
+
+- Use `map()` to apply a summary function (e.g., mean, median) to each subset for columns like `mpg`, `hp`, and `wt` (weight).
+
+- Then, take each subset from above, and for each one, use `map()` to calculate the mean and standard deviation of each column. **Organize the output into a nested list**, where each main element corresponds to a cylinder group, and each group contains the summary statistics for each column.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+
+```{r}
+# Split data by the number of cylinders
+cyl_groups <- split(mtcars, mtcars$cyl)
+
+# Calculate the mean for mpg, hp, and wt in each group
+group_means <- map(cyl_groups, ~ map_dbl(.x[, c("mpg", "hp", "wt")], mean))
+group_means
+```
+
+```{r}
+# Calculate mean and standard deviation for each column in each group
+group_summary <- map(cyl_groups, ~ map(.x, function(col) {
+  list(mean = mean(col), sd = sd(col))
+}))
+
+group_summary
+```
+:::
+
+
+#### Part 5: Row-wise transformation and aggregation
+
+- First, define a function that assigns each row a fuel efficiency category based on `mpg`:
+
+  - "High" if `mpg` > 25
+  - "Medium" if `mpg` is between 20 and 25
+  - "Low" if `mpg` < 20
+
+- Use `map()` to apply this function row-wise and add the results as a new column in `mtcars`.
+
+- Then, split the dataset by fuel efficiency category from the previous step. For each category, calculate the mean values of `hp`, `wt`, and `qsec` (1/4 mile time).
+
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# Function to assign fuel efficiency category based on mpg
+fuel_efficiency <- function(row) {
+  mpg <- row["mpg"]
+  if (mpg > 25) {
+    "High"
+  } else if (mpg >= 20) {
+    "Medium"
+  } else {
+    "Low"
+  }
+}
+
+# Add fuel efficiency as a new column
+mtcars$fuel_efficiency <- map_chr(asplit(mtcars, 1), fuel_efficiency)
+mtcars
+```
+
+```{r}
+# Split by fuel efficiency
+efficiency_groups <- split(mtcars, mtcars$fuel_efficiency)
+
+# Calculate mean hp, wt, and qsec for each group
+efficiency_summary <- map(efficiency_groups, ~ map_dbl(.x[, c("hp", "wt", "qsec")], mean))
+efficiency_summary
+```
+
+:::
+
+#### Part 6: Visualizations and transformations
+
+- Write a function that, for each row, converts `mpg` to a "fuel cost" using a hypothetical rate of $3 per gallon for a 100-mile journey where "fuel cost" = (100 mile journey / `mpg`) * $3 per gallon
+
+- Use `map_dbl()` to apply this transformation to the `mpg` column and add it as a new column called `fuel_cost`.
+
+- Using `map()` with `ggplot2`, create a bar plot of the average `fuel_cost` for each `cyl`. For each cylinder group, plot the average values of `mpg`, `hp`, and `wt`.
+
+
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# Calculate fuel cost based on mpg
+calculate_fuel_cost <- function(mpg) {
+  (100 / mpg) * 3
+}
+
+# Apply transformation to mpg column
+mtcars$fuel_cost <- map_dbl(mtcars$mpg, calculate_fuel_cost)
+mtcars
+```
+
+```{r}
+library(ggplot2)
+
+# Calculate average fuel cost for each cylinder group
+avg_fuel_cost <- mtcars %>%
+  group_by(cyl) %>%
+  summarize(avg_fuel_cost = mean(fuel_cost))
+
+# Plot average fuel cost by cylinder count
+ggplot(avg_fuel_cost, aes(x = factor(cyl), y = avg_fuel_cost)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Cylinders", 
+       y = "Average Fuel Cost ($)", 
+       title = "Fuel Cost by Cylinder Group") +
+  theme_minimal()
+```
+:::
+
+
+#### Part 7: Discuss with your partner 
+
+- How does `purrr` make it easier to perform repeated transformations compared to base R?
+- What are some use cases where conditional transformations like `map_if()` could be helpful in real-world data?
+
 
 # Post-lecture
 
