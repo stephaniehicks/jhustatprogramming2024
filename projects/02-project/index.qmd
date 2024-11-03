@@ -5,7 +5,7 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Practicing functional programming and using APIs"
+description: "Practicing functional programming and data collection paradigms"
 date: 2024-11-05
 knitr: true
 ---

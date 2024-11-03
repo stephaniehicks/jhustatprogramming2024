@@ -360,48 +360,6 @@ We now get all the public repositories! yay!
 :::
 
 
-## Using API keys
-
-Authenticating with the GitHub API via an API key allows you to send much more requests to the API. 
-
-API access keys for the GitHub API are called **personal access tokens** (PAT) and the [documentation explains how to generate a PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) once you have logged into your GitHub account. 
-
-:::{.callout-tip}
-
-### Where to store API keys
-
-First, **please be careful with your PATs and never publish them.**
-
-If you want guidance on where you should store them, I like this post: 
-
-- <https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/> 
-
-Personally, I keep mine in my `.Renviron` file which looks something like this on the inside: 
-
-```
-GITHUB_API_KEY = <add my GitHub API key here> 
-CENSUS_API_KEY = <add my tidycensus API key here> 
-OPENFDA_API_KEY = <add my openFDA API key here> 
-```
-
-If you do not have an `.Renviron` file in your home directory, you can make one: 
-
-``` bash
-cd ~
-touch .Renviron
-```
-
-:::
-
-
-Assuming you have created and stored an API key in the `.Renviron` file in your home directory, you can fetch it with the `Sys.getenv()` function. 
-
-```{r}
-github_key <- Sys.getenv("GITHUB_API_KEY")
-```
-
-We will use this in a little bit. 
-
 ## Access APIs with `httr2`
 
 There are a set of [basic HTTP verbs](https://docs.oracle.com/en/cloud/saas/marketing/eloqua-develop/Developers/GettingStarted/APIRequests/HTTP-verbs.htm) that allow you access a set of **endpoints**. 
@@ -469,22 +427,39 @@ commits_df
 ```
 
 
-Because GitHub's API allows only a limited number of unauthenticated requests per hour, it’s useful to add a Personal Access Token (PAT) to increase rate limits.
+### Authentication
 
-:::::: {.callout-note}
+Authenticating with the GitHub API via an API key allows you to send much more requests to the API. 
 
-Create a PAT: Students can create a PAT from their GitHub account (Settings > Developer settings > Personal access tokens). It’s a good idea to only grant “read” permissions.
+API access keys for the GitHub API are called **personal access tokens** (PAT) and the [documentation explains how to generate a PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) once you have logged into your GitHub account. 
 
-Store the PAT securely: The PAT can be stored in a `.Renviron` file for secure use. Add the following to `.Renviron`:
+**To create a PAT**: You can create a PAT from your GitHub account (Settings > Developer settings > Personal access tokens). It’s a good idea to only grant “read” permissions.
 
+:::{.callout-tip}
+
+### Where to store API keys
+
+First, **please be careful with your PATs and never publish them.**
+
+If you want guidance on where you should store them, I like this post: 
+
+- <https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/> 
+
+It is suggested you keep them in you `.Renviron` file which looks something like this on the inside: 
 
 ```
-GITHUB_PAT=your_personal_access_token_here
+GITHUB_PAT = <add my GitHub PAT here> 
 ```
 
+If you do not have an `.Renviron` file in your home directory, you can make one: 
+
+``` bash
+cd ~
+touch .Renviron
+```
 :::
 
-Now, we can use the PAT in our `httr2` request. 
+Assuming you have created and stored an API key in the `.Renviron` file in your home directory, you can fetch it with the `Sys.getenv()` function and use the PAT in our `httr2` request. 
 
 ```{r}
 # Read the PAT from environment variables
