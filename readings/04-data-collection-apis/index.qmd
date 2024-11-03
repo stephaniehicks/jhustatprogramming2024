@@ -1,14 +1,13 @@
 ---
-title: "Retrieving data from APIs with `httr`"
+title: "Retrieving data from APIs with `httr2`"
 author: 
   - name: Stephanie Hicks
     url: https://www.stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Introduction to JSON files and interacting with APIs with `httr`"
+description: "Introduction to JSON files and interacting with APIs with `httr2`"
 date: 2024-11-07
 ---
-
 
 Before we begin, let's load a few R packages
 ```{r}
@@ -16,7 +15,7 @@ Before we begin, let's load a few R packages
 #| message: false
 library(tidyverse)
 library(jsonlite)
-library(httr)
+library(httr2)
 ```
 
 
@@ -251,7 +250,7 @@ The main feature of REST API is **statelessness** (i.e. servers do not save clie
 The basic steps to using an API are:
 
 1. **Obtaining an API key**. This is done by creating a verified account with the API provider.
-2. **Set up an HTTP API client**. This tool allows you to structure API requests easily using the API keys received. Here, we will use the `GET()` function from the `httr` package. 
+2. **Set up an HTTP API client**. This tool allows you to structure API requests easily using the API keys received. Here, we will use functions from the `httr2` package (which is the next generation of the `httr` package). 
 3. If you don’t have an API client, you can try to structure the request yourself in your browser by referring to the API documentation.
 4. Once you are comfortable with the new API syntax, you can start using it in your code.
 
@@ -271,10 +270,7 @@ The [GitHub REST API](https://docs.github.com/en/rest) may be of interest when s
 
 Many projects that are hosted on GitHub are open-source projects with a transparent development process and communications. For private projects, which can also be hosted on GitHub, there’s understandably only a few aggregate data available.
 
-Let's say we want to use the 
-[GitHub REST API](https://docs.github.com/en/rest)
-to find out how many of my GitHub repositories
-have open issues? 
+Let's say we want to use the [GitHub REST API](https://docs.github.com/en/rest) to find out how many of my GitHub repositories have open issues? 
 
 :::{.callout-tip}
 
@@ -294,22 +290,21 @@ There are packages for many programming languages that provide convenient access
 
 This means we can only access the API directly, e.g. by using the [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/index.html) package to fetch the data and convert it to an R `list` or `data.frame`.
 
-Specifically, we will use the `jsonlite::fromJSON()` function
-to convert from a JSON object to a data frame. 
+Specifically, we will use the `jsonlite::read_json()` function
+to read a JSON file into a data frame. 
 
-The JSON file is located at 
-[https://api.github.com/users/stephaniehicks/repos](https://api.github.com/users/stephaniehicks/repos)
+The JSON file is located at <https://api.github.com/users/stephaniehicks/repos>. 
 
 ```{r}
-github_url = "https://api.github.com/users/stephaniehicks/repos"
+github_url <- "https://api.github.com/users/stephaniehicks/repos"
 
 library(jsonlite)
 library(tidyverse)
-jsonData <- as_tibble(fromJSON(github_url))
+jsonData <- read_json(github_url, simplifyVector = TRUE)
 glimpse(jsonData)
 ```
 
-The function `fromJSON()` has now converted the JSON file into a data frame. 
+We see this has returned a data frame with the argument `simplifyVector` which converts the output from a list to a dataframe. 
 
 However, from here, we see that there are only 30 rows (or 30 repositories). 
 If you look on my github page, you can see there are more than 30 repositories. 
@@ -356,7 +351,7 @@ And see there are more than 30 repos. Let's read it into R.
 ```{r}
 github_url = "https://api.github.com/users/stephaniehicks/repos?page=1&per_page=1000"
 
-jsonDataAll <- as_tibble(fromJSON(github_url))
+jsonDataAll <- read_json(github_url, simplifyVector = TRUE)
 dim(jsonDataAll)
 ```
 
@@ -407,9 +402,7 @@ github_key <- Sys.getenv("GITHUB_API_KEY")
 
 We will use this in a little bit. 
 
-
-
-## Access API with `httr` and `GET`
+## Access APIs with `httr2`
 
 There are a set of [basic HTTP verbs](https://docs.oracle.com/en/cloud/saas/marketing/eloqua-develop/Developers/GettingStarted/APIRequests/HTTP-verbs.htm) that allow you access a set of **endpoints**. 
 
@@ -421,59 +414,143 @@ The basic request patterns are:
 - Update an item (PUT)
 - Delete an item (DELETE)
 
-Here, we will use the `GET()` function from [`httr`](https://cran.r-project.org/web/packages/httr/index.html) package (i.e. tools to work with URLs and HTTP) to retrieve a single JSON file. 
+### Example: GitHub commits
 
-We will also make this an **authenticated HTTP response** to the GitHub API using `authenticate()` from the `httr` package. 
+Let’s say you want to retrieve information about the latest commits from a GitHub repository. We will use `httr2` to make a request to the GitHub API for a repository of your choice. Later on we will make this an **authenticated HTTP response** to the GitHub API. 
 
-
-:::{.callout-tip}
-
-### Example 
-
-Let's start by using the GitHub API to learn information about myself (Stephanie Hicks)
+First, we make sure we have the `httr2` package installed and loaded. We'll also need `jsonlite` package for handling JSON files and `dplyr` for data wrangling. 
 
 ```{r}
-github_key <- Sys.getenv("GITHUB_API_KEY")
-response <- GET('https://api.github.com/user', 
-                authenticate(user = 'stephaniehicks', 
-                             password = github_key))
+library(httr2)
+library(jsonlite)
+library(dplyr)
+```
+
+Now we will set up our **request** to the GitHub API. The GitHub API endpoint for getting the latest commits in a repository is at `https://api.github.com/repos/{owner}/{repo}/commits`. 
+
+For this example, we’ll look at the latest commits for the tidyverse/dplyr repository. We will use `httr2::request()` function to set up the request, (and later on we will add authentication -- optional, but recommended for higher rate limits), and parse the response.
+
+
+```{r}
+owner <- "tidyverse"
+repo <- "dplyr"
+url <- paste0("https://api.github.com/repos/", owner, "/", repo, "/commits")
+
+
+response <- request(url) %>%
+  req_perform()
 response
 ```
 
-We see the response we got is a JSON file. 
+Next, we can see if the response was successful. 
+```{r}
+# Check if the response was successful
+if (resp_status(response) == 200) {
+  # Parse JSON response into an R list
+  commits <- resp_body_json(response, simplifyVector = TRUE)
+  
+  # View the first few rows of the commits data
+  head(commits)
+} else {
+  message("Failed to retrieve data. Status code: ", resp_status(response))
+}
+
+```
+
+Then, we can extract specific data from the commits including details like the commit message, author, and date. We will create a simplified data frame with just these columns.
+
+```{r}
+commits_df <- tibble(
+    sha = commits$sha,
+    author = commits$commit$author$name,
+    date = commits$commit$author$date,
+    message = commits$commit$message)
+commits_df
+```
+
+
+Because GitHub's API allows only a limited number of unauthenticated requests per hour, it’s useful to add a Personal Access Token (PAT) to increase rate limits.
+
+:::::: {.callout-note}
+
+Create a PAT: Students can create a PAT from their GitHub account (Settings > Developer settings > Personal access tokens). It’s a good idea to only grant “read” permissions.
+
+Store the PAT securely: The PAT can be stored in a `.Renviron` file for secure use. Add the following to `.Renviron`:
+
+
+```
+GITHUB_PAT=your_personal_access_token_here
+```
 
 :::
 
-Next we extract / retrieve the contents from the raw JSON output using the `content()` function from the `httr` package. If you use the argument `as = 'text'`, it extracts the contents as a character vector. 
+Now, we can use the PAT in our `httr2` request. 
 
 ```{r}
-account_details <- fromJSON(httr::content(response, as = 'text'))
-account_details[1:30]
+# Read the PAT from environment variables
+github_pat <- Sys.getenv("GITHUB_PAT")
+
+# Make the GET request with PAT for authentication
+response <- request(url) %>%
+  req_auth_bearer_token(github_pat) %>%
+  req_perform()
 ```
 
-Next, let's perform the same request we did above about my 85 repositories, but instead of reading in the JSON file from the web, we use an authenticated `GET()` response: 
+Now, we check the response as before
+```{r}
+if (resp_status(response) == 200) {
+  commits <- resp_body_json(response, simplifyVector = TRUE)
+  commits_df <- tibble(
+    sha = commits$sha,
+    author = commits$commit$author$name,
+    date = commits$commit$author$date,
+    message = commits$commit$message)
+  commits_df
+} else {
+  message("Failed to retrieve data. Status code: ", resp_status(response))
+}
+```
+
+
+
+### Example: Learn about Stephanie
+
+
+Let's start by using the GitHub API to learn information about myself (Stephanie Hicks). 
+First, let's check out <https://api.github.com/users/stephaniehicks>. 
+
+Now, we have decided to explore <https://api.github.com/users/stephaniehicks/repos>. 
+
+To use `httr2`, start by creating a request:
 
 ```{r}
-response <- GET('https://api.github.com/users/stephaniehicks/repos?page=1&per_page=1000',
-                authenticate('stephaniehicks', github_key))
-repo_details <- as_tibble(fromJSON(httr::content(response, as = 'text')))
-repo_details
+owner <- "stephaniehicks"
+url <- paste0("https://api.github.com/users/", owner,"/repos")
+
+# Make the GET request with PAT for authentication
+response <- request(url) %>%
+  req_auth_bearer_token(github_pat) %>%
+  req_perform()
+
+stephanie <- resp_body_json(response, simplifyVector = TRUE)
 ```
+
+We convert the response to a parsed JSON file (or a list). 
 
 ## A bit of EDA fun
 
 Let's have a bit of fun and explore some questions:  
 
-- How many have forks? How many forks? 
+- How many public repositories do I have? 
 
 ```{r}
-table(repo_details$forks)
+stephanie$forks
 ```
 
 What's the most popular language? 
 
 ```{r}
-table(repo_details$language)
+table(stephanie$language)
 ```
 
 To find out how many repos that I have
@@ -482,27 +559,14 @@ a table:
 
 ```{r}
 # how many repos have open issues? 
-table(repo_details$open_issues_count)
+table(stephanie$open_issues)
 ```
 
 Whew! Not as many as I thought.
 
 :::{.callout-tip}
 
-### More about `GET`
 
-You can use the `query` argument to specify details about the response. 
-
-Let's look how many open issues there are in the `dplyr` package in the `tidyverse`
-
-```{r}
-req <- GET("https://api.github.com/repos/tidyverse/dplyr/issues", 
-           query = list(state = "open", per_page = 100, page = 1))
-dplyr_details <- as_tibble(fromJSON(httr::content(req, as = 'text')))
-dplyr_details
-```
-
-:::
 
 ## Other examples with GitHub API
 
@@ -511,121 +575,3 @@ Finally, I will leave you with a few other examples of using GitHub API:
 * [How long does it take to close a GitHub Issue in the `dplyr` package?](https://blog.exploratory.io/analyzing-issue-data-with-github-rest-api-63945017dedc)
 * [How to retrieve all commits for a branch](https://stackoverflow.com/questions/9179828/github-api-retrieve-all-commits-for-all-branches-for-a-repo)
 * [Getting my GitHub Activity](https://masalmon.eu/2017/12/21/wherehaveyoubeen/)
-
-
-# openFDA API
-
-Next, we will demonstrate how to request data from the API at [openFDA API](https://open.fda.gov), which returns JSON files.  
-
-This API provides create easy access to public data, to create a new level of openness and accountability, to ensure the privacy and security of public FDA data, and ultimately to educate the public and save lives. See [data definitions](https://open.fda.gov/data/datadictionary) for all included data.
-
-## Register for an API Key
-
-First, you need to register for an API key here
-
-- <https://open.fda.gov/apis/authentication/>
-
-You should also store the API key in your `.Renviron` like above for the GitHub API key. 
-
-## Building the URL for `GET`
-
-First, we will request a summarized set of counts around food recalls either voluntary by a firm or mandated by the FDA. 
-
-The URL we want is the following
-
-```
-https://api.fda.gov/food/enforcement.json?api_key=<your_API_key_here>&count=voluntary_mandated.exact
-```
-
-Let's build up the URL. 
-
-- The first is the base URL: `https://api.fda.gov/food/enforcement.json`. This part of the URL **will be the same for all our calls** to the food enforcement API (but is different if you want to investigate e.g. patient responses from drugs).
-- Next, `?apiKey=<your_API_key_here>` is how I use my authorization token, which tells the openFDA servers that I am allowed to ask for this data.
-- Finally, we want to return a set of summarized counts for a specific field (`&count=voluntary_mandated.exact`)
-
-Now that we have dissected the anatomy of an API, you can see how easy it is to build them!
-
-Basically anybody with an internet connection, an authorization token, and who knows the grammar of the API can access it. Most APIs are published with extensive documentation to help you understand the available options and parameters.
-
-
-## Calling an API with `GET`
-
-Let's join the URL together: 
-
-```{r}
-## extract my API from `.Renviron`
-openFDA_key <- Sys.getenv("OPENFDA_API_KEY")
-
-## build the URL
-base <- 'https://api.fda.gov/food/enforcement.json?api_key='
-query <- '&count=voluntary_mandated.exact'
-
-## put it all together
-API_URL <- paste0(base, openFDA_key, query)
-```
-
-Now we have the entire URL stored in a simple R object called `API_URL`.
-
-We can now use the URL to call the API, and we will store the returned data in an object called `raw_data`:
-
-```{r}
-raw_data <- GET(API_URL)
-raw_data
-```
-
-:::{.callout-tip}
-
-### Pro-tip
-
-We can see `status` element of the list. Traditionally, a status of “200” means that the API call was successful, and other codes are used to indicate errors. You can troubleshoot those error codes using the API documentation.
-
-:::
-
-Next, we can inspect the object and we see that it is a list.
-
-```{r}
-str(raw_data)
-```
-
-One of the elements is `content` and we can inspect that
-
-```{r}
-str(raw_data$content)
-```
-
-We see the actual data have been stored as raw vectors (or raw bytes), which need to be converted to character vectors. This is not in a useable format yet. 
-
-## Converting JSON to a `data.frame`
-
-There is a function in base R `rawTo_Char()` that converts raw bytes to characters
-
-```{r}
-#| eval: false
-openFDA_data <- fromJSON(rawToChar(raw_data$content), flatten = TRUE)
-```
-
-This converts the raw data into a list. 
-
-:::{.callout-note}
-
-We can also do this with `httr::content` (as above) and just define the encoding for the character set. 
-
-```{r}
-openFDA_data <- fromJSON(httr::content(raw_data, 
-                                       as = 'text', 
-                                       encoding =  "UTF-8"))
-str(openFDA_data)
-```
-
-:::
-
-Now that it is in a list format, you can see that it actually contains several data frames!
-
-You can use this data right away if you are already familiar with lists in R, or you can extract the data frames into separate objects, like this:
-
-```{r}
-ts_df <- openFDA_data$results
-ts_df
-```
-
-We could wrangle and visualize the data from here. 

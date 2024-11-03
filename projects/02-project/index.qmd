@@ -94,4 +94,6 @@ Some web scraping tools and libraries allow you to specify a "polite" setting th
 
 It’s typically located at the root of the domain (e.g., https://example.com/robots.txt) and follows a simple format to specify rules.
 
+For more information, check out <https://en.wikipedia.org/wiki/Robots.txt>. 
+
 :::

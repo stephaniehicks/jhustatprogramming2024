@@ -61,7 +61,6 @@ Please install the packages above and be comfortable with running the functions 
 
 Material for this lecture was borrowed and adopted from
 
-- <https://www.stephaniehicks.com/jhuads2021/posts/2021-12-06-sql-basics>
 - <https://swcarpentry.github.io/sql-novice-survey>
 
 
@@ -90,16 +89,144 @@ Material for this lecture was borrowed and adopted from
 
 # Class activity 
 
-For the rest of the time in class, we will practice playing with SQL databases.
+For the rest of the time in class, we will practice creating a SQL database and also writing SQL syntax to analyze a Beyoncé discography dataset. 
 
 ::: callout-note
 ### Objectives of the activity
 
-- TBA   
+- Practice creating a SQL database in R .
+- Practice filtering, grouping, and joining data using SQL commands.
 
 :::
 
-For this in-class activity, you need to find a partner. 
+For this in-class activity, you need to find a partner. Work together on the following problems. Use the following datasets related to Beyoncé's songs for the activity. 
+
+```{r}
+songs <- data.frame(
+  song_id = 1:10,
+  title = c("Crazy in Love", "Halo", "Single Ladies", "Formation", "Irreplaceable", 
+            "Drunk in Love", "Run the World", "Partition", "Love on Top", "Sorry"),
+  album_id = c(1, 2, 1, 3, 2, 3, 1, 3, 2, 3),
+  release_year = c(2003, 2008, 2008, 2016, 2006, 2013, 2011, 2013, 2011, 2016),
+  streams_millions = c(500, 600, 700, 800, 900, 1000, 450, 350, 750, 900)
+)
+
+# Sample data frame for Beyoncé's albums
+albums <- data.frame(
+  album_id = 1:3,
+  album_title = c("Dangerously in Love", "I Am... Sasha Fierce", "Lemonade"),
+  release_year = c(2003, 2008, 2016)
+)
+```
+
+
+## Part 1: Create a SQL database
+
+- Create a new SQL database titled `beyonce.sqlite` using the `DBI` and `RSQLite` packages using the `dbConnect()` function. 
+- Using the `dbWriteTable()` function, add the `songs` and `albums` datasets to the SQL database. 
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# This code to ensure that the lecture builds and there no SQL database at the start of the exercise
+sql_beyonce <- here::here("lectures","05-database-programming", "data", "beyonce.sqlite")
+if(file.exists(sql_beyonce)){
+  file.remove(sql_beyonce)
+}
+
+library(DBI)
+mydb <- dbConnect(drv = RSQLite::SQLite(), 
+                  dbname = sql_beyonce)
+
+dbWriteTable(conn = mydb, name = "songs", value = songs)
+dbWriteTable(conn = mydb, name = "albums", value = albums)
+dbListTables(conn = mydb)
+```
+
+:::
+
+## Part 2: Practice SQL queries 
+
+- Write a SQL query that selects all columns from the songs table where the number of streams is greater than 600 million.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT * FROM songs WHERE streams_millions > 600;")
+print(results)
+```
+
+:::
+
+- Use SQL to select the titles of Beyoncé’s songs released after 2010, along with the year they were released.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT title, release_year FROM songs WHERE release_year > 2010;")
+print(results)
+```
+
+:::
+
+- Write a SQL query that calculates the total streams for each album. Select the album ID, album title, and total streams.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT album_id, SUM(streams_millions) AS total_streams 
+                             FROM songs 
+                             GROUP BY album_id;")
+print(results)
+```
+
+:::
+
+- Join the songs and albums tables using SQL to get the album title for each song. Select the song title, album title, and release year.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT s.title AS song_title, a.album_title, s.release_year 
+                             FROM songs s 
+                             JOIN albums a ON s.album_id = a.album_id;")
+print(results)
+```
+:::
+
+- Use SQL to find the average number of streams per album. Display the album title and the average streams.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT a.album_title, AVG(s.streams_millions) AS avg_streams 
+                             FROM songs s 
+                             JOIN albums a ON s.album_id = a.album_id 
+                             GROUP BY a.album_title;")
+print(results)
+```
+
+Close connection when done
+```{r}
+dbDisconnect(conn = mydb)
+```
+:::
+
+
+## Part 3: Discussion
+
+Discuss with your partner: 
+
+- How does SQL make it easier to analyze and summarize data?
+- Which SQL query might you use to quickly identify Beyoncé’s most popular song based on streams?
+- How could these SQL skills be applied to other areas of data analysis?
+
 
 # Post-lecture
 
@@ -110,7 +237,7 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-Using the `survey.db` database: 
+Using the `survey.db` database discussed in the [relational databases and SQL basics](../../readings/05-database-programming/index.qmd) pre-reading material: 
 
 1. Use `.schema` to identify column that contains integers
 2. Write a query that selects only the `name` column from the `Site` table.

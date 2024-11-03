@@ -65,16 +65,18 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   Be familiar with the concept of _functional languages_ and _functional styles_ of programming
--   Get comfortable with the major functions in  `purrr` (e.g. the `map` family of functions)
--   Write your loops with `map` functions instead of the `for` loop
+- Be familiar with the concept of _functional languages_ and _functional styles_ of programming
+- Get comfortable with the major functions in  `purrr` (e.g. the `map` family of functions) provides a nice interface to functional programming and list manipulation
+- Practice the function `map` and its alternative `map_*` provide a neat way to iterate over a list or vector with the output in different data structures (instead of a `for` loop)
+- Recongize the function `map2` and `pmap` allow having more than one list as input.
+- Recongize the function `walk` and its alternatives `walk2`, `walk_*`, which do not provide any output.
 
 :::
 
 
 ## Slides 
 
-- To be added. 
+- [Lecture 03: Functional programming](https://docs.google.com/presentation/d/1t-io1cFFiWopAzN1saz2j0xnmMg3O60Y5NnOvQrsdpk/edit?usp=sharing)
 
 # Class activity 
 
@@ -178,39 +180,9 @@ transformed_data_custom
 
 :::
 
-#### Part 4: Create nested lists and summaries
-
-- First, use `split()` to divide mtcars into subsets based on the `cyl` column.
-
-- Use `map()` to apply a summary function (e.g., mean, median) to each subset for columns like `mpg`, `hp`, and `wt` (weight).
-
-- Then, take each subset from above, and for each one, use `map()` to calculate the mean and standard deviation of each column. **Organize the output into a nested list**, where each main element corresponds to a cylinder group, and each group contains the summary statistics for each column.
-
-::: {.callout-tip collapse="true"}
-### Solution
 
 
-```{r}
-# Split data by the number of cylinders
-cyl_groups <- split(mtcars, mtcars$cyl)
-
-# Calculate the mean for mpg, hp, and wt in each group
-group_means <- map(cyl_groups, ~ map_dbl(.x[, c("mpg", "hp", "wt")], mean))
-group_means
-```
-
-```{r}
-# Calculate mean and standard deviation for each column in each group
-group_summary <- map(cyl_groups, ~ map(.x, function(col) {
-  list(mean = mean(col), sd = sd(col))
-}))
-
-group_summary
-```
-:::
-
-
-#### Part 5: Row-wise transformation and aggregation
+#### Part 4: Row-wise transformation and aggregation
 
 - First, define a function that assigns each row a fuel efficiency category based on `mpg`:
 
@@ -255,7 +227,7 @@ efficiency_summary
 
 :::
 
-#### Part 6: Visualizations and transformations
+#### Part 5: Visualizations and transformations
 
 - Write a function that, for each row, converts `mpg` to a "fuel cost" using a hypothetical rate of $3 per gallon for a 100-mile journey where "fuel cost" = (100 mile journey / `mpg`) * $3 per gallon
 
@@ -298,21 +270,7 @@ ggplot(avg_fuel_cost, aes(x = factor(cyl), y = avg_fuel_cost)) +
 :::
 
 
-#### Part 7: Discuss with your partner 
-
-- How does `purrr` make it easier to perform repeated transformations compared to base R?
-- What are some use cases where conditional transformations like `map_if()` could be helpful in real-world data?
-
-
 # Post-lecture
-
-## Summary 
-
-- Introduction to functional programming.
-- The R package `purrr` provides a nice interface to functional programming and list manipulation.
-- The function `map` and its aternative `map_*` provide a neat way to iterate over a list or vector with the output in different data structures.
-- The function `map2` and `pmap` allow having more than one list as input.
-- The function `walk` and its alternatives `walk2`, `walk_*`, which do not provide any output.
 
 ## Additional practice
 
@@ -367,5 +325,7 @@ Here are some additional practice questions to help you think about the material
     
     bootstraps <- map(1:10, ~ bootstrap(mtcars))
     ```
+8. How does `purrr` make it easier to perform repeated transformations compared to base R? What are some use cases where conditional transformations like `map_if()` could be helpful in real-world data?
+
 
 :::

@@ -16,12 +16,13 @@ date: 2024-11-07
 In advance of class, please install the following R packages
 
 1. `jsonlite` (<https://jeroen.cran.dev/jsonlite>)
-2. `httr` (<https://httr.r-lib.org>)
+2. `httr2` (<https://httr2.r-lib.org>)
+3. `rvest` (<https://rvest.tidyverse.org>) (should be installed already with the `tidyverse`)
 
 ```{r}
 #| eval: false
 install.packages("jsonlite")
-install.packages("httr")
+install.packages("httr2")
 ```
 
 :::
@@ -38,11 +39,9 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- <https://jhu-advdatasci.github.io/2019/lectures/04-gettingdata-api.html>
-- <https://aws.amazon.com/what-is/api>
-- <https://bookdown.org/paul/apis_for_social_scientists/github.com-api.html>
-- <https://statisticsglobe.com/api-in-r>
-
+- <https://jeroen.cran.dev/jsonlite>
+- <https://httr2.r-lib.org>
+- <https://rvest.tidyverse.org>
 
 ## Learning objectives
 
@@ -55,7 +54,9 @@ Material for this lecture was borrowed and adopted from
 - Learn about what are JSON files and how we can convert them into data frames in R 
 - Describe some best practices on sharing data with collaborators
 - Know what does API mean and state four types of API architectures
-- Practice with two APIs: the GitHub API and the openFDA API
+- Practice with the GitHub API and make authenticated requests
+- Practice a range of `rvest` functions to scrape data from HTML pages
+- Recongize various HTML elements on the page (text, links, images, lists, etc.)
 
 :::
 
@@ -63,6 +64,144 @@ Material for this lecture was borrowed and adopted from
 ## Slides 
 
 - <add here>
+
+# Class activity 
+
+For the rest of the time in class, we will practice using `rvest` to learn how to scrape data from HTML pages. To do this, we will load the following packages. 
+
+```{r}
+#| message: false
+library(tidyverse)
+library(rvest) # should be installed with the tidyverse
+library(xml2)
+```
+
+
+::: callout-note
+### Objectives of the activity
+
+- Practice a range of `rvest` functions to scrape data from the web 
+- Understand various various HTML elements on the page (text, links, images, lists, etc.). 
+
+:::
+
+::: {.callout-tip}
+
+If any tables are nested within specific sections, you may need to target them individually using CSS selectors.
+
+:::
+
+
+
+## Part 1: Extracting tables 
+
+- Use `rvest` to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first  table under "Results". 
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# This is the URL we want to scrape data from
+url <- "https://en.wikipedia.org/wiki/FIFA_Women%27s_World_Cup"
+
+# This is a local HTML file to avoid scraping data from it each time I compile this quarto file. 
+html_worldcup <- here::here("lectures","04-data-collection", "world-cup.html")
+
+if(!file.exists(html_worldcup)){
+  page <- read_html(url)
+  write_html(page, html_worldcup)
+} else {
+  page <- read_html(html_worldcup)
+}
+```
+
+```{r}
+# Extract the table and show the first few rows
+page %>%
+  html_table(fill = TRUE) %>%
+  .[[5]] %>% 
+  head()
+```
+
+:::
+
+- Use `rvest` to extract a table containing the number of goal scored by country. This is the second table under "Top goalscores". 
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+# Extract the table and show the first few rows
+page %>%
+  html_table(fill = TRUE) %>%
+  .[[9]] %>% 
+  head()
+```
+
+:::
+
+## Part 2: Extract text 
+
+- Use `html_nodes()` to select the introductory paragraph(s) of text (e.g., the first three `<p>` tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup  is provided. 
+- Use `html_text()` to retrieve the text and clean it up if necessary.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+page %>%
+  html_nodes("p") %>%   # Selecting the first few paragraphs
+  .[1:3] %>%            # Adjust based on the number of paragraphs you want
+  html_text() %>%
+  paste(collapse = " ")
+```
+
+:::
+
+
+## Part 3: Extract external links
+
+Here, we will extract a list of external links related to the FIFA Women’s World Cup from the "References" section at the bottom.
+
+- Use `html_nodes()` to select the list of references. 
+- Use `html_elements()` to select all links (`<a>` tags) in the references section.
+- Use `html_attr()` to extract the URLs (`href`) for these links.
+- Display a list of all unique URLs.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+page %>%
+  html_nodes(".references li") %>% 
+  html_elements("a") %>%
+  html_attr("href") %>%
+  unique()
+```
+
+:::
+
+## Part 4: Extract links from images
+
+Here we will extract the URLs for images on the page, particularly images related to tournament trophies or logos.
+
+- Use `html_nodes()` to select <img> tags.
+- Use `html_attr()` to get the image source (`src`) URLs.
+- Filter for images that contain keywords like "FIFA", "World Cup", or "Logo" in their src using the `grepl` function.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+page %>%
+  html_nodes("img") %>%
+  html_attr("src") %>%
+  tibble(url = .) %>% 
+  filter(grepl("FIFA|World_Cup|Logo", url))
+```
+
+:::
+
 
 
 # Post-lecture
@@ -80,6 +219,10 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 1.  Using the GitHub API, access the repository information and ask how many open github issues you have?
+1. Using the GitHub API, access the repository information and ask how many open github issues you have?
 2. Pick another API that we have not discussed here and use `httr` to retreive data from it. 
+3. Look how many open issues there are in the `dplyr` package in the `tidyverse`. 
+4. Practice requesting data from the [openFDA API](https://open.fda.gov), which returns JSON files.  This API provides create easy access to public data, to create a new level of openness and accountability, to ensure the privacy and security of public FDA data, and ultimately to educate the public and save lives. See [data definitions](https://open.fda.gov/data/datadictionary) for all included data.
+
 :::
+

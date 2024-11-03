@@ -7,7 +7,6 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Introduction to scrape (or harvest) data from web pages"
 date: 2024-11-07
-draft: false
 ---
 
 # Pre-lecture materials
