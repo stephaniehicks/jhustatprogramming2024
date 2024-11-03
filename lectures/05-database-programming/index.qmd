@@ -38,16 +38,19 @@ install.packages("dbplyr")
 
 In addition, please read through
 
+- [Relational databases and SQL basics](../../readings/05-database-programming/index.qmd)
 - <https://swcarpentry.github.io/sql-novice-survey>
-- <https://dbi.r-dbi.org>
-- <https://solutions.posit.co/connections/db/databases/sqlite/>
-- <https://dbplyr.tidyverse.org>
-
 
 
 ::: callout-note
 
 ## How much should I prepare for before class? 
+
+Please install the packages above and be comfortable with running the functions in the example code: 
+
+- <https://dbi.r-dbi.org>
+- <https://solutions.posit.co/connections/db/databases/sqlite/>
+- <https://dbplyr.tidyverse.org>
 
 :::
 
@@ -85,6 +88,18 @@ Material for this lecture was borrowed and adopted from
 
 - <add here>
 
+# Class activity 
+
+For the rest of the time in class, we will practice playing with SQL databases.
+
+::: callout-note
+### Objectives of the activity
+
+- TBA   
+
+:::
+
+For this in-class activity, you need to find a partner. 
 
 # Post-lecture
 
