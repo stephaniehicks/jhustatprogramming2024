@@ -7,7 +7,6 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Overview of ML paradigms and workflows in R"
 date: 2024-11-14
-draft: true
 ---
 
 
@@ -60,7 +59,7 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- <add here>
+- Will be added here. <add here>
 
 # Class activity 
 
@@ -76,5 +75,5 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+1. TBA
 :::
