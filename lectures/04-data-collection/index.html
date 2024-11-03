@@ -180,6 +180,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   </ul></li>
+  <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a>
+  <ul class="collapse">
+  <li><a href="#part-1-extracting-tables" id="toc-part-1-extracting-tables" class="nav-link" data-scroll-target="#part-1-extracting-tables">Part 1: Extracting tables</a></li>
+  <li><a href="#part-2-extract-text" id="toc-part-2-extract-text" class="nav-link" data-scroll-target="#part-2-extract-text">Part 2: Extract text</a></li>
+  <li><a href="#part-3-extract-external-links" id="toc-part-3-extract-external-links" class="nav-link" data-scroll-target="#part-3-extract-external-links">Part 3: Extract external links</a></li>
+  <li><a href="#part-4-extract-links-from-images" id="toc-part-4-extract-links-from-images" class="nav-link" data-scroll-target="#part-4-extract-links-from-images">Part 4: Extract links from images</a></li>
+  </ul></li>
   <li><a href="#post-lecture" id="toc-post-lecture" class="nav-link" data-scroll-target="#post-lecture">Post-lecture</a>
   <ul class="collapse">
   <li><a href="#other-good-r-packages-to-know-about" id="toc-other-good-r-packages-to-know-about" class="nav-link" data-scroll-target="#other-good-r-packages-to-know-about">Other good R packages to know about</a></li>
@@ -249,11 +256,12 @@ Important
 <p>In advance of class, please install the following R packages</p>
 <ol type="1">
 <li><code>jsonlite</code> (<a href="https://jeroen.cran.dev/jsonlite" class="uri">https://jeroen.cran.dev/jsonlite</a>)</li>
-<li><code>httr</code> (<a href="https://httr.r-lib.org" class="uri">https://httr.r-lib.org</a>)</li>
+<li><code>httr2</code> (<a href="https://httr2.r-lib.org" class="uri">https://httr2.r-lib.org</a>)</li>
+<li><code>rvest</code> (<a href="https://rvest.tidyverse.org" class="uri">https://rvest.tidyverse.org</a>) (should be installed already with the <code>tidyverse</code>)</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"jsonlite"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"httr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"httr2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -269,10 +277,9 @@ Important
 <h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li><a href="https://jhu-advdatasci.github.io/2019/lectures/04-gettingdata-api.html" class="uri">https://jhu-advdatasci.github.io/2019/lectures/04-gettingdata-api.html</a></li>
-<li><a href="https://aws.amazon.com/what-is/api" class="uri">https://aws.amazon.com/what-is/api</a></li>
-<li><a href="https://bookdown.org/paul/apis_for_social_scientists/github.com-api.html" class="uri">https://bookdown.org/paul/apis_for_social_scientists/github.com-api.html</a></li>
-<li><a href="https://statisticsglobe.com/api-in-r" class="uri">https://statisticsglobe.com/api-in-r</a></li>
+<li><a href="https://jeroen.cran.dev/jsonlite" class="uri">https://jeroen.cran.dev/jsonlite</a></li>
+<li><a href="https://httr2.r-lib.org" class="uri">https://httr2.r-lib.org</a></li>
+<li><a href="https://rvest.tidyverse.org" class="uri">https://rvest.tidyverse.org</a></li>
 </ul>
 </section>
 <section id="learning-objectives" class="level2">
@@ -293,7 +300,9 @@ Learning objectives
 <li>Learn about what are JSON files and how we can convert them into data frames in R</li>
 <li>Describe some best practices on sharing data with collaborators</li>
 <li>Know what does API mean and state four types of API architectures</li>
-<li>Practice with two APIs: the GitHub API and the openFDA API</li>
+<li>Practice with the GitHub API and make authenticated requests</li>
+<li>Practice a range of <code>rvest</code> functions to scrape data from HTML pages</li>
+<li>Recongize various HTML elements on the page (text, links, images, lists, etc.)</li>
 </ul>
 </div>
 </div>
@@ -303,6 +312,361 @@ Learning objectives
 <ul>
 <li><add here=""></add></li>
 </ul>
+</section>
+</section>
+<section id="class-activity" class="level1">
+<h1>Class activity</h1>
+<p>For the rest of the time in class, we will practice using <code>rvest</code> to learn how to scrape data from HTML pages. To do this, we will load the following packages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest) <span class="co"># should be installed with the tidyverse</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Objectives of the activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Practice a range of <code>rvest</code> functions to scrape data from the web</li>
+<li>Understand various various HTML elements on the page (text, links, images, lists, etc.).</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If any tables are nested within specific sections, you may need to target them individually using CSS selectors.</p>
+</div>
+</div>
+<section id="part-1-extracting-tables" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-extracting-tables">Part 1: Extracting tables</h2>
+<ul>
+<li>Use <code>rvest</code> to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first table under “Results”.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the URL we want to scrape data from</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://en.wikipedia.org/wiki/FIFA_Women%27s_World_Cup"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a local HTML file to avoid scraping data from it each time I compile this quarto file. </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>html_worldcup <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"lectures"</span>,<span class="st">"04-data-collection"</span>, <span class="st">"world-cup.html"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(html_worldcup)){</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_html</span>(page, html_worldcup)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(html_worldcup)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the table and show the first few rows</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">5</span>]] <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  X1    X2     X3    X4    X5    X6    X7    X8    X9    X10   X11   X12   X13  
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;
+1 Ed.   Year   Hosts NA    Final Final Final NA    Thir… Thir… Thir… NA    No. …
+2 Ed.   Year   Hosts NA    Cham… Score Runn… NA    Thir… Score Four… NA    No. …
+3 1     1991   China NA    Unit… 2–1   Norw… NA    Swed… 4–0   Germ… NA    12   
+4 2     1995   Swed… NA    Norw… 2–0   Germ… NA    Unit… 2–0   China NA    12   
+5 3     1999   Unit… NA    Unit… 0–0 … China NA    Braz… 0–0[… Norw… NA    16   
+6 4     2003[… Unit… NA    Germ… 2–1 … Swed… NA    Unit… 3–1   Cana… NA    16   </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Use <code>rvest</code> to extract a table containing the number of goal scored by country. This is the second table under “Top goalscores”.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the table and show the first few rows</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">9</span>]] <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+   Rank Country       `Goals scored`
+  &lt;int&gt; &lt;chr&gt;                  &lt;int&gt;
+1     1 United States            142
+2     2 Germany                  129
+3     3 Norway                   100
+4     4 Sweden                    83
+5     5 Brazil                    71
+6     6 England                   56</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-2-extract-text" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-extract-text">Part 2: Extract text</h2>
+<ul>
+<li>Use <code>html_nodes()</code> to select the introductory paragraph(s) of text (e.g., the first three <code>&lt;p&gt;</code> tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup is provided.</li>
+<li>Use <code>html_text()</code> to retrieve the text and clean it up if necessary.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"p"</span>) <span class="sc">%&gt;%</span>   <span class="co"># Selecting the first few paragraphs</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="sc">%&gt;%</span>            <span class="co"># Adjust based on the number of paragraphs you want</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "\n The FIFA Women's World Cup is an international association football competition contested by the senior women's national teams of the members of Fédération Internationale de Football Association (FIFA), the sport's international governing body. The competition has been held every four years and one year after the men's FIFA World Cup since 1991, when the inaugural tournament, then called the FIFA Women's World Championship, was held in China. Under the tournament's current format, national teams vie for the remaining 31 slots in a three-year qualification phase. The host nation's team is automatically entered as the first slot. The tournament, called the World Cup Finals, is contested at venues within the host nation(s) over about one month.\n The nine FIFA Women's World Cup tournaments have been won by five national teams. The United States have won four times. The other winners are Germany, with two titles, and Japan, Norway, and Spain with one title each.\n"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-3-extract-external-links" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-extract-external-links">Part 3: Extract external links</h2>
+<p>Here, we will extract a list of external links related to the FIFA Women’s World Cup from the “References” section at the bottom.</p>
+<ul>
+<li>Use <code>html_nodes()</code> to select the list of references.</li>
+<li>Use <code>html_elements()</code> to select all links (<code>&lt;a&gt;</code> tags) in the references section.</li>
+<li>Use <code>html_attr()</code> to extract the URLs (<code>href</code>) for these links.</li>
+<li>Display a list of all unique URLs.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">".references li"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"a"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">"href"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "#cite_ref-noaet_27-0"                                                                                                                                                                  
+  [2] "/wiki/Overtime_(sports)#Association_football"                                                                                                                                          
+  [3] "#cite_note-26"                                                                                                                                                                         
+  [4] "#cite_ref-us_28-0"                                                                                                                                                                     
+  [5] "/wiki/SARS"                                                                                                                                                                            
+  [6] "/wiki/2002%E2%80%932004_SARS_outbreak"                                                                                                                                                 
+  [7] "#cite_ref-1"                                                                                                                                                                           
+  [8] "https://web.archive.org/web/20150706151332/http://www.ussoccer.com/stories/2015/07/05/21/19/150705-wnt-v-jpn-game-story"                                                               
+  [9] "http://www.ussoccer.com/stories/2015/07/05/21/19/150705-wnt-v-jpn-game-story"                                                                                                          
+ [10] "#cite_ref-FIFAformat_2-0"                                                                                                                                                              
+ [11] "#cite_ref-FIFAformat_2-1"                                                                                                                                                              
+ [12] "#cite_ref-FIFAformat_2-2"                                                                                                                                                              
+ [13] "https://web.archive.org/web/20141209162112/http://resources.fifa.com/mm/document/tournament/competition/02/07/47/91/regulationsfwwccanada2015e_neutral.pdf"                            
+ [14] "http://resources.fifa.com/mm/document/tournament/competition/02/07/47/91/regulationsfwwccanada2015e_neutral.pdf"                                                                       
+ [15] "#cite_ref-3"                                                                                                                                                                           
+ [16] "https://www.rsssf.org/tablesm/mondo-women70.html"                                                                                                                                      
+ [17] "/wiki/RSSSF"                                                                                                                                                                           
+ [18] "https://web.archive.org/web/20220728155233/https://www.rsssf.org/tablesm/mondo-women70.html"                                                                                           
+ [19] "#cite_ref-4"                                                                                                                                                                           
+ [20] "https://www.bbc.co.uk/news/business-46149887"                                                                                                                                          
+ [21] "/wiki/British_Broadcasting_Cooperation"                                                                                                                                                
+ [22] "https://web.archive.org/web/20181207214128/https://www.bbc.com/news/business-46149887"                                                                                                 
+ [23] "#cite_ref-5"                                                                                                                                                                           
+ [24] "https://www.rsssf.org/tablesm/mundo-women71.html"                                                                                                                                      
+ [25] "https://web.archive.org/web/20220728155235/https://www.rsssf.org/tablesm/mundo-women71.html"                                                                                           
+ [26] "#cite_ref-6"                                                                                                                                                                           
+ [27] "https://www.theguardian.com/football/blog/2015/jun/04/womens-world-cup-unofficial-record-breaking"                                                                                     
+ [28] "/wiki/The_Guardian"                                                                                                                                                                    
+ [29] "https://web.archive.org/web/20150605044132/https://www.theguardian.com/football/blog/2015/jun/04/womens-world-cup-unofficial-record-breaking"                                          
+ [30] "#cite_ref-7"                                                                                                                                                                           
+ [31] "https://www.rsssf.org/tablesm/mundialito-women.html"                                                                                                                                   
+ [32] "https://web.archive.org/web/20220803221248/https://www.rsssf.org/tablesm/mundialito-women.html"                                                                                        
+ [33] "#cite_ref-8"                                                                                                                                                                           
+ [34] "http://www.the-afc.com/competitions/afc-womens-asian-cup/latest/news/foundation-of-asian-brilliance"                                                                                   
+ [35] "https://web.archive.org/web/20190703193448/http://www.the-afc.com/competitions/afc-womens-asian-cup/latest/news/foundation-of-asian-brilliance"                                        
+ [36] "#cite_ref-9"                                                                                                                                                                           
+ [37] "https://web.archive.org/web/20190608195632/https://www.fifa.com/womensworldcup/news/ellen-wille-mother-norwegian-women-football-1462830"                                               
+ [38] "https://www.fifa.com/womensworldcup/news/ellen-wille-mother-norwegian-women-football-1462830"                                                                                          
+ [39] "#cite_ref-10"                                                                                                                                                                          
+ [40] "http://www.fifamuseum.com/stories/blog/a-green-and-gold-shirt-steeped-in-history-500107/"                                                                                              
+ [41] "https://web.archive.org/web/20190629110059/http://www.fifamuseum.com/stories/blog/a-green-and-gold-shirt-steeped-in-history-500107/"                                                   
+ [42] "#cite_ref-11"                                                                                                                                                                          
+ [43] "https://web.archive.org/web/20181213173348/https://www.fifa.com/womensworldcup/news/when-akers-and-usa-got-the-party-started"                                                          
+ [44] "https://www.fifa.com/womensworldcup/news/when-akers-and-usa-got-the-party-started"                                                                                                     
+ [45] "#cite_ref-12"                                                                                                                                                                          
+ [46] "https://web.archive.org/web/20190524061602/https://www.fifa.com/womensworldcup/news/fifa-women-world-cup-sweden-1995-501999"                                                           
+ [47] "https://www.fifa.com/womensworldcup/news/fifa-women-world-cup-sweden-1995-501999"                                                                                                      
+ [48] "#cite_ref-13"                                                                                                                                                                          
+ [49] "http://www.sportsnetwork.com/default.asp?c=sportsnetwork&amp;page=SOC-WWC/STAT/WWC-HISTORY.htm"                                                                                            
+ [50] "/wiki/Wikipedia:Link_rot"                                                                                                                                                              
+ [51] "#cite_ref-14"                                                                                                                                                                          
+ [52] "https://www.usatoday.com/sports/soccer/world/2003-05-03-womens-cup-sars_x.htm"                                                                                                         
+ [53] "https://web.archive.org/web/20090212124055/https://www.usatoday.com/sports/soccer/world/2003-05-03-womens-cup-sars_x.htm"                                                              
+ [54] "#cite_ref-15"                                                                                                                                                                          
+ [55] "https://www.cbc.ca/sports/soccer/canada-gets-2015-women-s-world-cup-of-soccer-1.988843"                                                                                                
+ [56] "/wiki/Canadian_Broadcasting_Company"                                                                                                                                                   
+ [57] "https://web.archive.org/web/20110304143611/http://www.cbc.ca/sports/soccer/story/2011/03/03/sp-womens-world-cup.html"                                                                  
+ [58] "#cite_ref-16"                                                                                                                                                                          
+ [59] "https://web.archive.org/web/20160821094856/http://uk.reuters.com/article/uk-soccer-women-japan-idUKKBN0NM3D120150501"                                                                  
+ [60] "http://uk.reuters.com/article/uk-soccer-women-japan-idUKKBN0NM3D120150501"                                                                                                             
+ [61] "#cite_ref-17"                                                                                                                                                                          
+ [62] "http://www.huffingtonpost.com/2015/06/17/christie-rampone-oldest-player_n_7599882.html"                                                                                                
+ [63] "https://web.archive.org/web/20150617061147/http://www.huffingtonpost.com/2015/06/17/christie-rampone-oldest-player_n_7599882.html"                                                     
+ [64] "#cite_ref-18"                                                                                                                                                                          
+ [65] "https://web.archive.org/web/20150320194817/http://www.fifa.com/womensworldcup/news/y=2015/m=3/news=france-to-host-the-fifa-women-s-world-cup-in-2019-2567761.html"                     
+ [66] "https://www.fifa.com/womensworldcup/news/y=2015/m=3/news=france-to-host-the-fifa-women-s-world-cup-in-2019-2567761.html"                                                               
+ [67] "#cite_ref-19"                                                                                                                                                                          
+ [68] "https://www.fifamuseum.com/en/blog-stories/blog/the-fifa-women-s-world-cuptm-original-trophy-is-back-at-the-fifa-museu-2620371/"                                                       
+ [69] "#cite_ref-20"                                                                                                                                                                          
+ [70] "https://web.archive.org/web/20170319113103/http://www.fifa.com/marketinghighlights/canada2015/marketing-higlights/the-brand/the-official-womens-world-cup-trophy.html"                 
+ [71] "https://www.fifa.com/marketinghighlights/canada2015/marketing-higlights/the-brand/the-official-womens-world-cup-trophy.html"                                                           
+ [72] "#cite_ref-21"                                                                                                                                                                          
+ [73] "https://thejewelerblog.wordpress.com/2015/07/06/womens-world-cup-trophy-is-made-of-gold-glad-sterling-silver-mens-version-is-18-karat-gold/"                                           
+ [74] "https://web.archive.org/web/20181013211741/https://thejewelerblog.wordpress.com/2015/07/06/womens-world-cup-trophy-is-made-of-gold-glad-sterling-silver-mens-version-is-18-karat-gold/"
+ [75] "#cite_ref-22"                                                                                                                                                                          
+ [76] "https://web.archive.org/web/20191222125210/https://www.fifa.com/clubworldcup/news/fifa-world-champions-badge-honours-real-madrid-s-impeccable-year-2494968"                            
+ [77] "/wiki/FIFA"                                                                                                                                                                            
+ [78] "https://www.fifa.com/clubworldcup/news/fifa-world-champions-badge-honours-real-madrid-s-impeccable-year-2494968"                                                                       
+ [79] "#cite_ref-23"                                                                                                                                                                          
+ [80] "https://digitalhub.fifa.com/m/1816849eda4db6/original/jaeq2lvmczqjofxccj3u-pdf.pdf"                                                                                                    
+ [81] "https://web.archive.org/web/20210831030705/https://digitalhub.fifa.com/m/1816849eda4db6/original/jaeq2lvmczqjofxccj3u-pdf.pdf"                                                         
+ [82] "#cite_ref-2015_keyfacts_24-0"                                                                                                                                                          
+ [83] "#cite_ref-2015_keyfacts_24-1"                                                                                                                                                          
+ [84] "https://web.archive.org/web/20150711210112/http://www.fifa.com/womensworldcup/news/y=2015/m=7/news=key-figures-from-the-fifa-women-s-world-cup-canada-2015tm-2661648.html"             
+ [85] "https://www.fifa.com/womensworldcup/news/y=2015/m=7/news=key-figures-from-the-fifa-women-s-world-cup-canada-2015tm-2661648.html"                                                       
+ [86] "#cite_ref-25"                                                                                                                                                                          
+ [87] "https://www.nytimes.com/2003/05/27/sports/soccer-us-replaces-china-as-host-of-soccer-s-women-s-world-cup.html"                                                                         
+ [88] "/wiki/The_New_York_Times"                                                                                                                                                              
+ [89] "https://web.archive.org/web/20180908054348/https://www.nytimes.com/2003/05/27/sports/soccer-us-replaces-china-as-host-of-soccer-s-women-s-world-cup.html"                              
+ [90] "#cite_ref-26"                                                                                                                                                                          
+ [91] "https://web.archive.org/web/20020228035519/http://sportsillustrated.cnn.com/soccer/world/1999/womens_worldcup/news/1999/07/10/brazil_norway/"                                          
+ [92] "http://sportsillustrated.cnn.com/soccer/world/1999/womens_worldcup/news/1999/07/10/brazil_norway/"                                                                                     
+ [93] "#cite_ref-ussf_070815_29-0"                                                                                                                                                            
+ [94] "#cite_ref-ussf_070815_29-1"                                                                                                                                                            
+ [95] "https://web.archive.org/web/20150709161003/http://www.ussoccer.com/stories/2015/07/08/16/59/150708-wnt-victory-breaks-tv-records"                                                      
+ [96] "http://www.ussoccer.com/stories/2015/07/08/16/59/150708-wnt-victory-breaks-tv-records"                                                                                                 
+ [97] "#cite_ref-30"                                                                                                                                                                          
+ [98] "https://www.sbnation.com/2015/7/6/8900299/more-americans-watched-the-womens-world-cup-final-than-the-nba-finals"                                                                       
+ [99] "https://web.archive.org/web/20150707222336/https://www.sbnation.com/2015/7/6/8900299/more-americans-watched-the-womens-world-cup-final-than-the-nba-finals"                            
+[100] "#cite_ref-31"                                                                                                                                                                          
+[101] "https://web.archive.org/web/20151218034246/http://www.fifa.com/womensworldcup/news/y=2015/m=12/news=record-breaking-fifa-women-s-world-cup-tops-750-million-tv-viewers-2745963.html"   
+[102] "https://www.fifa.com/womensworldcup/news/y=2015/m=12/news=record-breaking-fifa-women-s-world-cup-tops-750-million-tv-viewers-2745963.html"                                             
+[103] "#cite_ref-32"                                                                                                                                                                          
+[104] "https://www.nbcsports.com/northwest/world-cup/equal-pay-womens-world-cup-players-seriously"                                                                                            
+[105] "https://web.archive.org/web/20230124175112/https://www.nbcsports.com/northwest/world-cup/equal-pay-womens-world-cup-players-seriously"                                                 
+[106] "#cite_ref-33"                                                                                                                                                                          
+[107] "https://pluralist.com/uswnt-equal-pay-controversy/"                                                                                                                                    
+[108] "https://web.archive.org/web/20190703120647/https://pluralist.com/uswnt-equal-pay-controversy/"                                                                                         
+[109] "#cite_ref-34"                                                                                                                                                                          
+[110] "https://www.nytimes.com/2018/06/12/sports/fifa-revenue.html"                                                                                                                           
+[111] "https://ghostarchive.org/archive/20220102/https://www.nytimes.com/2018/06/12/sports/fifa-revenue.html"                                                                                 
+[112] "#cite_ref-35"                                                                                                                                                                          
+[113] "https://boxscorenews.com/fifa-calls-womens-world-cup-broadcast-offers-disappointing-p168538-199.htm"                                                                                   
+[114] "https://web.archive.org/web/20230518034444/https://boxscorenews.com/fifa-calls-womens-world-cup-broadcast-offers-disappointing-p168538-199.htm"                                        
+[115] "#cite_ref-ath-2023-broadcast_36-0"                                                                                                                                                     
+[116] "#cite_ref-ath-2023-broadcast_36-1"                                                                                                                                                     
+[117] "https://theathletic.com/4575427/2023/06/04/womens-world-cup-commercial-tv-rights/?source=twitterhq"                                                                                    
+[118] "/wiki/The_Athletic"                                                                                                                                                                    
+[119] "#cite_ref-37"                                                                                                                                                                          
+[120] "https://digitalhub.fifa.com/m/6bd2fa3c769ee09c/original/lnpeuvaoc1v5tih9rf7p-pdf.pdf"                                                                                                  
+[121] "https://web.archive.org/web/20210727190318/https://digitalhub.fifa.com/m/6bd2fa3c769ee09c/original/lnpeuvaoc1v5tih9rf7p-pdf.pdf"                                                       </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-4-extract-links-from-images" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-extract-links-from-images">Part 4: Extract links from images</h2>
+<p>Here we will extract the URLs for images on the page, particularly images related to tournament trophies or logos.</p>
+<ul>
+<li>Use <code>html_nodes()</code> to select <img> tags.</li>
+<li>Use <code>html_attr()</code> to get the image source (<code>src</code>) URLs.</li>
+<li>Filter for images that contain keywords like “FIFA”, “World Cup”, or “Logo” in their src using the <code>grepl</code> function.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"img"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">"src"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">url =</span> .) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"FIFA|World_Cup|Logo"</span>, url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  url                                                                           
+  &lt;chr&gt;                                                                         
+1 //upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.…
+2 //upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Womens_World_Cup_countrie…
+3 //upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.…
+4 //upload.wikimedia.org/wikipedia/commons/thumb/2/26/World_Map_FIFA.svg/100px-…
+5 //upload.wikimedia.org/wikipedia/commons/thumb/2/26/World_Map_FIFA.svg/200px-…</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="post-lecture" class="level1">
@@ -328,10 +692,10 @@ Questions
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><ol type="1">
 <li>Using the GitHub API, access the repository information and ask how many open github issues you have?</li>
-</ol></li>
 <li>Pick another API that we have not discussed here and use <code>httr</code> to retreive data from it.</li>
+<li>Look how many open issues there are in the <code>dplyr</code> package in the <code>tidyverse</code>.</li>
+<li>Practice requesting data from the <a href="https://open.fda.gov">openFDA API</a>, which returns JSON files. This API provides create easy access to public data, to create a new level of openness and accountability, to ensure the privacy and security of public FDA data, and ultimately to educate the public and save lives. See <a href="https://open.fda.gov/data/datadictionary">data definitions</a> for all included data.</li>
 </ol>
 </div>
 </div>

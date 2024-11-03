@@ -212,7 +212,6 @@ window.Quarto = {
   <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a></li>
   <li><a href="#post-lecture" id="toc-post-lecture" class="nav-link" data-scroll-target="#post-lecture">Post-lecture</a>
   <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#additional-practice" id="toc-additional-practice" class="nav-link" data-scroll-target="#additional-practice">Additional practice</a></li>
   </ul></li>
   </ul>
@@ -335,8 +334,10 @@ Learning objectives
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
 <li>Be familiar with the concept of <em>functional languages</em> and <em>functional styles</em> of programming</li>
-<li>Get comfortable with the major functions in <code>purrr</code> (e.g.&nbsp;the <code>map</code> family of functions)</li>
-<li>Write your loops with <code>map</code> functions instead of the <code>for</code> loop</li>
+<li>Get comfortable with the major functions in <code>purrr</code> (e.g.&nbsp;the <code>map</code> family of functions) provides a nice interface to functional programming and list manipulation</li>
+<li>Practice the function <code>map</code> and its alternative <code>map_*</code> provide a neat way to iterate over a list or vector with the output in different data structures (instead of a <code>for</code> loop)</li>
+<li>Recongize the function <code>map2</code> and <code>pmap</code> allow having more than one list as input.</li>
+<li>Recongize the function <code>walk</code> and its alternatives <code>walk2</code>, <code>walk_*</code>, which do not provide any output.</li>
 </ul>
 </div>
 </div>
@@ -344,7 +345,7 @@ Learning objectives
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
 <ul>
-<li>To be added.</li>
+<li><a href="https://docs.google.com/presentation/d/1t-io1cFFiWopAzN1saz2j0xnmMg3O60Y5NnOvQrsdpk/edit?usp=sharing">Lecture 03: Functional programming</a></li>
 </ul>
 </section>
 </section>
@@ -626,12 +627,17 @@ Solution
 </div>
 </div>
 </section>
-<section id="part-4-create-nested-lists-and-summaries" class="level4">
-<h4 class="anchored" data-anchor-id="part-4-create-nested-lists-and-summaries">Part 4: Create nested lists and summaries</h4>
+<section id="part-4-row-wise-transformation-and-aggregation" class="level4">
+<h4 class="anchored" data-anchor-id="part-4-row-wise-transformation-and-aggregation">Part 4: Row-wise transformation and aggregation</h4>
 <ul>
-<li><p>First, use <code>split()</code> to divide mtcars into subsets based on the <code>cyl</code> column.</p></li>
-<li><p>Use <code>map()</code> to apply a summary function (e.g., mean, median) to each subset for columns like <code>mpg</code>, <code>hp</code>, and <code>wt</code> (weight).</p></li>
-<li><p>Then, take each subset from above, and for each one, use <code>map()</code> to calculate the mean and standard deviation of each column. <strong>Organize the output into a nested list</strong>, where each main element corresponds to a cylinder group, and each group contains the summary statistics for each column.</p></li>
+<li><p>First, define a function that assigns each row a fuel efficiency category based on <code>mpg</code>:</p>
+<ul>
+<li>“High” if <code>mpg</code> &gt; 25</li>
+<li>“Medium” if <code>mpg</code> is between 20 and 25</li>
+<li>“Low” if <code>mpg</code> &lt; 20</li>
+</ul></li>
+<li><p>Use <code>map()</code> to apply this function row-wise and add the results as a new column in <code>mtcars</code>.</p></li>
+<li><p>Then, split the dataset by fuel efficiency category from the previous step. For each category, calculate the mean values of <code>hp</code>, <code>wt</code>, and <code>qsec</code> (1/4 mile time).</p></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -646,347 +652,21 @@ Solution
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split data by the number of cylinders</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cyl_groups <span class="ot">&lt;-</span> <span class="fu">split</span>(mtcars, mtcars<span class="sc">$</span>cyl)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean for mpg, hp, and wt in each group</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>group_means <span class="ot">&lt;-</span> <span class="fu">map</span>(cyl_groups, <span class="sc">~</span> <span class="fu">map_dbl</span>(.x[, <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>)], mean))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>group_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`4`
-      mpg        hp        wt 
-26.663636 82.636364  2.285727 
-
-$`6`
-       mpg         hp         wt 
- 19.742857 122.285714   3.117143 
-
-$`8`
-       mpg         hp         wt 
- 15.100000 209.214286   3.999214 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and standard deviation for each column in each group</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>group_summary <span class="ot">&lt;-</span> <span class="fu">map</span>(cyl_groups, <span class="sc">~</span> <span class="fu">map</span>(.x, <span class="cf">function</span>(col) {</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(col), <span class="at">sd =</span> <span class="fu">sd</span>(col))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>group_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`4`
-$`4`$mpg
-$`4`$mpg$mean
-[1] 26.66364
-
-$`4`$mpg$sd
-[1] 4.509828
-
-
-$`4`$cyl
-$`4`$cyl$mean
-[1] 4
-
-$`4`$cyl$sd
-[1] 0
-
-
-$`4`$disp
-$`4`$disp$mean
-[1] 105.1364
-
-$`4`$disp$sd
-[1] 26.87159
-
-
-$`4`$hp
-$`4`$hp$mean
-[1] 82.63636
-
-$`4`$hp$sd
-[1] 20.93453
-
-
-$`4`$drat
-$`4`$drat$mean
-[1] 4.070909
-
-$`4`$drat$sd
-[1] 0.3654711
-
-
-$`4`$wt
-$`4`$wt$mean
-[1] 2.285727
-
-$`4`$wt$sd
-[1] 0.5695637
-
-
-$`4`$qsec
-$`4`$qsec$mean
-[1] 19.13727
-
-$`4`$qsec$sd
-[1] 1.682445
-
-
-$`4`$vs
-$`4`$vs$mean
-[1] 0.9090909
-
-$`4`$vs$sd
-[1] 0.3015113
-
-
-$`4`$am
-$`4`$am$mean
-[1] 0.7272727
-
-$`4`$am$sd
-[1] 0.4670994
-
-
-$`4`$gear
-$`4`$gear$mean
-[1] 4.090909
-
-$`4`$gear$sd
-[1] 0.5393599
-
-
-$`4`$carb
-$`4`$carb$mean
-[1] 1.545455
-
-$`4`$carb$sd
-[1] 0.522233
-
-
-
-$`6`
-$`6`$mpg
-$`6`$mpg$mean
-[1] 19.74286
-
-$`6`$mpg$sd
-[1] 1.453567
-
-
-$`6`$cyl
-$`6`$cyl$mean
-[1] 6
-
-$`6`$cyl$sd
-[1] 0
-
-
-$`6`$disp
-$`6`$disp$mean
-[1] 183.3143
-
-$`6`$disp$sd
-[1] 41.56246
-
-
-$`6`$hp
-$`6`$hp$mean
-[1] 122.2857
-
-$`6`$hp$sd
-[1] 24.26049
-
-
-$`6`$drat
-$`6`$drat$mean
-[1] 3.585714
-
-$`6`$drat$sd
-[1] 0.4760552
-
-
-$`6`$wt
-$`6`$wt$mean
-[1] 3.117143
-
-$`6`$wt$sd
-[1] 0.3563455
-
-
-$`6`$qsec
-$`6`$qsec$mean
-[1] 17.97714
-
-$`6`$qsec$sd
-[1] 1.706866
-
-
-$`6`$vs
-$`6`$vs$mean
-[1] 0.5714286
-
-$`6`$vs$sd
-[1] 0.5345225
-
-
-$`6`$am
-$`6`$am$mean
-[1] 0.4285714
-
-$`6`$am$sd
-[1] 0.5345225
-
-
-$`6`$gear
-$`6`$gear$mean
-[1] 3.857143
-
-$`6`$gear$sd
-[1] 0.6900656
-
-
-$`6`$carb
-$`6`$carb$mean
-[1] 3.428571
-
-$`6`$carb$sd
-[1] 1.812654
-
-
-
-$`8`
-$`8`$mpg
-$`8`$mpg$mean
-[1] 15.1
-
-$`8`$mpg$sd
-[1] 2.560048
-
-
-$`8`$cyl
-$`8`$cyl$mean
-[1] 8
-
-$`8`$cyl$sd
-[1] 0
-
-
-$`8`$disp
-$`8`$disp$mean
-[1] 353.1
-
-$`8`$disp$sd
-[1] 67.77132
-
-
-$`8`$hp
-$`8`$hp$mean
-[1] 209.2143
-
-$`8`$hp$sd
-[1] 50.97689
-
-
-$`8`$drat
-$`8`$drat$mean
-[1] 3.229286
-
-$`8`$drat$sd
-[1] 0.3723618
-
-
-$`8`$wt
-$`8`$wt$mean
-[1] 3.999214
-
-$`8`$wt$sd
-[1] 0.7594047
-
-
-$`8`$qsec
-$`8`$qsec$mean
-[1] 16.77214
-
-$`8`$qsec$sd
-[1] 1.196014
-
-
-$`8`$vs
-$`8`$vs$mean
-[1] 0
-
-$`8`$vs$sd
-[1] 0
-
-
-$`8`$am
-$`8`$am$mean
-[1] 0.1428571
-
-$`8`$am$sd
-[1] 0.3631365
-
-
-$`8`$gear
-$`8`$gear$mean
-[1] 3.285714
-
-$`8`$gear$sd
-[1] 0.726273
-
-
-$`8`$carb
-$`8`$carb$mean
-[1] 3.5
-
-$`8`$carb$sd
-[1] 1.556624</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-5-row-wise-transformation-and-aggregation" class="level4">
-<h4 class="anchored" data-anchor-id="part-5-row-wise-transformation-and-aggregation">Part 5: Row-wise transformation and aggregation</h4>
-<ul>
-<li><p>First, define a function that assigns each row a fuel efficiency category based on <code>mpg</code>:</p>
-<ul>
-<li>“High” if <code>mpg</code> &gt; 25</li>
-<li>“Medium” if <code>mpg</code> is between 20 and 25</li>
-<li>“Low” if <code>mpg</code> &lt; 20</li>
-</ul></li>
-<li><p>Use <code>map()</code> to apply this function row-wise and add the results as a new column in <code>mtcars</code>.</p></li>
-<li><p>Then, split the dataset by fuel efficiency category from the previous step. For each category, calculate the mean values of <code>hp</code>, <code>wt</code>, and <code>qsec</code> (1/4 mile time).</p></li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to assign fuel efficiency category based on mpg</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fuel_efficiency <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  mpg <span class="ot">&lt;-</span> row[<span class="st">"mpg"</span>]</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (mpg <span class="sc">&gt;</span> <span class="dv">25</span>) {</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High"</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (mpg <span class="sc">&gt;=</span> <span class="dv">20</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Low"</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add fuel efficiency as a new column</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>fuel_efficiency <span class="ot">&lt;-</span> <span class="fu">map_chr</span>(<span class="fu">asplit</span>(mtcars, <span class="dv">1</span>), fuel_efficiency)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to assign fuel efficiency category based on mpg</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fuel_efficiency <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  mpg <span class="ot">&lt;-</span> row[<span class="st">"mpg"</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (mpg <span class="sc">&gt;</span> <span class="dv">25</span>) {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (mpg <span class="sc">&gt;=</span> <span class="dv">20</span>) {</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Low"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add fuel efficiency as a new column</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>fuel_efficiency <span class="ot">&lt;-</span> <span class="fu">map_chr</span>(<span class="fu">asplit</span>(mtcars, <span class="dv">1</span>), fuel_efficiency)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -1057,12 +737,12 @@ Volvo 142E                   Medium</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split by fuel efficiency</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>efficiency_groups <span class="ot">&lt;-</span> <span class="fu">split</span>(mtcars, mtcars<span class="sc">$</span>fuel_efficiency)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean hp, wt, and qsec for each group</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>efficiency_summary <span class="ot">&lt;-</span> <span class="fu">map</span>(efficiency_groups, <span class="sc">~</span> <span class="fu">map_dbl</span>(.x[, <span class="fu">c</span>(<span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"qsec"</span>)], mean))</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>efficiency_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split by fuel efficiency</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>efficiency_groups <span class="ot">&lt;-</span> <span class="fu">split</span>(mtcars, mtcars<span class="sc">$</span>fuel_efficiency)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean hp, wt, and qsec for each group</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>efficiency_summary <span class="ot">&lt;-</span> <span class="fu">map</span>(efficiency_groups, <span class="sc">~</span> <span class="fu">map_dbl</span>(.x[, <span class="fu">c</span>(<span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"qsec"</span>)], mean))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>efficiency_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$High
       hp       wt     qsec 
@@ -1081,15 +761,15 @@ $Medium
 </div>
 </div>
 </section>
-<section id="part-6-visualizations-and-transformations" class="level4">
-<h4 class="anchored" data-anchor-id="part-6-visualizations-and-transformations">Part 6: Visualizations and transformations</h4>
+<section id="part-5-visualizations-and-transformations" class="level4">
+<h4 class="anchored" data-anchor-id="part-5-visualizations-and-transformations">Part 5: Visualizations and transformations</h4>
 <ul>
 <li><p>Write a function that, for each row, converts <code>mpg</code> to a “fuel cost” using a hypothetical rate of $3 per gallon for a 100-mile journey where “fuel cost” = (100 mile journey / <code>mpg</code>) * $3 per gallon</p></li>
 <li><p>Use <code>map_dbl()</code> to apply this transformation to the <code>mpg</code> column and add it as a new column called <code>fuel_cost</code>.</p></li>
 <li><p>Using <code>map()</code> with <code>ggplot2</code>, create a bar plot of the average <code>fuel_cost</code> for each <code>cyl</code>. For each cylinder group, plot the average values of <code>mpg</code>, <code>hp</code>, and <code>wt</code>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1098,17 +778,17 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate fuel cost based on mpg</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>calculate_fuel_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(mpg) {</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">100</span> <span class="sc">/</span> mpg) <span class="sc">*</span> <span class="dv">3</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply transformation to mpg column</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>fuel_cost <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(mtcars<span class="sc">$</span>mpg, calculate_fuel_cost)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate fuel cost based on mpg</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>calculate_fuel_cost <span class="ot">&lt;-</span> <span class="cf">function</span>(mpg) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">100</span> <span class="sc">/</span> mpg) <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply transformation to mpg column</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>fuel_cost <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(mtcars<span class="sc">$</span>mpg, calculate_fuel_cost)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -1179,24 +859,24 @@ Volvo 142E                   Medium 14.018692</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average fuel cost for each cylinder group</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>avg_fuel_cost <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_fuel_cost =</span> <span class="fu">mean</span>(fuel_cost))</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot average fuel cost by cylinder count</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_fuel_cost, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(cyl), <span class="at">y =</span> avg_fuel_cost)) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Cylinders"</span>, </span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Fuel Cost ($)"</span>, </span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Fuel Cost by Cylinder Group"</span>) <span class="sc">+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average fuel cost for each cylinder group</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>avg_fuel_cost <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_fuel_cost =</span> <span class="fu">mean</span>(fuel_cost))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot average fuel cost by cylinder count</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_fuel_cost, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(cyl), <span class="at">y =</span> avg_fuel_cost)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Cylinders"</span>, </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Average Fuel Cost ($)"</span>, </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Fuel Cost by Cylinder Group"</span>) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1205,26 +885,9 @@ Volvo 142E                   Medium 14.018692</code></pre>
 </div>
 </div>
 </section>
-<section id="part-7-discuss-with-your-partner" class="level4">
-<h4 class="anchored" data-anchor-id="part-7-discuss-with-your-partner">Part 7: Discuss with your partner</h4>
-<ul>
-<li>How does <code>purrr</code> make it easier to perform repeated transformations compared to base R?</li>
-<li>What are some use cases where conditional transformations like <code>map_if()</code> could be helpful in real-world data?</li>
-</ul>
-</section>
 </section>
 <section id="post-lecture" class="level1">
 <h1>Post-lecture</h1>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<ul>
-<li>Introduction to functional programming.</li>
-<li>The R package <code>purrr</code> provides a nice interface to functional programming and list manipulation.</li>
-<li>The function <code>map</code> and its aternative <code>map_*</code> provide a neat way to iterate over a list or vector with the output in different data structures.</li>
-<li>The function <code>map2</code> and <code>pmap</code> allow having more than one list as input.</li>
-<li>The function <code>walk</code> and its alternatives <code>walk2</code>, <code>walk_*</code>, which do not provide any output.</li>
-</ul>
-</section>
 <section id="additional-practice" class="level2">
 <h2 class="anchored" data-anchor-id="additional-practice">Additional practice</h2>
 <p>Here are some additional practice questions to help you think about the material discussed.</p>
@@ -1250,26 +913,27 @@ Questions
 </ol></li>
 <li><p>The following code simulates the performance of a t-test for non-normal data. Extract the p-value from each test, then visualise.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>trials <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="sc">~</span> <span class="fu">t.test</span>(<span class="fu">rpois</span>(<span class="dv">10</span>, <span class="dv">10</span>), <span class="fu">rpois</span>(<span class="dv">7</span>, <span class="dv">10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>trials <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="sc">~</span> <span class="fu">t.test</span>(<span class="fu">rpois</span>(<span class="dv">10</span>, <span class="dv">10</span>), <span class="fu">rpois</span>(<span class="dv">7</span>, <span class="dv">10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Use <code>map()</code> to fit linear models to the <code>mtcars</code> dataset using the formulas stored in this list:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>formulas <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> disp,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp),</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> disp <span class="sc">+</span> wt,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp) <span class="sc">+</span> wt</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>formulas <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> disp,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> disp <span class="sc">+</span> wt,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp) <span class="sc">+</span> wt</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Fit the model <code>mpg ~ disp</code> to each of the bootstrap replicates of <code>mtcars</code> in the list below, then extract the <span class="math inline">\(R^2\)</span> of the model fit (Hint: you can compute the <span class="math inline">\(R^2\)</span> with <code>summary()</code>.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  df[<span class="fu">sample</span>(<span class="fu">nrow</span>(df), <span class="at">replace =</span> <span class="cn">TRUE</span>), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="sc">~</span> <span class="fu">bootstrap</span>(mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  df[<span class="fu">sample</span>(<span class="fu">nrow</span>(df), <span class="at">replace =</span> <span class="cn">TRUE</span>), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="sc">~</span> <span class="fu">bootstrap</span>(mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
+<li><p>How does <code>purrr</code> make it easier to perform repeated transformations compared to base R? What are some use cases where conditional transformations like <code>map_if()</code> could be helpful in real-world data?</p></li>
 </ol>
 </div>
 </div>

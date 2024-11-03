@@ -8,9 +8,9 @@
 
 <meta name="author" content="Stephanie Hicks">
 <meta name="dcterms.date" content="2024-11-07">
-<meta name="description" content="Introduction to JSON files and interacting with APIs with httr">
+<meta name="description" content="Introduction to JSON files and interacting with APIs with httr2">
 
-<title>Retrieving data from APIs with httr – Statistical Programming Paradigms and Workflows</title>
+<title>Retrieving data from APIs with httr2 – Statistical Programming Paradigms and Workflows</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -168,10 +168,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Retrieving data from APIs with <code>httr</code></h1>
+      <h1 class="title">Retrieving data from APIs with <code>httr2</code></h1>
                   <div>
         <div class="description">
-          Introduction to JSON files and interacting with APIs with <code>httr</code>
+          Introduction to JSON files and interacting with APIs with <code>httr2</code>
         </div>
       </div>
                 </div>
@@ -234,16 +234,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#access-the-api-from-r" id="toc-access-the-api-from-r" class="nav-link" data-scroll-target="#access-the-api-from-r">Access the API from R</a></li>
   <li><a href="#using-api-keys" id="toc-using-api-keys" class="nav-link" data-scroll-target="#using-api-keys">Using API keys</a></li>
-  <li><a href="#access-api-with-httr-and-get" id="toc-access-api-with-httr-and-get" class="nav-link" data-scroll-target="#access-api-with-httr-and-get">Access API with <code>httr</code> and <code>GET</code></a></li>
-  <li><a href="#a-bit-of-eda-fun" id="toc-a-bit-of-eda-fun" class="nav-link" data-scroll-target="#a-bit-of-eda-fun">A bit of EDA fun</a></li>
-  <li><a href="#other-examples-with-github-api" id="toc-other-examples-with-github-api" class="nav-link" data-scroll-target="#other-examples-with-github-api">Other examples with GitHub API</a></li>
-  </ul></li>
-  <li><a href="#openfda-api" id="toc-openfda-api" class="nav-link" data-scroll-target="#openfda-api">openFDA API</a>
+  <li><a href="#access-apis-with-httr2" id="toc-access-apis-with-httr2" class="nav-link" data-scroll-target="#access-apis-with-httr2">Access APIs with <code>httr2</code></a>
   <ul class="collapse">
-  <li><a href="#register-for-an-api-key" id="toc-register-for-an-api-key" class="nav-link" data-scroll-target="#register-for-an-api-key">Register for an API Key</a></li>
-  <li><a href="#building-the-url-for-get" id="toc-building-the-url-for-get" class="nav-link" data-scroll-target="#building-the-url-for-get">Building the URL for <code>GET</code></a></li>
-  <li><a href="#calling-an-api-with-get" id="toc-calling-an-api-with-get" class="nav-link" data-scroll-target="#calling-an-api-with-get">Calling an API with <code>GET</code></a></li>
-  <li><a href="#converting-json-to-a-data.frame" id="toc-converting-json-to-a-data.frame" class="nav-link" data-scroll-target="#converting-json-to-a-data.frame">Converting JSON to a <code>data.frame</code></a></li>
+  <li><a href="#example-github-commits" id="toc-example-github-commits" class="nav-link" data-scroll-target="#example-github-commits">Example: GitHub commits</a></li>
+  <li><a href="#example-learn-about-stephanie" id="toc-example-learn-about-stephanie" class="nav-link" data-scroll-target="#example-learn-about-stephanie">Example: Learn about Stephanie</a></li>
+  </ul></li>
+  <li><a href="#a-bit-of-eda-fun" id="toc-a-bit-of-eda-fun" class="nav-link" data-scroll-target="#a-bit-of-eda-fun">A bit of EDA fun</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="motivation" class="level1">
 <h1>Motivation</h1>
@@ -490,7 +486,7 @@ Purpose of APIs
 <p>The basic steps to using an API are:</p>
 <ol type="1">
 <li><strong>Obtaining an API key</strong>. This is done by creating a verified account with the API provider.</li>
-<li><strong>Set up an HTTP API client</strong>. This tool allows you to structure API requests easily using the API keys received. Here, we will use the <code>GET()</code> function from the <code>httr</code> package.</li>
+<li><strong>Set up an HTTP API client</strong>. This tool allows you to structure API requests easily using the API keys received. Here, we will use functions from the <code>httr2</code> package (which is the next generation of the <code>httr</code> package).</li>
 <li>If you don’t have an API client, you can try to structure the request yourself in your browser by referring to the API documentation.</li>
 <li>Once you are comfortable with the new API syntax, you can start using it in your code.</li>
 </ol>
@@ -530,14 +526,14 @@ Pro-tip
 <h2 class="anchored" data-anchor-id="access-the-api-from-r">Access the API from R</h2>
 <p>There are packages for many programming languages that provide convenient access for communicating with the GitHub API, but there are no such packages (that I’m aware of) for accessing the API from R.</p>
 <p>This means we can only access the API directly, e.g.&nbsp;by using the <a href="https://cran.r-project.org/web/packages/jsonlite/index.html"><code>jsonlite</code></a> package to fetch the data and convert it to an R <code>list</code> or <code>data.frame</code>.</p>
-<p>Specifically, we will use the <code>jsonlite::fromJSON()</code> function to convert from a JSON object to a data frame.</p>
-<p>The JSON file is located at <a href="https://api.github.com/users/stephaniehicks/repos">https://api.github.com/users/stephaniehicks/repos</a></p>
+<p>Specifically, we will use the <code>jsonlite::read_json()</code> function to read a JSON file into a data frame.</p>
+<p>The JSON file is located at <a href="https://api.github.com/users/stephaniehicks/repos" class="uri">https://api.github.com/users/stephaniehicks/repos</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>github_url <span class="ot">=</span> <span class="st">"https://api.github.com/users/stephaniehicks/repos"</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>github_url <span class="ot">&lt;-</span> <span class="st">"https://api.github.com/users/stephaniehicks/repos"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>jsonData <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(github_url))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>jsonData <span class="ot">&lt;-</span> <span class="fu">read_json</span>(github_url, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(jsonData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 30
@@ -623,7 +619,7 @@ $ watchers                    &lt;int&gt; 4, 0, 2, 1, 0, 0, 1, 8, 0, 1, 0, 15, 3
 $ default_branch              &lt;chr&gt; "master", "master", "main", "master", "mas…</code></pre>
 </div>
 </div>
-<p>The function <code>fromJSON()</code> has now converted the JSON file into a data frame.</p>
+<p>We see this has returned a data frame with the argument <code>simplifyVector</code> which converts the output from a list to a dataframe.</p>
 <p>However, from here, we see that there are only 30 rows (or 30 repositories). If you look on my github page, you can see there are more than 30 repositories.</p>
 <ul>
 <li><a href="https://github.com/stephaniehicks?tab=repositories" class="uri">https://github.com/stephaniehicks?tab=repositories</a></li>
@@ -668,10 +664,10 @@ Example
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>github_url <span class="ot">=</span> <span class="st">"https://api.github.com/users/stephaniehicks/repos?page=1&amp;per_page=1000"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>jsonDataAll <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(github_url))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>jsonDataAll <span class="ot">&lt;-</span> <span class="fu">read_json</span>(github_url, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(jsonDataAll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 91 79</code></pre>
+<pre><code>[1] 92 79</code></pre>
 </div>
 </div>
 <p>We now get all the public repositories! yay!</p>
@@ -712,8 +708,8 @@ OPENFDA_API_KEY = &lt;add my openFDA API key here&gt; </code></pre>
 </div>
 <p>We will use this in a little bit.</p>
 </section>
-<section id="access-api-with-httr-and-get" class="level2">
-<h2 class="anchored" data-anchor-id="access-api-with-httr-and-get">Access API with <code>httr</code> and <code>GET</code></h2>
+<section id="access-apis-with-httr2" class="level2">
+<h2 class="anchored" data-anchor-id="access-apis-with-httr2">Access APIs with <code>httr2</code></h2>
 <p>There are a set of <a href="https://docs.oracle.com/en/cloud/saas/marketing/eloqua-develop/Developers/GettingStarted/APIRequests/HTTP-verbs.htm">basic HTTP verbs</a> that allow you access a set of <strong>endpoints</strong>.</p>
 <p>The basic request patterns are:</p>
 <ul>
@@ -723,422 +719,370 @@ OPENFDA_API_KEY = &lt;add my openFDA API key here&gt; </code></pre>
 <li>Update an item (PUT)</li>
 <li>Delete an item (DELETE)</li>
 </ul>
-<p>Here, we will use the <code>GET()</code> function from <a href="https://cran.r-project.org/web/packages/httr/index.html"><code>httr</code></a> package (i.e.&nbsp;tools to work with URLs and HTTP) to retrieve a single JSON file.</p>
-<p>We will also make this an <strong>authenticated HTTP response</strong> to the GitHub API using <code>authenticate()</code> from the <code>httr</code> package.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Example
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let’s start by using the GitHub API to learn information about myself (Stephanie Hicks)</p>
+<section id="example-github-commits" class="level3">
+<h3 class="anchored" data-anchor-id="example-github-commits">Example: GitHub commits</h3>
+<p>Let’s say you want to retrieve information about the latest commits from a GitHub repository. We will use <code>httr2</code> to make a request to the GitHub API for a repository of your choice. Later on we will make this an <strong>authenticated HTTP response</strong> to the GitHub API.</p>
+<p>First, we make sure we have the <code>httr2</code> package installed and loaded. We’ll also need <code>jsonlite</code> package for handling JSON files and <code>dplyr</code> for data wrangling.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>github_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"GITHUB_API_KEY"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">'https://api.github.com/user'</span>, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">authenticate</span>(<span class="at">user =</span> <span class="st">'stephaniehicks'</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">password =</span> github_key))</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response [https://api.github.com/user]
-  Date: 2024-10-26 00:50
-  Status: 401
-  Content-Type: application/json; charset=utf-8
-  Size: 109 B
-{
-  "message": "Bad credentials",
-  "documentation_url": "https://docs.github.com/rest",
-  "status": "401"
-}</code></pre>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>We see the response we got is a JSON file.</p>
-</div>
-</div>
-<p>Next we extract / retrieve the contents from the raw JSON output using the <code>content()</code> function from the <code>httr</code> package. If you use the argument <code>as = 'text'</code>, it extracts the contents as a character vector.</p>
+<p>Now we will set up our <strong>request</strong> to the GitHub API. The GitHub API endpoint for getting the latest commits in a repository is at <code>https://api.github.com/repos/{owner}/{repo}/commits</code>.</p>
+<p>For this example, we’ll look at the latest commits for the tidyverse/dplyr repository. We will use <code>httr2::request()</code> function to set up the request, (and later on we will add authentication – optional, but recommended for higher rate limits), and parse the response.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>account_details <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(httr<span class="sc">::</span><span class="fu">content</span>(response, <span class="at">as =</span> <span class="st">'text'</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>account_details[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$message
-[1] "Bad credentials"
-
-$documentation_url
-[1] "https://docs.github.com/rest"
-
-$status
-[1] "401"
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL
-
-$&lt;NA&gt;
-NULL</code></pre>
-</div>
-</div>
-<p>Next, let’s perform the same request we did above about my 85 repositories, but instead of reading in the JSON file from the web, we use an authenticated <code>GET()</code> response:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">'https://api.github.com/users/stephaniehicks/repos?page=1&amp;per_page=1000'</span>,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">authenticate</span>(<span class="st">'stephaniehicks'</span>, github_key))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>repo_details <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(httr<span class="sc">::</span><span class="fu">content</span>(response, <span class="at">as =</span> <span class="st">'text'</span>)))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>repo_details</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  message         documentation_url            status
-  &lt;chr&gt;           &lt;chr&gt;                        &lt;chr&gt; 
-1 Bad credentials https://docs.github.com/rest 401   </code></pre>
-</div>
-</div>
-</section>
-<section id="a-bit-of-eda-fun" class="level2">
-<h2 class="anchored" data-anchor-id="a-bit-of-eda-fun">A bit of EDA fun</h2>
-<p>Let’s have a bit of fun and explore some questions:</p>
-<ul>
-<li>How many have forks? How many forks?</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(repo_details<span class="sc">$</span>forks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>owner <span class="ot">&lt;-</span> <span class="st">"tidyverse"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>repo <span class="ot">&lt;-</span> <span class="st">"dplyr"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://api.github.com/repos/"</span>, owner, <span class="st">"/"</span>, repo, <span class="st">"/commits"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">request</span>(url) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `forks`.</code></pre>
+<pre><code>&lt;httr2_response&gt;</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt; table of extent 0 &gt;</code></pre>
-</div>
-</div>
-<p>What’s the most popular language?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(repo_details<span class="sc">$</span>language)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `language`.</code></pre>
+<pre><code>GET https://api.github.com/repos/tidyverse/dplyr/commits</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt; table of extent 0 &gt;</code></pre>
-</div>
-</div>
-<p>To find out how many repos that I have with open issues, we can just create a table:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how many repos have open issues? </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(repo_details<span class="sc">$</span>open_issues_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `open_issues_count`.</code></pre>
+<pre><code>Status: 200 OK</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Content-Type: application/json</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Body: In memory (146056 bytes)</code></pre>
+</div>
+</div>
+<p>Next, we can see if the response was successful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the response was successful</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(response) <span class="sc">==</span> <span class="dv">200</span>) {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse JSON response into an R list</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  commits <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># View the first few rows of the commits data</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(commits)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Failed to retrieve data. Status code: "</span>, <span class="fu">resp_status</span>(response))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt; table of extent 0 &gt;</code></pre>
+<pre><code>                                       sha
+1 fb25640fa1eb74746a7a74a06090045106e5d20f
+2 e4e9a295a373b85e02ae084a23f12e9212a72b98
+3 1d17672a54305170dc75c251f8ae69a85c0bea37
+4 cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84
+5 85e94fcde02ad49c77510991078899278489fd8f
+6 e0555277878ed174d40bda86690674ecdc27db55
+                                                                node_id
+1 C_kwDOAGIUpdoAKGZiMjU2NDBmYTFlYjc0NzQ2YTdhNzRhMDYwOTAwNDUxMDZlNWQyMGY
+2 C_kwDOAGIUpdoAKGU0ZTlhMjk1YTM3M2I4NWUwMmFlMDg0YTIzZjEyZTkyMTJhNzJiOTg
+3 C_kwDOAGIUpdoAKDFkMTc2NzJhNTQzMDUxNzBkYzc1YzI1MWY4YWU2OWE4NWMwYmVhMzc
+4 C_kwDOAGIUpdoAKGNmYjI1YTAzMGY5ZjdjMzlmNzdmZWQyYzk3ZjNmYTdiMTVhNTVlODQ
+5 C_kwDOAGIUpdoAKDg1ZTk0ZmNkZTAyYWQ0OWM3NzUxMDk5MTA3ODg5OTI3ODQ4OWZkOGY
+6 C_kwDOAGIUpdoAKGUwNTU1Mjc3ODc4ZWQxNzRkNDBiZGE4NjY5MDY3NGVjZGMyN2RiNTU
+    commit.author.name                         commit.author.email
+1        Kirill Müller                           kirill@cynkra.com
+2        Davis Vaughan                           davis@rstudio.com
+3              Mike Du 58779940+ilovemane@users.noreply.github.com
+4                 Adam                       adampeterso@gmail.com
+5 Núria Mercadé-Besora 61558739+nmercadeb@users.noreply.github.com
+6           James Wade                       github@jameshwade.com
+    commit.author.date commit.committer.name commit.committer.email
+1 2024-11-02T17:43:50Z         Kirill Müller      kirill@cynkra.com
+2 2024-10-01T15:53:13Z                GitHub     noreply@github.com
+3 2024-08-27T16:31:39Z                GitHub     noreply@github.com
+4 2024-08-27T16:30:57Z                GitHub     noreply@github.com
+5 2024-08-27T15:51:07Z                GitHub     noreply@github.com
+6 2024-08-27T15:40:46Z                GitHub     noreply@github.com
+  commit.committer.date
+1  2024-11-02T17:44:39Z
+2  2024-10-01T15:53:13Z
+3  2024-08-27T16:31:39Z
+4  2024-08-27T16:30:57Z
+5  2024-08-27T15:51:07Z
+6  2024-08-27T15:40:46Z
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        commit.message
+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Move to tidyverse, already applied manually to gh-pages
+2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Remove not needed `new_expanded_quosures()` (#7090)
+3                                                                                                                                                                                                                                                                                               Add error message when passing an array in `conditions` (#7069)\n\n* add error message when passing a matrix\r\n\r\ntidyverse day\r\n\r\n* Update test-vec-case-when.R\r\n\r\n* fixes\r\n\r\n* Tweaks\r\n\r\n* NEWS bullet\r\n\r\n* Update snap\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+4                                                                                                                                                                                                                                                                   Add documentation clarifying appropriate use of weights in `slice_sample()` (#7052)\n\n* Add documentation clarifying appropriate use of weights in dplyr's `slice_sample()`.\r\n\r\n* Add documentation to relevant .Rd file.\r\n\r\n* Tweak documentation placement a bit\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Document that `group_by()` works with data-masking (#7071)
+6 Add a `ptype` argument to `between()` (#7073)\n\n* add ptype argument to between Fixes #6906\r\n\r\n* update NEWS with ptype argument\r\n\r\n* document() and add tests\r\n\r\n* add back see also\r\n\r\n* add back see also\r\n\r\n* Redocument\r\n\r\n* Trim trailing whitespace\r\n\r\n* Remove extra line\r\n\r\n* Minor docs tweaks\r\n\r\n* require names ptype, update tests, update function documentation\r\n\r\n* remove unnecessary if else blocks\r\n\r\n* Tweak NEWS bullet\r\n\r\n* A few more tweaks\r\n\r\n* Few more tweaks\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+                           commit.tree.sha
+1 5aaa2c4dcdabd6c8303b660f15c963740193eb17
+2 8299635297b6b5e61c9522b525a5414993405e08
+3 9144e07c3b09886b79b64a76904501f565f1b6c8
+4 3d6a95112c5bc59e6a60d245704984e722aeacad
+5 852e02c951972c5a4e9a831c68e2425085e7fdd5
+6 18d4e6763ceb64f3967f9addb712ad0878798b38
+                                                                                  commit.tree.url
+1 https://api.github.com/repos/tidyverse/dplyr/git/trees/5aaa2c4dcdabd6c8303b660f15c963740193eb17
+2 https://api.github.com/repos/tidyverse/dplyr/git/trees/8299635297b6b5e61c9522b525a5414993405e08
+3 https://api.github.com/repos/tidyverse/dplyr/git/trees/9144e07c3b09886b79b64a76904501f565f1b6c8
+4 https://api.github.com/repos/tidyverse/dplyr/git/trees/3d6a95112c5bc59e6a60d245704984e722aeacad
+5 https://api.github.com/repos/tidyverse/dplyr/git/trees/852e02c951972c5a4e9a831c68e2425085e7fdd5
+6 https://api.github.com/repos/tidyverse/dplyr/git/trees/18d4e6763ceb64f3967f9addb712ad0878798b38
+                                                                                         commit.url
+1 https://api.github.com/repos/tidyverse/dplyr/git/commits/fb25640fa1eb74746a7a74a06090045106e5d20f
+2 https://api.github.com/repos/tidyverse/dplyr/git/commits/e4e9a295a373b85e02ae084a23f12e9212a72b98
+3 https://api.github.com/repos/tidyverse/dplyr/git/commits/1d17672a54305170dc75c251f8ae69a85c0bea37
+4 https://api.github.com/repos/tidyverse/dplyr/git/commits/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84
+5 https://api.github.com/repos/tidyverse/dplyr/git/commits/85e94fcde02ad49c77510991078899278489fd8f
+6 https://api.github.com/repos/tidyverse/dplyr/git/commits/e0555277878ed174d40bda86690674ecdc27db55
+  commit.comment_count commit.verification.verified commit.verification.reason
+1                    0                        FALSE                   unsigned
+2                    0                         TRUE                      valid
+3                    0                         TRUE                      valid
+4                    0                         TRUE                      valid
+5                    0                         TRUE                      valid
+6                    0                         TRUE                      valid
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      commit.verification.signature
+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              &lt;NA&gt;
+2 -----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJm/BrpCRC1aQ7uu5UhlAAApk0QABIAjfuu47L1gaXmicgRMYpN\nTs1JfHO7zGxafb5QYqgk80yH/w+XsqHt+Q2Xd3JLvIYSWBJ4IAuKU+R4vBOF6yhW\nDprWxU3K0bLeOc9ycmH21WUPSBNjw/dhyFkMULBa6ZbZhsfPddb8OhPSw02ze/Rw\n9oQSVIWC5ZGIHwBp4/dvrdmQ7ztwmFnTp8uegpIdLdfpqCereJdV74VYx7TrGYB4\n/+48s84H2X2p/P3h15riv5t+545uhrMZMP9RspV7etRju4mloG5EP2zpLPgxrCIi\nLhmpZdjKgrOc0AlocOWyjcGzRLSgExYV0bTeJnTpxqZRsZzkM5JMEGEnPCBP5OD3\nd+PGv+l7WeOioB8+r5Sz+asoWqEfv2rfrjibqZpT4BSwV+R4+4p0NFtzOZpBzrCz\nd+7mu0PWyLP4H7RQ0vWNZTMP3YYpQoEL5FX+X9qKKuFnob8n6W4Fje/B1ru4cYip\nvI7sX43WLQ9X32x7FleFHsFAZDKSg8x/QXlJ2T1/VZSv0ge4M/wg5YmzhPi17xSl\n7JcizRSKzqZDtDiIZQD2FjnVMNdL1LsjbnbWJGf02KejxFkgsYa2oEos2ekouilL\n+xswdRrF8Fuh8KNCMc3MGO3nQovjMGgMoaFaYetXhYOTUSGAfQJBOOpNrH0vzf6g\nOSuaLjJrCYFv0IIxdtrA\n=kx9G\n-----END PGP SIGNATURE-----\n
+3 -----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmzf9rCRC1aQ7uu5UhlAAA+k4QADkSbzuLgeAvxtczSazlRvuW\nAYPlvaK02ndKbIY8Ucwp/wyTGgorMH2kC3g3r0cy1bwVHvsNp0gt1S3tbxdvXXEA\n8R0+pHSxgDvzCIkZdE5WJpN1VjQVYAmqRzeVt9ieifuBGVWapIn26fDPndXswPWq\nQWDKh6tZn5wsfWiclR4TSKIcqOrva7AzegB0iyF/8kKer7jOuG/R5OQoTGJoXwlR\nzGdI+JxKBnY9Q24SBo5xruKq3LKQIWUiICm48aFQ35JbsT83v+RuiAfMkrn1C0RM\nQdN0820iz5/oShO5iIXvcIBZSZhSjQ/EQkv394YS0N4gElGwEbXQIOon5nZIzK3d\n7jtXerms96sjUCOXyb0fB6YnbNEA3/Tiq7x61Fy6uUSrblewhd5AXNZu9/aJwvYv\nOj1BoMdr/HSIUnHl11+90Y0RIA66WsHNCZLKm3L2DAlYczGmL/zcFNivH/3epmlB\nMirSkqfuK1AYzaH5z8Fpu9UOkEVw18L+gFwn2fTye3rxzoy6Lr8R9eT/VAUtZCQV\ng3LurvIWjHe1NNVxeQ702E1ACBXcUhD4Bfqij1QZeEFP7bsIo+ggcyyEIn56ayEO\nSmGMb76kcBciL44oU8fAuzWK8nVVA54iM4ecJltYhp1o3tOFpJ+fQA4n5hxFYgc4\nU+1DPZvop1yluVlV1vVV\n=AwJu\n-----END PGP SIGNATURE-----\n
+4 -----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmzf9BCRC1aQ7uu5UhlAAA68AQAEtPIx3MrOwvPhjYi4mbBvZJ\n/EeNZqaiHoanezr8L+AR0Fym/Asnf5h35+t4PDYU/JqGdND/es0LB6GxH3YMNUsK\n6PrGbv4CMs3Ary5si5c7ynAlASCnbcMrvbIUM0UWzWd5eV+am0irDFmZc20g5Wt/\ngZPYGNKK0D3RWM2KP5O6a67zm9ipuqNbAkGRat9qehxvTEblnB/v8jHZGy5WpTjw\nZDxrdgdCHWCHM48viFsJlbEm8V17tFJ/ipy6JthZy7Ei1JyWpmuc28y3VqrofIDF\n58OdA6RA7JDvfhWPFKq9RKjgfSXp5hgz+5edSwc9fTS77KL9MDq8ZK+Mhm12F3x+\nzAb8fdajL4YwTjquwUfKJWYEgrc39vmFo/G84+VtYuRRvi2T8BFlXqTsEw3z109Y\nfFzem/3R0PFn/+M68dzh931G52JEkhlcowR/Dy+cy1bgnWlEDOHZQQUtFGsuRJ/T\nxOByNQ3GIiqxR+40VREeByXuCdLCOrD0KiggwNBIbUb9AU4fwvS3LNxDZLMB8gzJ\n+DRTH/uMwwlySvf/gn5NvlasXVnLSTuMCi/DBEUMFpOkfeUG63stOuiiqn0p9ll8\nHuAsLVT72uZOYOMiW+MsskehXZKKnOUlzv4JfoakFIEFMwBSDAdfsq9hWYtdZ9so\ndNwPfMuZLou4JZ4kNJoP\n=2gy1\n-----END PGP SIGNATURE-----\n
+5 -----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmzfXrCRC1aQ7uu5UhlAAAGIkQAAWFfWEtO+rNEL4oWHAm0Fdx\ncKsyfH/j+eIZDIwJ7KF9hcd1VLeVO96lxCtAqW2/x7lYReM/NyfBtz0nQuwaVM01\nstesFeyJZDclN2LgHWPwuq9QM3Gt2M1hrmguDvb6oM5rvT2W0XXKNS5TlPKx3TeU\nZT1RIFfndFuvifQlZjmYMaDI9kLQS8kQtQCTjuv3Ei57uWEAbkj5r2w6SA8HA8Ti\nQxCOWzQ8FTPqyvb3iev3xLmJvXXNr+AJXbJRkIZA3Pwu8CCOmpmf6H6HeBQqMzaG\nkjqX5uqzmyAyf38z7Y+yALQkPySQbNp/de2jea1hrq7v2W78cR4+gIzti09Y1Q9R\nhi5PIXwsykb4XKdZXl3kQfEBxBh7iIbBOglLPHMDRVolQMmj6S9ezjnn0FkpXdKE\nnCPGPI/+6MzTeSPrinfO7wUpXNQocVwBEUV8Qvv8Rc/uHbKw6FLPofZepJ+Z2UmA\npyEvwcADNGXhJM8Ef9O3tdDFhdV5bSORW9bhQh97l9yPneB5+Rui1ftiqKjqR0pC\n9uPNrMoexCc1O/uEv5CotGjViOJrdzbqJxBWO9BD8i8LKNI/Fiuu4OHMQsXwxHye\nqSPrOx4zrAxrg/qn9hEPQFjj+sHwjUV3dHgpSCSqzmLZzPYrAKQS7BMERogzgNke\nT9u5cp6sbK4eI414nNvP\n=4+mC\n-----END PGP SIGNATURE-----\n
+6 -----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJmzfN+CRC1aQ7uu5UhlAAAL3cQABd/cNjfNWYYv/iRI12OoHJF\n8Sqp/50IfyuyMgEJT4wGstAUi/Z632TGTQEsEBuvVbrsmlRH6myYEXIUWGEv2RM2\nD4bgykku0rZCeIJFyMjCrnMK1NYOrp3RoqD7HlWFzvpW5ZzNyXZPwafeYvsakh5K\nPt1V4WjYzEioPWTJIgAKEUr8Pr3zePCO0zY7NXAhsgobaxUK0PcDoTt0WeHkxhBL\nwt2f+FylBKSbh3Fw6zv2xINGxEQWwSWa3EZTvsu5s3aTl0OOtz/1vLQ+gCYqhU9Z\n4VHdgj0j2+AbETBPiou8E/szSuuffRTwgSkobbAkgOF6uyFg3gxRM7zjXsDiN4o6\nwxNx72y1/tDanfUCRX/e3zcUh8gqtB4RggHoKtdun7UnAck+kgCeMH+ru5eNINxH\n9K/1xL70FoasI0Kd9k4L0Q2YsoXOhgHVoQFBKC0AgiIWaJrjpx/C+MeMeXj/XgNm\nQfybWEiXHL9S4jq0Wy/3he0BvwwiHcy682/FyeVx0fxUEHw4DzL0LkcBctm+yUKS\n3MFADYcgTiVlafXFdej9mtiElSGINNh/C83Vj+LQdG6axzHeiWX6mGiRCgfEZhpT\n+XhMnpI7XyQoeSyREnuVUx+E2PWsqG0gFocq0KV3UDnc5ZGE3JtH2L9w6CKlW7YA\n8RlhDNCiHgAk2O7S2iE/\n=Z8qV\n-----END PGP SIGNATURE-----\n
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 commit.verification.payload
+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       &lt;NA&gt;
+2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               tree 8299635297b6b5e61c9522b525a5414993405e08\nparent 1d17672a54305170dc75c251f8ae69a85c0bea37\nauthor Davis Vaughan &lt;davis@rstudio.com&gt; 1727797993 -0400\ncommitter GitHub &lt;noreply@github.com&gt; 1727797993 -0400\n\nRemove not needed `new_expanded_quosures()` (#7090)\n\n
+3                                                                                                                                                                                                                                                                            tree 9144e07c3b09886b79b64a76904501f565f1b6c8\nparent cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84\nauthor Mike Du &lt;58779940+ilovemane@users.noreply.github.com&gt; 1724776299 +0100\ncommitter GitHub &lt;noreply@github.com&gt; 1724776299 -0400\n\nAdd error message when passing an array in `conditions` (#7069)\n\n* add error message when passing a matrix\r\n\r\ntidyverse day\r\n\r\n* Update test-vec-case-when.R\r\n\r\n* fixes\r\n\r\n* Tweaks\r\n\r\n* NEWS bullet\r\n\r\n* Update snap\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+4                                                                                                                                                                                                                                                                         tree 3d6a95112c5bc59e6a60d245704984e722aeacad\nparent 85e94fcde02ad49c77510991078899278489fd8f\nauthor Adam &lt;adampeterso@gmail.com&gt; 1724776257 -0400\ncommitter GitHub &lt;noreply@github.com&gt; 1724776257 -0400\n\nAdd documentation clarifying appropriate use of weights in `slice_sample()` (#7052)\n\n* Add documentation clarifying appropriate use of weights in dplyr's `slice_sample()`.\r\n\r\n* Add documentation to relevant .Rd file.\r\n\r\n* Tweak documentation placement a bit\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       tree 852e02c951972c5a4e9a831c68e2425085e7fdd5\nparent e0555277878ed174d40bda86690674ecdc27db55\nauthor Núria Mercadé-Besora &lt;61558739+nmercadeb@users.noreply.github.com&gt; 1724773867 +0100\ncommitter GitHub &lt;noreply@github.com&gt; 1724773867 -0400\n\nDocument that `group_by()` works with data-masking (#7071)\n\n
+6 tree 18d4e6763ceb64f3967f9addb712ad0878798b38\nparent 173b4232bff810f563e1739211ea7545ed0651e6\nauthor James Wade &lt;github@jameshwade.com&gt; 1724773246 -0400\ncommitter GitHub &lt;noreply@github.com&gt; 1724773246 -0400\n\nAdd a `ptype` argument to `between()` (#7073)\n\n* add ptype argument to between Fixes #6906\r\n\r\n* update NEWS with ptype argument\r\n\r\n* document() and add tests\r\n\r\n* add back see also\r\n\r\n* add back see also\r\n\r\n* Redocument\r\n\r\n* Trim trailing whitespace\r\n\r\n* Remove extra line\r\n\r\n* Minor docs tweaks\r\n\r\n* require names ptype, update tests, update function documentation\r\n\r\n* remove unnecessary if else blocks\r\n\r\n* Tweak NEWS bullet\r\n\r\n* A few more tweaks\r\n\r\n* Few more tweaks\r\n\r\n---------\r\n\r\nCo-authored-by: Davis Vaughan &lt;davis@posit.co&gt;
+                                                                                            url
+1 https://api.github.com/repos/tidyverse/dplyr/commits/fb25640fa1eb74746a7a74a06090045106e5d20f
+2 https://api.github.com/repos/tidyverse/dplyr/commits/e4e9a295a373b85e02ae084a23f12e9212a72b98
+3 https://api.github.com/repos/tidyverse/dplyr/commits/1d17672a54305170dc75c251f8ae69a85c0bea37
+4 https://api.github.com/repos/tidyverse/dplyr/commits/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84
+5 https://api.github.com/repos/tidyverse/dplyr/commits/85e94fcde02ad49c77510991078899278489fd8f
+6 https://api.github.com/repos/tidyverse/dplyr/commits/e0555277878ed174d40bda86690674ecdc27db55
+                                                                            html_url
+1 https://github.com/tidyverse/dplyr/commit/fb25640fa1eb74746a7a74a06090045106e5d20f
+2 https://github.com/tidyverse/dplyr/commit/e4e9a295a373b85e02ae084a23f12e9212a72b98
+3 https://github.com/tidyverse/dplyr/commit/1d17672a54305170dc75c251f8ae69a85c0bea37
+4 https://github.com/tidyverse/dplyr/commit/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84
+5 https://github.com/tidyverse/dplyr/commit/85e94fcde02ad49c77510991078899278489fd8f
+6 https://github.com/tidyverse/dplyr/commit/e0555277878ed174d40bda86690674ecdc27db55
+                                                                                            comments_url
+1 https://api.github.com/repos/tidyverse/dplyr/commits/fb25640fa1eb74746a7a74a06090045106e5d20f/comments
+2 https://api.github.com/repos/tidyverse/dplyr/commits/e4e9a295a373b85e02ae084a23f12e9212a72b98/comments
+3 https://api.github.com/repos/tidyverse/dplyr/commits/1d17672a54305170dc75c251f8ae69a85c0bea37/comments
+4 https://api.github.com/repos/tidyverse/dplyr/commits/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84/comments
+5 https://api.github.com/repos/tidyverse/dplyr/commits/85e94fcde02ad49c77510991078899278489fd8f/comments
+6 https://api.github.com/repos/tidyverse/dplyr/commits/e0555277878ed174d40bda86690674ecdc27db55/comments
+  author.login author.id       author.node_id
+1       krlmlr   1741643 MDQ6VXNlcjE3NDE2NDM=
+2 DavisVaughan  19150088 MDQ6VXNlcjE5MTUwMDg4
+3    ilovemane  58779940 MDQ6VXNlcjU4Nzc5OTQw
+4  apeterson91   4251291 MDQ6VXNlcjQyNTEyOTE=
+5    nmercadeb  61558739 MDQ6VXNlcjYxNTU4NzM5
+6   JamesHWade   6314313 MDQ6VXNlcjYzMTQzMTM=
+                                     author.avatar_url author.gravatar_id
+1  https://avatars.githubusercontent.com/u/1741643?v=4                   
+2 https://avatars.githubusercontent.com/u/19150088?v=4                   
+3 https://avatars.githubusercontent.com/u/58779940?v=4                   
+4  https://avatars.githubusercontent.com/u/4251291?v=4                   
+5 https://avatars.githubusercontent.com/u/61558739?v=4                   
+6  https://avatars.githubusercontent.com/u/6314313?v=4                   
+                                 author.url                 author.html_url
+1       https://api.github.com/users/krlmlr       https://github.com/krlmlr
+2 https://api.github.com/users/DavisVaughan https://github.com/DavisVaughan
+3    https://api.github.com/users/ilovemane    https://github.com/ilovemane
+4  https://api.github.com/users/apeterson91  https://github.com/apeterson91
+5    https://api.github.com/users/nmercadeb    https://github.com/nmercadeb
+6   https://api.github.com/users/JamesHWade   https://github.com/JamesHWade
+                                 author.followers_url
+1       https://api.github.com/users/krlmlr/followers
+2 https://api.github.com/users/DavisVaughan/followers
+3    https://api.github.com/users/ilovemane/followers
+4  https://api.github.com/users/apeterson91/followers
+5    https://api.github.com/users/nmercadeb/followers
+6   https://api.github.com/users/JamesHWade/followers
+                                              author.following_url
+1       https://api.github.com/users/krlmlr/following{/other_user}
+2 https://api.github.com/users/DavisVaughan/following{/other_user}
+3    https://api.github.com/users/ilovemane/following{/other_user}
+4  https://api.github.com/users/apeterson91/following{/other_user}
+5    https://api.github.com/users/nmercadeb/following{/other_user}
+6   https://api.github.com/users/JamesHWade/following{/other_user}
+                                           author.gists_url
+1       https://api.github.com/users/krlmlr/gists{/gist_id}
+2 https://api.github.com/users/DavisVaughan/gists{/gist_id}
+3    https://api.github.com/users/ilovemane/gists{/gist_id}
+4  https://api.github.com/users/apeterson91/gists{/gist_id}
+5    https://api.github.com/users/nmercadeb/gists{/gist_id}
+6   https://api.github.com/users/JamesHWade/gists{/gist_id}
+                                                author.starred_url
+1       https://api.github.com/users/krlmlr/starred{/owner}{/repo}
+2 https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}
+3    https://api.github.com/users/ilovemane/starred{/owner}{/repo}
+4  https://api.github.com/users/apeterson91/starred{/owner}{/repo}
+5    https://api.github.com/users/nmercadeb/starred{/owner}{/repo}
+6   https://api.github.com/users/JamesHWade/starred{/owner}{/repo}
+                                 author.subscriptions_url
+1       https://api.github.com/users/krlmlr/subscriptions
+2 https://api.github.com/users/DavisVaughan/subscriptions
+3    https://api.github.com/users/ilovemane/subscriptions
+4  https://api.github.com/users/apeterson91/subscriptions
+5    https://api.github.com/users/nmercadeb/subscriptions
+6   https://api.github.com/users/JamesHWade/subscriptions
+                        author.organizations_url
+1       https://api.github.com/users/krlmlr/orgs
+2 https://api.github.com/users/DavisVaughan/orgs
+3    https://api.github.com/users/ilovemane/orgs
+4  https://api.github.com/users/apeterson91/orgs
+5    https://api.github.com/users/nmercadeb/orgs
+6   https://api.github.com/users/JamesHWade/orgs
+                                 author.repos_url
+1       https://api.github.com/users/krlmlr/repos
+2 https://api.github.com/users/DavisVaughan/repos
+3    https://api.github.com/users/ilovemane/repos
+4  https://api.github.com/users/apeterson91/repos
+5    https://api.github.com/users/nmercadeb/repos
+6   https://api.github.com/users/JamesHWade/repos
+                                           author.events_url
+1       https://api.github.com/users/krlmlr/events{/privacy}
+2 https://api.github.com/users/DavisVaughan/events{/privacy}
+3    https://api.github.com/users/ilovemane/events{/privacy}
+4  https://api.github.com/users/apeterson91/events{/privacy}
+5    https://api.github.com/users/nmercadeb/events{/privacy}
+6   https://api.github.com/users/JamesHWade/events{/privacy}
+                                 author.received_events_url author.type
+1       https://api.github.com/users/krlmlr/received_events        User
+2 https://api.github.com/users/DavisVaughan/received_events        User
+3    https://api.github.com/users/ilovemane/received_events        User
+4  https://api.github.com/users/apeterson91/received_events        User
+5    https://api.github.com/users/nmercadeb/received_events        User
+6   https://api.github.com/users/JamesHWade/received_events        User
+  author.user_view_type author.site_admin committer.login committer.id
+1                public             FALSE          krlmlr      1741643
+2                public             FALSE        web-flow     19864447
+3                public             FALSE        web-flow     19864447
+4                public             FALSE        web-flow     19864447
+5                public             FALSE        web-flow     19864447
+6                public             FALSE        web-flow     19864447
+     committer.node_id                                 committer.avatar_url
+1 MDQ6VXNlcjE3NDE2NDM=  https://avatars.githubusercontent.com/u/1741643?v=4
+2 MDQ6VXNlcjE5ODY0NDQ3 https://avatars.githubusercontent.com/u/19864447?v=4
+3 MDQ6VXNlcjE5ODY0NDQ3 https://avatars.githubusercontent.com/u/19864447?v=4
+4 MDQ6VXNlcjE5ODY0NDQ3 https://avatars.githubusercontent.com/u/19864447?v=4
+5 MDQ6VXNlcjE5ODY0NDQ3 https://avatars.githubusercontent.com/u/19864447?v=4
+6 MDQ6VXNlcjE5ODY0NDQ3 https://avatars.githubusercontent.com/u/19864447?v=4
+  committer.gravatar_id                         committer.url
+1                         https://api.github.com/users/krlmlr
+2                       https://api.github.com/users/web-flow
+3                       https://api.github.com/users/web-flow
+4                       https://api.github.com/users/web-flow
+5                       https://api.github.com/users/web-flow
+6                       https://api.github.com/users/web-flow
+           committer.html_url                         committer.followers_url
+1   https://github.com/krlmlr   https://api.github.com/users/krlmlr/followers
+2 https://github.com/web-flow https://api.github.com/users/web-flow/followers
+3 https://github.com/web-flow https://api.github.com/users/web-flow/followers
+4 https://github.com/web-flow https://api.github.com/users/web-flow/followers
+5 https://github.com/web-flow https://api.github.com/users/web-flow/followers
+6 https://github.com/web-flow https://api.github.com/users/web-flow/followers
+                                       committer.following_url
+1   https://api.github.com/users/krlmlr/following{/other_user}
+2 https://api.github.com/users/web-flow/following{/other_user}
+3 https://api.github.com/users/web-flow/following{/other_user}
+4 https://api.github.com/users/web-flow/following{/other_user}
+5 https://api.github.com/users/web-flow/following{/other_user}
+6 https://api.github.com/users/web-flow/following{/other_user}
+                                    committer.gists_url
+1   https://api.github.com/users/krlmlr/gists{/gist_id}
+2 https://api.github.com/users/web-flow/gists{/gist_id}
+3 https://api.github.com/users/web-flow/gists{/gist_id}
+4 https://api.github.com/users/web-flow/gists{/gist_id}
+5 https://api.github.com/users/web-flow/gists{/gist_id}
+6 https://api.github.com/users/web-flow/gists{/gist_id}
+                                         committer.starred_url
+1   https://api.github.com/users/krlmlr/starred{/owner}{/repo}
+2 https://api.github.com/users/web-flow/starred{/owner}{/repo}
+3 https://api.github.com/users/web-flow/starred{/owner}{/repo}
+4 https://api.github.com/users/web-flow/starred{/owner}{/repo}
+5 https://api.github.com/users/web-flow/starred{/owner}{/repo}
+6 https://api.github.com/users/web-flow/starred{/owner}{/repo}
+                          committer.subscriptions_url
+1   https://api.github.com/users/krlmlr/subscriptions
+2 https://api.github.com/users/web-flow/subscriptions
+3 https://api.github.com/users/web-flow/subscriptions
+4 https://api.github.com/users/web-flow/subscriptions
+5 https://api.github.com/users/web-flow/subscriptions
+6 https://api.github.com/users/web-flow/subscriptions
+                 committer.organizations_url
+1   https://api.github.com/users/krlmlr/orgs
+2 https://api.github.com/users/web-flow/orgs
+3 https://api.github.com/users/web-flow/orgs
+4 https://api.github.com/users/web-flow/orgs
+5 https://api.github.com/users/web-flow/orgs
+6 https://api.github.com/users/web-flow/orgs
+                          committer.repos_url
+1   https://api.github.com/users/krlmlr/repos
+2 https://api.github.com/users/web-flow/repos
+3 https://api.github.com/users/web-flow/repos
+4 https://api.github.com/users/web-flow/repos
+5 https://api.github.com/users/web-flow/repos
+6 https://api.github.com/users/web-flow/repos
+                                    committer.events_url
+1   https://api.github.com/users/krlmlr/events{/privacy}
+2 https://api.github.com/users/web-flow/events{/privacy}
+3 https://api.github.com/users/web-flow/events{/privacy}
+4 https://api.github.com/users/web-flow/events{/privacy}
+5 https://api.github.com/users/web-flow/events{/privacy}
+6 https://api.github.com/users/web-flow/events{/privacy}
+                          committer.received_events_url committer.type
+1   https://api.github.com/users/krlmlr/received_events           User
+2 https://api.github.com/users/web-flow/received_events           User
+3 https://api.github.com/users/web-flow/received_events           User
+4 https://api.github.com/users/web-flow/received_events           User
+5 https://api.github.com/users/web-flow/received_events           User
+6 https://api.github.com/users/web-flow/received_events           User
+  committer.user_view_type committer.site_admin
+1                   public                FALSE
+2                   public                FALSE
+3                   public                FALSE
+4                   public                FALSE
+5                   public                FALSE
+6                   public                FALSE
+                                                                                                                                                                                                                      parents
+1 e4e9a295a373b85e02ae084a23f12e9212a72b98, https://api.github.com/repos/tidyverse/dplyr/commits/e4e9a295a373b85e02ae084a23f12e9212a72b98, https://github.com/tidyverse/dplyr/commit/e4e9a295a373b85e02ae084a23f12e9212a72b98
+2 1d17672a54305170dc75c251f8ae69a85c0bea37, https://api.github.com/repos/tidyverse/dplyr/commits/1d17672a54305170dc75c251f8ae69a85c0bea37, https://github.com/tidyverse/dplyr/commit/1d17672a54305170dc75c251f8ae69a85c0bea37
+3 cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84, https://api.github.com/repos/tidyverse/dplyr/commits/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84, https://github.com/tidyverse/dplyr/commit/cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84
+4 85e94fcde02ad49c77510991078899278489fd8f, https://api.github.com/repos/tidyverse/dplyr/commits/85e94fcde02ad49c77510991078899278489fd8f, https://github.com/tidyverse/dplyr/commit/85e94fcde02ad49c77510991078899278489fd8f
+5 e0555277878ed174d40bda86690674ecdc27db55, https://api.github.com/repos/tidyverse/dplyr/commits/e0555277878ed174d40bda86690674ecdc27db55, https://github.com/tidyverse/dplyr/commit/e0555277878ed174d40bda86690674ecdc27db55
+6 173b4232bff810f563e1739211ea7545ed0651e6, https://api.github.com/repos/tidyverse/dplyr/commits/173b4232bff810f563e1739211ea7545ed0651e6, https://github.com/tidyverse/dplyr/commit/173b4232bff810f563e1739211ea7545ed0651e6</code></pre>
 </div>
 </div>
-<p>Whew! Not as many as I thought.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-More about <code>GET</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can use the <code>query</code> argument to specify details about the response.</p>
-<p>Let’s look how many open issues there are in the <code>dplyr</code> package in the <code>tidyverse</code></p>
+<p>Then, we can extract specific data from the commits including details like the commit message, author, and date. We will create a simplified data frame with just these columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://api.github.com/repos/tidyverse/dplyr/issues"</span>, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">query =</span> <span class="fu">list</span>(<span class="at">state =</span> <span class="st">"open"</span>, <span class="at">per_page =</span> <span class="dv">100</span>, <span class="at">page =</span> <span class="dv">1</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dplyr_details <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(httr<span class="sc">::</span><span class="fu">content</span>(req, <span class="at">as =</span> <span class="st">'text'</span>)))</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>dplyr_details</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>commits_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">sha =</span> commits<span class="sc">$</span>sha,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">author =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>author<span class="sc">$</span>name,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>author<span class="sc">$</span>date,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>message)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>commits_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 83 × 31
-   url         repository_url labels_url comments_url events_url html_url     id
-   &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;
- 1 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.56e9
- 2 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.56e9
- 3 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.53e9
- 4 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.53e9
- 5 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.51e9
- 6 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.51e9
- 7 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.49e9
- 8 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.49e9
- 9 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.44e9
-10 https://ap… https://api.g… https://a… https://api… https://a… https:/… 2.43e9
-# ℹ 73 more rows
-# ℹ 24 more variables: node_id &lt;chr&gt;, number &lt;int&gt;, title &lt;chr&gt;,
-#   user &lt;df[,19]&gt;, labels &lt;list&gt;, state &lt;chr&gt;, locked &lt;lgl&gt;,
-#   assignee &lt;df[,19]&gt;, assignees &lt;list&gt;, milestone &lt;lgl&gt;, comments &lt;int&gt;,
-#   created_at &lt;chr&gt;, updated_at &lt;chr&gt;, closed_at &lt;lgl&gt;,
-#   author_association &lt;chr&gt;, active_lock_reason &lt;chr&gt;, draft &lt;lgl&gt;,
-#   pull_request &lt;df[,5]&gt;, body &lt;chr&gt;, closed_by &lt;lgl&gt;, reactions &lt;df[,10]&gt;, …</code></pre>
+<pre><code># A tibble: 30 × 4
+   sha                                      author               date    message
+   &lt;chr&gt;                                    &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;  
+ 1 fb25640fa1eb74746a7a74a06090045106e5d20f Kirill Müller        2024-1… "Move …
+ 2 e4e9a295a373b85e02ae084a23f12e9212a72b98 Davis Vaughan        2024-1… "Remov…
+ 3 1d17672a54305170dc75c251f8ae69a85c0bea37 Mike Du              2024-0… "Add e…
+ 4 cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84 Adam                 2024-0… "Add d…
+ 5 85e94fcde02ad49c77510991078899278489fd8f Núria Mercadé-Besora 2024-0… "Docum…
+ 6 e0555277878ed174d40bda86690674ecdc27db55 James Wade           2024-0… "Add a…
+ 7 173b4232bff810f563e1739211ea7545ed0651e6 Kirill Müller        2024-0… "Fix e…
+ 8 b2c7e047081301afe2ca376c508491d77bea4bde Jeremy Winget        2024-0… "Fix `…
+ 9 663d7f07140b45d5d3a256465728d9d5c35b9455 Rodrigo Dal Ben      2024-0… "Fix t…
+10 cdc99196a2d80f14b48ceb5edad328ab34a5bf65 Davis Vaughan        2024-0… "Add `…
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
-</div>
-</div>
-</section>
-<section id="other-examples-with-github-api" class="level2">
-<h2 class="anchored" data-anchor-id="other-examples-with-github-api">Other examples with GitHub API</h2>
-<p>Finally, I will leave you with a few other examples of using GitHub API:</p>
-<ul>
-<li><a href="https://blog.exploratory.io/analyzing-issue-data-with-github-rest-api-63945017dedc">How long does it take to close a GitHub Issue in the <code>dplyr</code> package?</a></li>
-<li><a href="https://stackoverflow.com/questions/9179828/github-api-retrieve-all-commits-for-all-branches-for-a-repo">How to retrieve all commits for a branch</a></li>
-<li><a href="https://masalmon.eu/2017/12/21/wherehaveyoubeen/">Getting my GitHub Activity</a></li>
-</ul>
-</section>
-</section>
-<section id="openfda-api" class="level1">
-<h1>openFDA API</h1>
-<p>Next, we will demonstrate how to request data from the API at <a href="https://open.fda.gov">openFDA API</a>, which returns JSON files.</p>
-<p>This API provides create easy access to public data, to create a new level of openness and accountability, to ensure the privacy and security of public FDA data, and ultimately to educate the public and save lives. See <a href="https://open.fda.gov/data/datadictionary">data definitions</a> for all included data.</p>
-<section id="register-for-an-api-key" class="level2">
-<h2 class="anchored" data-anchor-id="register-for-an-api-key">Register for an API Key</h2>
-<p>First, you need to register for an API key here</p>
-<ul>
-<li><a href="https://open.fda.gov/apis/authentication/" class="uri">https://open.fda.gov/apis/authentication/</a></li>
-</ul>
-<p>You should also store the API key in your <code>.Renviron</code> like above for the GitHub API key.</p>
-</section>
-<section id="building-the-url-for-get" class="level2">
-<h2 class="anchored" data-anchor-id="building-the-url-for-get">Building the URL for <code>GET</code></h2>
-<p>First, we will request a summarized set of counts around food recalls either voluntary by a firm or mandated by the FDA.</p>
-<p>The URL we want is the following</p>
-<pre><code>https://api.fda.gov/food/enforcement.json?api_key=&lt;your_API_key_here&gt;&amp;count=voluntary_mandated.exact</code></pre>
-<p>Let’s build up the URL.</p>
-<ul>
-<li>The first is the base URL: <code>https://api.fda.gov/food/enforcement.json</code>. This part of the URL <strong>will be the same for all our calls</strong> to the food enforcement API (but is different if you want to investigate e.g.&nbsp;patient responses from drugs).</li>
-<li>Next, <code>?apiKey=&lt;your_API_key_here&gt;</code> is how I use my authorization token, which tells the openFDA servers that I am allowed to ask for this data.</li>
-<li>Finally, we want to return a set of summarized counts for a specific field (<code>&amp;count=voluntary_mandated.exact</code>)</li>
-</ul>
-<p>Now that we have dissected the anatomy of an API, you can see how easy it is to build them!</p>
-<p>Basically anybody with an internet connection, an authorization token, and who knows the grammar of the API can access it. Most APIs are published with extensive documentation to help you understand the available options and parameters.</p>
-</section>
-<section id="calling-an-api-with-get" class="level2">
-<h2 class="anchored" data-anchor-id="calling-an-api-with-get">Calling an API with <code>GET</code></h2>
-<p>Let’s join the URL together:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## extract my API from `.Renviron`</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>openFDA_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENFDA_API_KEY"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">## build the URL</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="st">'https://api.fda.gov/food/enforcement.json?api_key='</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">'&amp;count=voluntary_mandated.exact'</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="do">## put it all together</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>API_URL <span class="ot">&lt;-</span> <span class="fu">paste0</span>(base, openFDA_key, query)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now we have the entire URL stored in a simple R object called <code>API_URL</code>.</p>
-<p>We can now use the URL to call the API, and we will store the returned data in an object called <code>raw_data</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">GET</span>(API_URL)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>raw_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response [https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact]
-  Date: 2024-10-26 00:50
-  Status: 200
-  Content-Type: application/json; charset=utf-8
-  Size: 687 B
-{
-  "meta": {
-    "disclaimer": "Do not rely on openFDA to make decisions regarding medical...
-    "terms": "https://open.fda.gov/terms/",
-    "license": "https://open.fda.gov/license/",
-    "last_updated": "2024-10-16"
-  },
-  "results": [
-    {
-      "term": "Voluntary: Firm initiated",
-...</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Pro-tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We can see <code>status</code> element of the list. Traditionally, a status of “200” means that the API call was successful, and other codes are used to indicate errors. You can troubleshoot those error codes using the API documentation.</p>
-</div>
-</div>
-<p>Next, we can inspect the object and we see that it is a list.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(raw_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 10
- $ url        : chr "https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact"
- $ status_code: int 200
- $ headers    :List of 22
-  ..$ date                            : chr "Sat, 26 Oct 2024 00:50:53 GMT"
-  ..$ content-type                    : chr "application/json; charset=utf-8"
-  ..$ vary                            : chr "Accept-Encoding"
-  ..$ access-control-allow-credentials: chr "true"
-  ..$ access-control-allow-origin     : chr "*"
-  ..$ age                             : chr "0"
-  ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
-  ..$ content-security-policy         : chr "default-src 'none'"
-  ..$ etag                            : chr "W/\"2af-aJ2B+UTvZEOibSzVowCdOsJz+QQ\""
-  ..$ strict-transport-security       : chr "max-age=31536000;"
-  ..$ strict-transport-security       : chr "max-age=31536000; preload"
-  ..$ vary                            : chr "Accept-Encoding"
-  ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  ..$ x-api-umbrella-request-id       : chr "ciop7000t1q26nifnfug"
-  ..$ x-cache                         : chr "MISS"
-  ..$ x-content-type-options          : chr "nosniff"
-  ..$ x-ratelimit-limit               : chr "240"
-  ..$ x-ratelimit-remaining           : chr "239"
-  ..$ x-vcap-request-id               : chr "0db6cfda-8692-4b13-7ab4-611c91c93851"
-  ..$ x-xss-protection                : chr "1; mode=block"
-  ..$ x-frame-options                 : chr "deny"
-  ..$ content-encoding                : chr "gzip"
-  ..- attr(*, "class")= chr [1:2] "insensitive" "list"
- $ all_headers:List of 1
-  ..$ :List of 3
-  .. ..$ status : int 200
-  .. ..$ version: chr "HTTP/2"
-  .. ..$ headers:List of 22
-  .. .. ..$ date                            : chr "Sat, 26 Oct 2024 00:50:53 GMT"
-  .. .. ..$ content-type                    : chr "application/json; charset=utf-8"
-  .. .. ..$ vary                            : chr "Accept-Encoding"
-  .. .. ..$ access-control-allow-credentials: chr "true"
-  .. .. ..$ access-control-allow-origin     : chr "*"
-  .. .. ..$ age                             : chr "0"
-  .. .. ..$ cache-control                   : chr "no-cache, no-store, must-revalidate"
-  .. .. ..$ content-security-policy         : chr "default-src 'none'"
-  .. .. ..$ etag                            : chr "W/\"2af-aJ2B+UTvZEOibSzVowCdOsJz+QQ\""
-  .. .. ..$ strict-transport-security       : chr "max-age=31536000;"
-  .. .. ..$ strict-transport-security       : chr "max-age=31536000; preload"
-  .. .. ..$ vary                            : chr "Accept-Encoding"
-  .. .. ..$ via                             : chr "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-  .. .. ..$ x-api-umbrella-request-id       : chr "ciop7000t1q26nifnfug"
-  .. .. ..$ x-cache                         : chr "MISS"
-  .. .. ..$ x-content-type-options          : chr "nosniff"
-  .. .. ..$ x-ratelimit-limit               : chr "240"
-  .. .. ..$ x-ratelimit-remaining           : chr "239"
-  .. .. ..$ x-vcap-request-id               : chr "0db6cfda-8692-4b13-7ab4-611c91c93851"
-  .. .. ..$ x-xss-protection                : chr "1; mode=block"
-  .. .. ..$ x-frame-options                 : chr "deny"
-  .. .. ..$ content-encoding                : chr "gzip"
-  .. .. ..- attr(*, "class")= chr [1:2] "insensitive" "list"
- $ cookies    :'data.frame':    0 obs. of  7 variables:
-  ..$ domain    : logi(0) 
-  ..$ flag      : logi(0) 
-  ..$ path      : logi(0) 
-  ..$ secure    : logi(0) 
-  ..$ expiration: 'POSIXct' num(0) 
-  ..$ name      : logi(0) 
-  ..$ value     : logi(0) 
- $ content    : raw [1:687] 7b 0a 20 20 ...
- $ date       : POSIXct[1:1], format: "2024-10-26 00:50:53"
- $ times      : Named num [1:6] 0 0.0391 0.1145 0.2709 0.4375 ...
-  ..- attr(*, "names")= chr [1:6] "redirect" "namelookup" "connect" "pretransfer" ...
- $ request    :List of 7
-  ..$ method    : chr "GET"
-  ..$ url       : chr "https://api.fda.gov/food/enforcement.json?api_key=6cz2JMCPEw0gxiI8GtZeZXDD6wt1J3aM3Mp9rDDE&amp;count=voluntary_mandated.exact"
-  ..$ headers   : Named chr "application/json, text/xml, application/xml, */*"
-  .. ..- attr(*, "names")= chr "Accept"
-  ..$ fields    : NULL
-  ..$ options   :List of 2
-  .. ..$ useragent: chr "libcurl/8.7.1 r-curl/5.2.3 httr/1.4.7"
-  .. ..$ httpget  : logi TRUE
-  ..$ auth_token: NULL
-  ..$ output    : list()
-  .. ..- attr(*, "class")= chr [1:2] "write_memory" "write_function"
-  ..- attr(*, "class")= chr "request"
- $ handle     :Class 'curl_handle' &lt;externalptr&gt; 
- - attr(*, "class")= chr "response"</code></pre>
-</div>
-</div>
-<p>One of the elements is <code>content</code> and we can inspect that</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(raw_data<span class="sc">$</span>content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> raw [1:687] 7b 0a 20 20 ...</code></pre>
-</div>
-</div>
-<p>We see the actual data have been stored as raw vectors (or raw bytes), which need to be converted to character vectors. This is not in a useable format yet.</p>
-</section>
-<section id="converting-json-to-a-data.frame" class="level2">
-<h2 class="anchored" data-anchor-id="converting-json-to-a-data.frame">Converting JSON to a <code>data.frame</code></h2>
-<p>There is a function in base R <code>rawTo_Char()</code> that converts raw bytes to characters</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>openFDA_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(raw_data<span class="sc">$</span>content), <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This converts the raw data into a list.</p>
+<p>Because GitHub’s API allows only a limited number of unauthenticated requests per hour, it’s useful to add a Personal Access Token (PAT) to increase rate limits.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1149,42 +1093,126 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We can also do this with <code>httr::content</code> (as above) and just define the encoding for the character set.</p>
+<p>Create a PAT: Students can create a PAT from their GitHub account (Settings &gt; Developer settings &gt; Personal access tokens). It’s a good idea to only grant “read” permissions.</p>
+<p>Store the PAT securely: The PAT can be stored in a <code>.Renviron</code> file for secure use. Add the following to <code>.Renviron</code>:</p>
+<pre><code>GITHUB_PAT=your_personal_access_token_here</code></pre>
+</div>
+</div>
+<p>Now, we can use the PAT in our <code>httr2</code> request.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>openFDA_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(httr<span class="sc">::</span><span class="fu">content</span>(raw_data, </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">as =</span> <span class="st">'text'</span>, </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">encoding =</span>  <span class="st">"UTF-8"</span>))</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(openFDA_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 2
- $ meta   :List of 4
-  ..$ disclaimer  : chr "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data"| __truncated__
-  ..$ terms       : chr "https://open.fda.gov/terms/"
-  ..$ license     : chr "https://open.fda.gov/license/"
-  ..$ last_updated: chr "2024-10-16"
- $ results:'data.frame':    4 obs. of  2 variables:
-  ..$ term : chr [1:4] "Voluntary: Firm initiated" "FDA Mandated" "N/A" ""
-  ..$ count: int [1:4] 26139 396 6 2</code></pre>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the PAT from environment variables</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>github_pat <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"GITHUB_PAT"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the GET request with PAT for authentication</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">request</span>(url) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(github_pat) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-<p>Now that it is in a list format, you can see that it actually contains several data frames!</p>
-<p>You can use this data right away if you are already familiar with lists in R, or you can extract the data frames into separate objects, like this:</p>
+<p>Now, we check the response as before</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ts_df <span class="ot">&lt;-</span> openFDA_data<span class="sc">$</span>results</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ts_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(response) <span class="sc">==</span> <span class="dv">200</span>) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  commits <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  commits_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sha =</span> commits<span class="sc">$</span>sha,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">author =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>author<span class="sc">$</span>name,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>author<span class="sc">$</span>date,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> commits<span class="sc">$</span>commit<span class="sc">$</span>message)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  commits_df</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Failed to retrieve data. Status code: "</span>, <span class="fu">resp_status</span>(response))</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                       term count
-1 Voluntary: Firm initiated 26139
-2              FDA Mandated   396
-3                       N/A     6
-4                               2</code></pre>
+<pre><code># A tibble: 30 × 4
+   sha                                      author               date    message
+   &lt;chr&gt;                                    &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;  
+ 1 fb25640fa1eb74746a7a74a06090045106e5d20f Kirill Müller        2024-1… "Move …
+ 2 e4e9a295a373b85e02ae084a23f12e9212a72b98 Davis Vaughan        2024-1… "Remov…
+ 3 1d17672a54305170dc75c251f8ae69a85c0bea37 Mike Du              2024-0… "Add e…
+ 4 cfb25a030f9f7c39f77fed2c97f3fa7b15a55e84 Adam                 2024-0… "Add d…
+ 5 85e94fcde02ad49c77510991078899278489fd8f Núria Mercadé-Besora 2024-0… "Docum…
+ 6 e0555277878ed174d40bda86690674ecdc27db55 James Wade           2024-0… "Add a…
+ 7 173b4232bff810f563e1739211ea7545ed0651e6 Kirill Müller        2024-0… "Fix e…
+ 8 b2c7e047081301afe2ca376c508491d77bea4bde Jeremy Winget        2024-0… "Fix `…
+ 9 663d7f07140b45d5d3a256465728d9d5c35b9455 Rodrigo Dal Ben      2024-0… "Fix t…
+10 cdc99196a2d80f14b48ceb5edad328ab34a5bf65 Davis Vaughan        2024-0… "Add `…
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
-<p>We could wrangle and visualize the data from here.</p>
+</section>
+<section id="example-learn-about-stephanie" class="level3">
+<h3 class="anchored" data-anchor-id="example-learn-about-stephanie">Example: Learn about Stephanie</h3>
+<p>Let’s start by using the GitHub API to learn information about myself (Stephanie Hicks). First, let’s check out <a href="https://api.github.com/users/stephaniehicks" class="uri">https://api.github.com/users/stephaniehicks</a>.</p>
+<p>Now, we have decided to explore <a href="https://api.github.com/users/stephaniehicks/repos" class="uri">https://api.github.com/users/stephaniehicks/repos</a>.</p>
+<p>To use <code>httr2</code>, start by creating a request:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>owner <span class="ot">&lt;-</span> <span class="st">"stephaniehicks"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://api.github.com/users/"</span>, owner,<span class="st">"/repos"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the GET request with PAT for authentication</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">request</span>(url) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_bearer_token</span>(github_pat) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>stephanie <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We convert the response to a parsed JSON file (or a list).</p>
+</section>
+</section>
+<section id="a-bit-of-eda-fun" class="level2">
+<h2 class="anchored" data-anchor-id="a-bit-of-eda-fun">A bit of EDA fun</h2>
+<p>Let’s have a bit of fun and explore some questions:</p>
+<ul>
+<li>How many public repositories do I have?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>stephanie<span class="sc">$</span>forks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  4  0  1  0  1  0  0  2  0  0  0  4  1  1  0  1 11  0  0  3  0  3  0  1  1
+[26]  0  0  1  0  0</code></pre>
+</div>
+</div>
+<p>What’s the most popular language?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(stephanie<span class="sc">$</span>language)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+            HTML Jupyter Notebook                R             Ruby 
+               7                1               12                2 
+             TeX 
+               1 </code></pre>
+</div>
+</div>
+<p>To find out how many repos that I have with open issues, we can just create a table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how many repos have open issues? </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(stephanie<span class="sc">$</span>open_issues)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 0  1 
+27  3 </code></pre>
+</div>
+</div>
+<p>Whew! Not as many as I thought.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Other examples with GitHub API
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Finally, I will leave you with a few other examples of using GitHub API:</p>
+<ul>
+<li><a href="https://blog.exploratory.io/analyzing-issue-data-with-github-rest-api-63945017dedc">How long does it take to close a GitHub Issue in the <code>dplyr</code> package?</a></li>
+<li><a href="https://stackoverflow.com/questions/9179828/github-api-retrieve-all-commits-for-all-branches-for-a-repo">How to retrieve all commits for a branch</a></li>
+<li><a href="https://masalmon.eu/2017/12/21/wherehaveyoubeen/">Getting my GitHub Activity</a></li>
+</ul>
 
 
+</div>
+</div>
 </section>
 </section>
 

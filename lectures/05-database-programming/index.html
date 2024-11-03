@@ -180,7 +180,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   </ul></li>
-  <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a></li>
+  <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a>
+  <ul class="collapse">
+  <li><a href="#part-1-create-a-sql-database" id="toc-part-1-create-a-sql-database" class="nav-link" data-scroll-target="#part-1-create-a-sql-database">Part 1: Create a SQL database</a></li>
+  <li><a href="#part-2-practice-sql-queries" id="toc-part-2-practice-sql-queries" class="nav-link" data-scroll-target="#part-2-practice-sql-queries">Part 2: Practice SQL queries</a></li>
+  <li><a href="#part-3-discussion" id="toc-part-3-discussion" class="nav-link" data-scroll-target="#part-3-discussion">Part 3: Discussion</a></li>
+  </ul></li>
   <li><a href="#post-lecture" id="toc-post-lecture" class="nav-link" data-scroll-target="#post-lecture">Post-lecture</a>
   <ul class="collapse">
   <li><a href="#additional-practice" id="toc-additional-practice" class="nav-link" data-scroll-target="#additional-practice">Additional practice</a></li>
@@ -296,7 +301,6 @@ How much should I prepare for before class?
 <h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
 <p>Material for this lecture was borrowed and adopted from</p>
 <ul>
-<li><a href="https://www.stephaniehicks.com/jhuads2021/posts/2021-12-06-sql-basics" class="uri">https://www.stephaniehicks.com/jhuads2021/posts/2021-12-06-sql-basics</a></li>
 <li><a href="https://swcarpentry.github.io/sql-novice-survey" class="uri">https://swcarpentry.github.io/sql-novice-survey</a></li>
 </ul>
 </section>
@@ -334,7 +338,7 @@ Learning objectives
 </section>
 <section id="class-activity" class="level1">
 <h1>Class activity</h1>
-<p>For the rest of the time in class, we will practice playing with SQL databases.</p>
+<p>For the rest of the time in class, we will practice creating a SQL database and also writing SQL syntax to analyze a Beyoncé discography dataset.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -346,11 +350,247 @@ Objectives of the activity
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>TBA</li>
+<li>Practice creating a SQL database in R .</li>
+<li>Practice filtering, grouping, and joining data using SQL commands.</li>
 </ul>
 </div>
 </div>
-<p>For this in-class activity, you need to find a partner.</p>
+<p>For this in-class activity, you need to find a partner. Work together on the following problems. Use the following datasets related to Beyoncé’s songs for the activity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>songs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">song_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">c</span>(<span class="st">"Crazy in Love"</span>, <span class="st">"Halo"</span>, <span class="st">"Single Ladies"</span>, <span class="st">"Formation"</span>, <span class="st">"Irreplaceable"</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Drunk in Love"</span>, <span class="st">"Run the World"</span>, <span class="st">"Partition"</span>, <span class="st">"Love on Top"</span>, <span class="st">"Sorry"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">album_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">release_year =</span> <span class="fu">c</span>(<span class="dv">2003</span>, <span class="dv">2008</span>, <span class="dv">2008</span>, <span class="dv">2016</span>, <span class="dv">2006</span>, <span class="dv">2013</span>, <span class="dv">2011</span>, <span class="dv">2013</span>, <span class="dv">2011</span>, <span class="dv">2016</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">streams_millions =</span> <span class="fu">c</span>(<span class="dv">500</span>, <span class="dv">600</span>, <span class="dv">700</span>, <span class="dv">800</span>, <span class="dv">900</span>, <span class="dv">1000</span>, <span class="dv">450</span>, <span class="dv">350</span>, <span class="dv">750</span>, <span class="dv">900</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data frame for Beyoncé's albums</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>albums <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">album_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">album_title =</span> <span class="fu">c</span>(<span class="st">"Dangerously in Love"</span>, <span class="st">"I Am... Sasha Fierce"</span>, <span class="st">"Lemonade"</span>),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">release_year =</span> <span class="fu">c</span>(<span class="dv">2003</span>, <span class="dv">2008</span>, <span class="dv">2016</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="part-1-create-a-sql-database" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-create-a-sql-database">Part 1: Create a SQL database</h2>
+<ul>
+<li>Create a new SQL database titled <code>beyonce.sqlite</code> using the <code>DBI</code> and <code>RSQLite</code> packages using the <code>dbConnect()</code> function.</li>
+<li>Using the <code>dbWriteTable()</code> function, add the <code>songs</code> and <code>albums</code> datasets to the SQL database.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This code to ensure that the lecture builds and there no SQL database at the start of the exercise</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sql_beyonce <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"lectures"</span>,<span class="st">"05-database-programming"</span>, <span class="st">"data"</span>, <span class="st">"beyonce.sqlite"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(sql_beyonce)){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.remove</span>(sql_beyonce)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mydb <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="at">drv =</span> RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dbname =</span> sql_beyonce)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(<span class="at">conn =</span> mydb, <span class="at">name =</span> <span class="st">"songs"</span>, <span class="at">value =</span> songs)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(<span class="at">conn =</span> mydb, <span class="at">name =</span> <span class="st">"albums"</span>, <span class="at">value =</span> albums)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(<span class="at">conn =</span> mydb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "albums" "songs" </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-2-practice-sql-queries" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-practice-sql-queries">Part 2: Practice SQL queries</h2>
+<ul>
+<li>Write a SQL query that selects all columns from the songs table where the number of streams is greater than 600 million.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(mydb, <span class="st">"SELECT * FROM songs WHERE streams_millions &gt; 600;"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  song_id         title album_id release_year streams_millions
+1       3 Single Ladies        1         2008              700
+2       4     Formation        3         2016              800
+3       5 Irreplaceable        2         2006              900
+4       6 Drunk in Love        3         2013             1000
+5       9   Love on Top        2         2011              750
+6      10         Sorry        3         2016              900</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Use SQL to select the titles of Beyoncé’s songs released after 2010, along with the year they were released.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(mydb, <span class="st">"SELECT title, release_year FROM songs WHERE release_year &gt; 2010;"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          title release_year
+1     Formation         2016
+2 Drunk in Love         2013
+3 Run the World         2011
+4     Partition         2013
+5   Love on Top         2011
+6         Sorry         2016</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Write a SQL query that calculates the total streams for each album. Select the album ID, album title, and total streams.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(mydb, <span class="st">"SELECT album_id, SUM(streams_millions) AS total_streams </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">                             FROM songs </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">                             GROUP BY album_id;"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  album_id total_streams
+1        1          1650
+2        2          2250
+3        3          3050</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Join the songs and albums tables using SQL to get the album title for each song. Select the song title, album title, and release year.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(mydb, <span class="st">"SELECT s.title AS song_title, a.album_title, s.release_year </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">                             FROM songs s </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">                             JOIN albums a ON s.album_id = a.album_id;"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      song_title          album_title release_year
+1  Crazy in Love  Dangerously in Love         2003
+2           Halo I Am... Sasha Fierce         2008
+3  Single Ladies  Dangerously in Love         2008
+4      Formation             Lemonade         2016
+5  Irreplaceable I Am... Sasha Fierce         2006
+6  Drunk in Love             Lemonade         2013
+7  Run the World  Dangerously in Love         2011
+8      Partition             Lemonade         2013
+9    Love on Top I Am... Sasha Fierce         2011
+10         Sorry             Lemonade         2016</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Use SQL to find the average number of streams per album. Display the album title and the average streams.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(mydb, <span class="st">"SELECT a.album_title, AVG(s.streams_millions) AS avg_streams </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">                             FROM songs s </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">                             JOIN albums a ON s.album_id = a.album_id </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">                             GROUP BY a.album_title;"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           album_title avg_streams
+1  Dangerously in Love       550.0
+2 I Am... Sasha Fierce       750.0
+3             Lemonade       762.5</code></pre>
+</div>
+</div>
+<p>Close connection when done</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(<span class="at">conn =</span> mydb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-3-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-discussion">Part 3: Discussion</h2>
+<p>Discuss with your partner:</p>
+<ul>
+<li>How does SQL make it easier to analyze and summarize data?</li>
+<li>Which SQL query might you use to quickly identify Beyoncé’s most popular song based on streams?</li>
+<li>How could these SQL skills be applied to other areas of data analysis?</li>
+</ul>
+</section>
 </section>
 <section id="post-lecture" class="level1">
 <h1>Post-lecture</h1>
@@ -367,7 +607,7 @@ Questions
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Using the <code>survey.db</code> database:</p>
+<p>Using the <code>survey.db</code> database discussed in the <a href="../../readings/05-database-programming/index.html">relational databases and SQL basics</a> pre-reading material:</p>
 <ol type="1">
 <li>Use <code>.schema</code> to identify column that contains integers</li>
 <li>Write a query that selects only the <code>name</code> column from the <code>Site</code> table.</li>
