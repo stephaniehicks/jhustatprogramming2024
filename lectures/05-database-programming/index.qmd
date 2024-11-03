@@ -21,9 +21,9 @@ You can see if the command-line tool `sqlite3` (also known as "SQLite") is alrea
 sqlite3 --version
 ```
 
-If not, you can install with `homebrew` or follow the instructions here: 
+If not, you can follow the instructions here: 
 
-- <https://swcarpentry.github.io/sql-novice-survey/setup.html>
+- <https://swcarpentry.github.io/sql-novice-survey>
 
 Also, you will need to install these R packages:
 
@@ -39,14 +39,14 @@ install.packages("dbplyr")
 In addition, please read through
 
 - [Relational databases and SQL basics](../../readings/05-database-programming/index.qmd)
-- <https://swcarpentry.github.io/sql-novice-survey>
+- <https://swcarpentry.github.io/sql-novice-survey> (Chapters 1-4)
 
 
 ::: callout-note
 
 ## How much should I prepare for before class? 
 
-Please install the packages above and be comfortable with running the functions in the example code: 
+Please install the packages above and be comfortable with running the functions in the example code here: 
 
 - <https://dbi.r-dbi.org>
 - <https://solutions.posit.co/connections/db/databases/sqlite/>
