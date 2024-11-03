@@ -5,9 +5,8 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Using APIs and extracting data from HTMLs"
 date: 2024-11-07
-draft: true
 ---
 
 # Pre-lecture activities
@@ -31,12 +30,6 @@ In addition, please read through
 
 - [Data collection with APIs](../../readings/04-data-collection-apis/index.qmd)
 - [Data collection from HTMLs](../../readings/04-data-collection-html/index.qmd)
-
-::: callout-note
-
-## How much should I prepare for before class? 
-
-:::
 
 
 # Lecture 
@@ -79,10 +72,6 @@ Material for this lecture was borrowed and adopted from
 - [googlesheets4](https://cran.r-project.org/web/packages/googlesheets4/index.html) to interact with Google Sheets in R
 - [googledrive](https://googledrive.tidyverse.org/) to interact with files on your Google Drive
 
-
-## Summary 
-
-- 
 
 ## Additional practice
 
