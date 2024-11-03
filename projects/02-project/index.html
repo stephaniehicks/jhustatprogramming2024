@@ -8,7 +8,7 @@
 
 <meta name="author" content="Stephanie Hicks">
 <meta name="dcterms.date" content="2024-11-05">
-<meta name="description" content="Building a website and practicing with command-line tools">
+<meta name="description" content="Practicing functional programming and using APIs">
 
 <title>Project 2 – Statistical Programming Paradigms and Workflows</title>
 <style>
@@ -143,6 +143,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#to-submit-your-project" id="toc-to-submit-your-project" class="nav-link" data-scroll-target="#to-submit-your-project">To submit your project</a></li>
   </ul></li>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link" data-scroll-target="#part-1">Part 1</a></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Building a website and practicing with command-line tools
+    Practicing functional programming and using APIs
   </div>
 </div>
 
@@ -195,14 +197,94 @@ ul.task-list li input[type="checkbox"] {
 <section id="background" class="level1">
 <h1>Background</h1>
 <p><strong>Due date: November 15 at 11:59pm</strong></p>
-<p>The goal of this assignment is to practice some of the skills we have been learning about in class around functional programming and data collection paradigms.</p>
+<p>The goal of this assignment is to practice some of the skills we have been learning about in class around data collection paradigms and functional programming.</p>
 <section id="to-submit-your-project" class="level3">
 <h3 class="anchored" data-anchor-id="to-submit-your-project">To submit your project</h3>
-<p>Please use this Quarto file (<code>.qmd</code>). Render this file to a <strong>HTML file</strong>.</p>
-<p>The TAs will grade the contents in the GitHub repo by cloning the repo and checking for all the things described below.</p>
-
-
+<p>You need to create a private GitHub Classroom repository (only one per group) for you and your partner, which will be posted in CoursePlus. This creates an empty GitHub repository. You need to show all your code and submit both the <code>.qmd</code> file and the rendered HTML file. Please include section headers for each of the components below. All plots should have titles, subtitles, captions, and human-understandable axis labels. The TAs will grade the contents in the GitHub Classroom repo by cloning the repo and checking for all the things described below.</p>
+<p>Because you will work with a partner, <strong>please be sure to include the names, emails, and JHED IDs for both individuals in your submitted work</strong>.</p>
 </section>
+</section>
+<section id="part-1" class="level1">
+<h1>Part 1</h1>
+<p>Here, you and your partner will practice using a API and making data visualizations.</p>
+<p>The API we will use is <code>tidycensus</code> (<a href="https://walker-data.com/tidycensus" class="uri">https://walker-data.com/tidycensus</a>), which is an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames, optionally with simple feature geometry included.</p>
+<p>The goal of this part is to create a set of data visualizations using the US Census Bureau’s data.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use this API, you must obtain and API key, which can be found at the top of this page:</p>
+<ul>
+<li><a href="https://walker-data.com/tidycensus/articles/basic-usage" class="uri">https://walker-data.com/tidycensus/articles/basic-usage</a></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you use an API, you want to figure out the data you want to extract and then save it locally so that you are not using the API each time you knit or render your data analysis.</p>
+<p>Most APIs have limits on the number of times you can ping it in a given hour and your IP address can be blocked if you try to ping it too many times within a short time.</p>
+<p>Therefore, it is strongly suggested that you create a new folder called <code>data</code> locally and save the output from extracting data from the <code>tidycensus</code> API. In this way, you can read the data in locally each time you knit/render the document, rather than continue to pull data from the API each time you knit/render the document.</p>
+</div>
+</div>
+<ol type="1">
+<li><p>Choose a question to investigate. Describe what is the question you aim to answer with the data and what you want to visualize.</p></li>
+<li><p>Extract data from the <code>tidycensus</code> API. Use at least three different calls to the <code>tidycensus</code> API to extract out different datasets. For example, these could be across years, locations, or variables.</p></li>
+<li><p>Clean the data. Include some form of data wrangling and data visualization using packages such as <code>dplyr</code> or <code>tidyr</code>. Other packages that might be helpful to you include <code>lubridate</code>, <code>stringr</code>, and <code>forcats</code>. You <strong>must use at least two functions from <code>purrr</code></strong>.</p></li>
+<li><p>Visualize the data. Create data visualizations of your choice. However, your analysis should include at least three plots with you using at least two different <code>geom_*()</code> functions from <code>ggplot2</code> (or another package with <code>geom_*()</code> functions).</p></li>
+<li><p>Report your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in pulling data from the API or the analysis. Be sure to comment and organize your code so is easy to understand what you are doing.</p></li>
+</ol>
+</section>
+<section id="part-2" class="level1">
+<h1>Part 2</h1>
+<p>In this part, you and your partner will use the <code>rvest</code> package to scrape data from a website, wrangle and analyze the data, and summarize your findings.</p>
+<ol type="1">
+<li><p>Choose a website to scrape. Select a website with structured data in HTML tables or well-defined sections. Some examples could include:</p>
+<ul>
+<li>A movie database like IMDb or Rotten Tomatoes (scraping movie titles, ratings, release years, etc.)</li>
+<li>A job listing site like Indeed or LinkedIn (scraping job titles, companies, and locations)</li>
+<li>A sports statistics site like ESPN or Baseball Reference (scraping team statistics, player info, etc.)</li>
+</ul></li>
+<li><p>Extract data with <code>rvest</code>. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use <code>rvest</code> functions like <code>read_html()</code>, <code>html_nodes()</code>, and <code>html_text()</code> or <code>html_table()</code> to retrieve the data.</p></li>
+<li><p>Clean the data. Next, perform some basic wrangling, such as remove extra whitespace, handle missing values, and convert data types as needed. You might find the functions from <code>dplyr</code> or <code>tidyr</code> useful for any additional transformations, such as renaming columns, filtering rows, or creating new variables.</p></li>
+<li><p>Analyze the data. Perform a simple analysis of your choice. For example, you could</p>
+<ul>
+<li>Count how many times specific words or themes appear.</li>
+<li>Create a summary statistic (e.g., average rating, job salary, team win percentage).</li>
+<li>Create a data visualization (e.g., bar chart, histogram) of an interesting metric.</li>
+</ul></li>
+<li><p>Report your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in your scraping or analysis. Be sure to comment and organize your code so is easy to understand what you are doing.</p></li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ensure ethical use of web scraping
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before scraping a site, it’s a good practice to check if the site allows scraping in its terms of service or look at the <code>robots.txt</code> file. While <code>robots.txt</code> does not legally prevent access, it reflects the site’s preferred limits on automated access.</p>
+<p>Some web scraping tools and libraries allow you to specify a “polite” setting that follows the <code>robots.txt</code> rules by default, which is often a good practice to follow.</p>
+<p>It’s typically located at the root of the domain (e.g., https://example.com/robots.txt) and follows a simple format to specify rules.</p>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
