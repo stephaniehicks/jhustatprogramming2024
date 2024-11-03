@@ -7,21 +7,43 @@ author:
     affiliation_url: https://publichealth.jhu.edu
 description: "Relational databases and SQL basics"
 date: 2024-11-12
-draft: true
 ---
-
 
 # Pre-lecture activities
 
 ::: callout-important
 
-In advance of class, please
+For this lecture, we will use Unix shell, plus [SQLite3](https://www.sqlite.org/index.html) or [DB Browser for SQLite](https://sqlitebrowser.org).
+
+You can see if the command-line tool `sqlite3` (also known as "SQLite") is already installed with 
+
+```{bash}
+sqlite3 --version
+```
+
+If not, you can install with `homebrew` or follow the instructions here: 
+
+- <https://swcarpentry.github.io/sql-novice-survey/setup.html>
+
+Also, you will need to install these R packages:
+
+```{r}
+#| eval: false
+install.packages("DBI")
+install.packages("RSQLite")
+install.packages("dbplyr")
+```
 
 :::
 
 In addition, please read through
 
-- 
+- <https://swcarpentry.github.io/sql-novice-survey>
+- <https://dbi.r-dbi.org>
+- <https://solutions.posit.co/connections/db/databases/sqlite/>
+- <https://dbplyr.tidyverse.org>
+
+
 
 ::: callout-note
 
@@ -36,7 +58,9 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- 
+- <https://www.stephaniehicks.com/jhuads2021/posts/2021-12-06-sql-basics>
+- <https://swcarpentry.github.io/sql-novice-survey>
+
 
 ## Learning objectives
 
@@ -45,7 +69,14 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   
+- Explain the difference between a table, a record, and a field in relational databases
+- Explain the difference between a database and a database manager
+- Write a query to select all values for specific fields from a single table
+- Write queries that display results in a particular order
+- Write queries that eliminate duplicate values from data
+- Write queries that select records that satisfy user-specified conditions
+- Learn about the `DBI`, `RSQLite`, `dbplyr` packages for making SQL queries in R
+
 :::
 
 
@@ -57,10 +88,6 @@ Material for this lecture was borrowed and adopted from
 
 # Post-lecture
 
-## Summary 
-
-- 
-
 ## Additional practice
 
 Here are some additional practice questions to help you think about the material discussed.
@@ -68,5 +95,23 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+Using the `survey.db` database: 
+
+1. Use `.schema` to identify column that contains integers
+2. Write a query that selects only the `name` column from the `Site` table.
+3. Many people format queries in the following two ways. What style do you find easiest to read, and why?
+
+```
+SELECT personal, family FROM person;
+```
+
+or
+
+```
+select Personal, Family from PERSON;
+```
+
+4. Write a query that selects distinct dates from the `Visited` table.
+5. Write a query that displays the full names of the scientists in the `Person` table, ordered by family name.
+
 :::
