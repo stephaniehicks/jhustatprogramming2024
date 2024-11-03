@@ -35,14 +35,18 @@ library(purrr)
 
 In addition, please read through
 
+- [Functional programming](../../readings/03-functional-programming/index.qmd)
 - <https://adv-r.hadley.nz/functionals.html>
 - <https://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf>
-
 
 
 ::: callout-note
 
 ## How much should I prepare for before class? 
+
+You should have `purrr` installed and be familiar with the [`map()` function](https://adv-r.hadley.nz/functionals.html#map) along with [map variants](https://adv-r.hadley.nz/functionals.html#map-variants) in `purrr`. 
+
+We will learn more about these functions in class, but we will also practice them at the end of class. 
 
 :::
 
@@ -72,7 +76,6 @@ Material for this lecture was borrowed and adopted from
 - Recongize the function `walk` and its alternatives `walk2`, `walk_*`, which do not provide any output.
 
 :::
-
 
 ## Slides 
 

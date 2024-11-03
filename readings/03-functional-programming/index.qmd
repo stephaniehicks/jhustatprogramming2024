@@ -289,7 +289,7 @@ map_lgl(.x = mtcars, .f = is.double)
 
 # map_int() always returns a integer vector
 n_unique <- function(x) length(unique(x))
-map_int(.x = mtcars, .f = n_unique)
+map_int(.x = mtcars, .f = n_unique
 
 # map_dbl() always returns a double vector
 map_dbl(.x = mtcars, .f = mean)
