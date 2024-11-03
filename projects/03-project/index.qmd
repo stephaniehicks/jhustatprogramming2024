@@ -1,0 +1,18 @@
+---
+title: "Project 3"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Practicing machine learning paradigms and using SQL databases"
+date: 2024-11-12
+knitr: true
+---
+
+# Background
+
+
+**Due date: November 22 at 11:59pm**
+
+TBA
