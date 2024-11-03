@@ -123,7 +123,7 @@
     "href": "lectures/03-functional-programming/index.html",
     "title": "Functional programming",
     "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please install\n\npurrr - this provides a consistent functional programming interface to work with functions and vectors\n\nYou can do this by calling\n\ninstall.packages(\"purrr\")\n\nAnd load the package using:\n\nlibrary(purrr)\n\n\n\nIn addition, please read through\n\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
+    "text": "Important\n\n\n\nIn advance of class, please install\n\npurrr - this provides a consistent functional programming interface to work with functions and vectors\n\nYou can do this by calling\n\ninstall.packages(\"purrr\")\n\nAnd load the package using:\n\nlibrary(purrr)\n\n\n\nIn addition, please read through\n\nFunctional programming\nhttps://adv-r.hadley.nz/functionals.html\nhttps://raw.githubusercontent.com/rstudio/cheatsheets/main/purrr.pdf\n\n\n\n\n\n\n\nHow much should I prepare for before class?\n\n\n\nYou should have purrr installed and be familiar with the map() function along with map variants in purrr.\nWe will learn more about these functions in class, but we will also practice them at the end of class."
   },
   {
     "objectID": "lectures/03-functional-programming/index.html#acknowledgements",
