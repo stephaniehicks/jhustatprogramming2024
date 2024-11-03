@@ -10,6 +10,15 @@
     ]
   },
   {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/03-project/index.html",
+      "/projects/02-project/index.html",
+      "/projects/04-project/index.html",
+      "/projects/01-project/index.html"
+    ]
+  },
+  {
     "listing": "/lectures.html",
     "items": [
       "/lectures/00-course-intro/index.html",
@@ -19,14 +28,6 @@
       "/lectures/04-data-collection/index.html",
       "/lectures/05-database-programming/index.html",
       "/lectures/06-ml-paradigms-workflows/index.html"
-    ]
-  },
-  {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/02-project/index.html",
-      "/projects/04-project/index.html",
-      "/projects/01-project/index.html"
     ]
   }
 ]

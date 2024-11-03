@@ -280,165 +280,18 @@
     "text": "The following contains relevant reading materials you should read prior to each class:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nAuthoring projects and websites with Quarto\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional Programming with purrr\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nScraping data from the web with rvest\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nRetrieving data from APIs with httr\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nRelational databases and SQL basics\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects/02-project/index.html",
-    "href": "projects/02-project/index.html",
-    "title": "Project 2",
+    "objectID": "projects/03-project/index.html",
+    "href": "projects/03-project/index.html",
+    "title": "Project 3",
     "section": "",
-    "text": "Background\nDue date: November 15 at 11:59pm\nThe goal of this assignment is to practice some of the skills we have been learning about in class around data collection paradigms and functional programming.\n\nTo submit your project\nYou need to create a private GitHub Classroom repository (only one per group) for you and your partner, which will be posted in CoursePlus. This creates an empty GitHub repository. You need to show all your code and submit both the .qmd file and the rendered HTML file. Please include section headers for each of the components below. All plots should have titles, subtitles, captions, and human-understandable axis labels. The TAs will grade the contents in the GitHub Classroom repo by cloning the repo and checking for all the things described below.\nBecause you will work with a partner, please be sure to include the names, emails, and JHED IDs for both individuals in your submitted work.\n\n\n\nPart 1\nHere, you and your partner will practice using a API and making data visualizations.\nThe API we will use is tidycensus (https://walker-data.com/tidycensus), which is an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames, optionally with simple feature geometry included.\nThe goal of this part is to create a set of data visualizations using the US Census Bureau’s data.\n\n\n\n\n\n\nImportant\n\n\n\nTo use this API, you must obtain and API key, which can be found at the top of this page:\n\nhttps://walker-data.com/tidycensus/articles/basic-usage\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nWhen you use an API, you want to figure out the data you want to extract and then save it locally so that you are not using the API each time you knit or render your data analysis.\nMost APIs have limits on the number of times you can ping it in a given hour and your IP address can be blocked if you try to ping it too many times within a short time.\nTherefore, it is strongly suggested that you create a new folder called data locally and save the output from extracting data from the tidycensus API. In this way, you can read the data in locally each time you knit/render the document, rather than continue to pull data from the API each time you knit/render the document.\n\n\n\nChoose a question to investigate. Describe what is the question you aim to answer with the data and what you want to visualize.\nExtract data from the tidycensus API. Use at least three different calls to the tidycensus API to extract out different datasets. For example, these could be across years, locations, or variables.\nClean the data. Include some form of data wrangling and data visualization using packages such as dplyr or tidyr. Other packages that might be helpful to you include lubridate, stringr, and forcats. You must use at least two functions from purrr.\nVisualize the data. Create data visualizations of your choice. However, your analysis should include at least three plots with you using at least two different geom_*() functions from ggplot2 (or another package with geom_*() functions).\nReport your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in pulling data from the API or the analysis. Be sure to comment and organize your code so is easy to understand what you are doing.\n\n\n\nPart 2\nIn this part, you and your partner will use the rvest package to scrape data from a website, wrangle and analyze the data, and summarize your findings.\n\nChoose a website to scrape. Select a website with structured data in HTML tables or well-defined sections. Some examples could include:\n\nA movie database like IMDb or Rotten Tomatoes (scraping movie titles, ratings, release years, etc.)\nA job listing site like Indeed or LinkedIn (scraping job titles, companies, and locations)\nA sports statistics site like ESPN or Baseball Reference (scraping team statistics, player info, etc.)\n\nExtract data with rvest. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use rvest functions like read_html(), html_nodes(), and html_text() or html_table() to retrieve the data.\nClean the data. Next, perform some basic wrangling, such as remove extra whitespace, handle missing values, and convert data types as needed. You might find the functions from dplyr or tidyr useful for any additional transformations, such as renaming columns, filtering rows, or creating new variables.\nAnalyze the data. Perform a simple analysis of your choice. For example, you could\n\nCount how many times specific words or themes appear.\nCreate a summary statistic (e.g., average rating, job salary, team win percentage).\nCreate a data visualization (e.g., bar chart, histogram) of an interesting metric.\n\nReport your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in your scraping or analysis. Be sure to comment and organize your code so is easy to understand what you are doing.\n\n\n\n\n\n\n\nEnsure ethical use of web scraping\n\n\n\nBefore scraping a site, it’s a good practice to check if the site allows scraping in its terms of service or look at the robots.txt file. While robots.txt does not legally prevent access, it reflects the site’s preferred limits on automated access.\nSome web scraping tools and libraries allow you to specify a “polite” setting that follows the robots.txt rules by default, which is often a good practice to follow.\nIt’s typically located at the root of the domain (e.g., https://example.com/robots.txt) and follows a simple format to specify rules."
+    "text": "Background\nDue date: November 22 at 11:59pm\nTBA"
   },
   {
-    "objectID": "lectures/06-ml-paradigms-workflows/index.html",
-    "href": "lectures/06-ml-paradigms-workflows/index.html",
-    "title": "Machine learning paradigms and workflows",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please\n\nTBA\n\n\n\nIn addition, please read through\n\nTBA\n\n\n\n\n\n\n\nHow much should I prepare for before class?\n\n\n\nTBA"
-  },
-  {
-    "objectID": "lectures/06-ml-paradigms-workflows/index.html#acknowledgements",
-    "href": "lectures/06-ml-paradigms-workflows/index.html#acknowledgements",
-    "title": "Machine learning paradigms and workflows",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from"
-  },
-  {
-    "objectID": "lectures/06-ml-paradigms-workflows/index.html#learning-objectives",
-    "href": "lectures/06-ml-paradigms-workflows/index.html#learning-objectives",
-    "title": "Machine learning paradigms and workflows",
-    "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nState the differences between machine learning paradigms including supervised, unsupervised, semi-supervised, and reinforcement Learning\nDescribe when you might want to use different paradigms\nDescribe some common methods for each of the ML paradigms\nDescribe some evaluation techniques"
-  },
-  {
-    "objectID": "lectures/06-ml-paradigms-workflows/index.html#slides",
-    "href": "lectures/06-ml-paradigms-workflows/index.html#slides",
-    "title": "Machine learning paradigms and workflows",
-    "section": "Slides",
-    "text": "Slides\n\nWill be added here."
-  },
-  {
-    "objectID": "lectures/06-ml-paradigms-workflows/index.html#additional-practice",
-    "href": "lectures/06-ml-paradigms-workflows/index.html#additional-practice",
-    "title": "Machine learning paradigms and workflows",
-    "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nTBA"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html",
-    "href": "lectures/01-command-line/index.html",
-    "title": "Introduction to the command-line",
-    "section": "",
-    "text": "The next lecture falls on 👻 Halloween ! I plan to give the lecture dressed up in a costume. This is entirely optional, but I encourage students to come in costume if you wish! Candy 🍬 will be offered to anyone in costume!"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html#acknowledgements",
-    "href": "lectures/01-command-line/index.html#acknowledgements",
-    "title": "Introduction to the command-line",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nSoftware Carpentry: The Unix Shell\nData Science at the Command line\nApplied Computational Genomics"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html#learning-objectives",
-    "href": "lectures/01-command-line/index.html#learning-objectives",
-    "title": "Introduction to the command-line",
-    "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nCreate, copy, move, rename, and delete files and folders.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html#slides",
-    "href": "lectures/01-command-line/index.html#slides",
-    "title": "Introduction to the command-line",
-    "section": "Slides",
-    "text": "Slides\n\nLecture 01: Introduction to the command-line"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html#summary",
-    "href": "lectures/01-command-line/index.html#summary",
-    "title": "Introduction to the command-line",
-    "section": "Summary",
-    "text": "Summary\n\nShell is a text based application for viewing, handling and manipulating files\nIt is also known by the following names\n\nCLI (Command Line Interface)\nTerminal\nBash (Bourne Again Shell)\n\nUse Rscript -e or R -e to execute R scripts from the command line\nRStudio includes a Terminal (from version 1.1.383)\nExecute commands from shell script in RStudio using Ctrl + Enter\nRMarkdown and Quarto supports bash, sh and awk"
-  },
-  {
-    "objectID": "lectures/01-command-line/index.html#additional-practice",
-    "href": "lectures/01-command-line/index.html#additional-practice",
-    "title": "Introduction to the command-line",
-    "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nExplore the manual pages of date in the command line to show you what that looks like. Try to figure out what is the argument to print the date since the Unix epoch or 00:00:00 UTC on 1 January 1970 as a function of the number of seconds. Then try to identify what is the argument to display the date in UTC.\nPractice your command line knowledge with Command Challenge."
-  },
-  {
-    "objectID": "lectures.html",
-    "href": "lectures.html",
-    "title": "Course content",
-    "section": "",
-    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Welcome to the Course Website for PH.140.777 Statistical Programming Paradigms and Workflows!"
-  },
-  {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Welcome",
-    "section": "Overview",
-    "text": "Overview\nComputing and programming are fundamental skills for applied statisticians to efficiently demonstrate the performance of their models with data, to develop reproducible data analyses or robust software, and to effectively communicate their own research interests. However, these skills are often not taught in the classroom, often making it challenging to learn these skills “on the job”.\nThis hands-on course will cover advanced statistical computing programming paradigms and workflows required for the research and application of statistical methods. Students will be expected to complete readings prior to class, attend lectures to dive deeper into those topics in class, participate in classroom activities, complete projects (both solo and group) practicing and reinforcing the computing and programming skills. There will be a final group project, which will include a major class presentation."
-  },
-  {
-    "objectID": "index.html#course-information",
-    "href": "index.html#course-information",
-    "title": "Welcome",
-    "section": "Course Information",
-    "text": "Course Information\n\nCourse Staff: Prof. Stephanie Hicks, Joe Sartini, and Wenxuan Lu\nLectures: 1:30-2:50pm Tuesday and Thursday. See CoursePlus for location details.\nOffice Hours: See CoursePlus for location details."
-  },
-  {
-    "objectID": "index.html#course-details",
-    "href": "index.html#course-details",
-    "title": "Welcome",
-    "section": "Course Details",
-    "text": "Course Details\nAll course details are available on the Course page. The syllabus is available on CoursePlus."
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html",
-    "href": "lectures/00-course-intro/index.html",
-    "title": "Welcome to the course",
-    "section": "",
-    "text": "Before each class, there will be a set of pre-lecture activities and/or readings for you to complete. It is important these activities be done before class so that you can benefit the most from the in-class activities.\nToday we will cover the Pre-reading material about quarto as a way to demonstrate where to find the pre-reading materials going forward. Sometimes, there will not be pre-reading materials here, but rather direct links to external resources that you need to read in advance."
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html#acknowledgements",
-    "href": "lectures/00-course-intro/index.html#acknowledgements",
-    "title": "Welcome to the course",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nr4ds book: https://r4ds.hadley.nz/quarto\nQuarto Publishing System: https://quarto.org"
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html#learning-objectives",
-    "href": "lectures/00-course-intro/index.html#learning-objectives",
-    "title": "Welcome to the course",
-    "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nGet an overview of the course (including staff, format, grading, etc)\nBe able to recognize and operate an Integrated Developer Evironment (IDE) to perform statistial programming and data analysis.\nBe able to describe reasons why having a personal website can be useful.\nRecognize what is Quarto and how it’s different from RMarkdown.\nBe able to create a Quarto project and Quarto website."
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html#slides",
-    "href": "lectures/00-course-intro/index.html#slides",
-    "title": "Welcome to the course",
-    "section": "Slides",
-    "text": "Slides\n\nLecture 00: Welcome and Introductions"
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html#summary",
-    "href": "lectures/00-course-intro/index.html#summary",
-    "title": "Welcome to the course",
-    "section": "Summary",
-    "text": "Summary\n\nAccess all course material on CoursePlus and course website (https://www.stephaniehicks.com/jhustatprogramming2024)\nLectures will be recorded followed by an in-class activity. Later in the course, the in-class activity will be to work on the final project\nAt the end of each class, fill out the reflection card (not graded, but helpful to both the student and instructor)\nIntegrated developer environment (IDEs) can make you more efficient as a programmer!\nQuarto is an open-source scientific and technical publishing system to create reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, and more\nYou can think of Quarto as a natural successor to RMarkdown"
-  },
-  {
-    "objectID": "lectures/00-course-intro/index.html#additional-practice",
-    "href": "lectures/00-course-intro/index.html#additional-practice",
-    "title": "Welcome to the course",
-    "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nIn either RStudio or VSCode, create a new Quarto document. Read the instructions. Practice running the chunks individually. Then render the document and practice the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.\nCreate one new Quarto document for each of the three built-in formats: HTML, PDF and Word. Render each of the three documents. How do the outputs differ? How do the inputs differ? (You may need to install LaTeX in order to build the PDF output — RStudio will prompt you if this is necessary.)"
+    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-11-12\n\n\nProject 3\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nProject 2\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nProject 4\n\n\nStephanie Hicks\n\n\n\n\n2024-10-24\n\n\nProject 1\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/02-version-control/index.html",
@@ -518,11 +371,165 @@
     "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nInitialize a new Git repository.\n\nCreate a new folder on your computer.\nUse the git init command to turn it into a Git repository.\nConfigure your name and email using git config –global user.name “Your Name”andgit config –global user.email “you@example.com”`.\n\n\nGoal: Learn to set up Git for the first time and understand how Git tracks your identity.\n\nCreate a new file and commit it.\n\nCreate a simple text file in your repository (e.g., README.md).\nUse git add &lt;filename&gt; to stage the file.\nUse git commit -m \"Initial commit\" to commit it to the repository.\n\n\nGoal: Understand how to add and commit files in Git.\n\nModify a file and create a new commit.\n\nMake changes to the file (e.g., add some text to the README.md).\nStage the changes and commit them using git add and git commit.\nUse git log to see the history of your commits.\n\n\nGoal: Learn how to track changes over time and inspect the commit history.\n\nWork with branches.\n\nCreate a new branch using git checkout -b feature-branch.\nMake changes to a file, stage, and commit them.\nSwitch back to the main branch (git checkout main).\nMerge your changes from feature-branch into main using git merge feature-branch.\n\n\nGoal: Understand how branching works and how to merge changes from different branches.\n\nSimulate and resolve a merge conflict.\n\nOn the main branch, edit a line in a file and commit the change.\nSwitch to a new branch (git checkout -b conflicting-branch), edit the same line differently, and commit it.\nMerge the conflicting-branch back into main and resolve the merge conflict manually.\nUse git status to see the files with conflicts and edit them to resolve.\nCommit the resolved changes.\n\n\nGoal: Learn how to handle merge conflicts and understand conflict markers."
   },
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
+    "objectID": "lectures/00-course-intro/index.html",
+    "href": "lectures/00-course-intro/index.html",
+    "title": "Welcome to the course",
     "section": "",
-    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-11-05\n\n\nProject 2\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nProject 4\n\n\nStephanie Hicks\n\n\n\n\n2024-10-24\n\n\nProject 1\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+    "text": "Before each class, there will be a set of pre-lecture activities and/or readings for you to complete. It is important these activities be done before class so that you can benefit the most from the in-class activities.\nToday we will cover the Pre-reading material about quarto as a way to demonstrate where to find the pre-reading materials going forward. Sometimes, there will not be pre-reading materials here, but rather direct links to external resources that you need to read in advance."
+  },
+  {
+    "objectID": "lectures/00-course-intro/index.html#acknowledgements",
+    "href": "lectures/00-course-intro/index.html#acknowledgements",
+    "title": "Welcome to the course",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nr4ds book: https://r4ds.hadley.nz/quarto\nQuarto Publishing System: https://quarto.org"
+  },
+  {
+    "objectID": "lectures/00-course-intro/index.html#learning-objectives",
+    "href": "lectures/00-course-intro/index.html#learning-objectives",
+    "title": "Welcome to the course",
+    "section": "Learning objectives",
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nGet an overview of the course (including staff, format, grading, etc)\nBe able to recognize and operate an Integrated Developer Evironment (IDE) to perform statistial programming and data analysis.\nBe able to describe reasons why having a personal website can be useful.\nRecognize what is Quarto and how it’s different from RMarkdown.\nBe able to create a Quarto project and Quarto website."
+  },
+  {
+    "objectID": "lectures/00-course-intro/index.html#slides",
+    "href": "lectures/00-course-intro/index.html#slides",
+    "title": "Welcome to the course",
+    "section": "Slides",
+    "text": "Slides\n\nLecture 00: Welcome and Introductions"
+  },
+  {
+    "objectID": "lectures/00-course-intro/index.html#summary",
+    "href": "lectures/00-course-intro/index.html#summary",
+    "title": "Welcome to the course",
+    "section": "Summary",
+    "text": "Summary\n\nAccess all course material on CoursePlus and course website (https://www.stephaniehicks.com/jhustatprogramming2024)\nLectures will be recorded followed by an in-class activity. Later in the course, the in-class activity will be to work on the final project\nAt the end of each class, fill out the reflection card (not graded, but helpful to both the student and instructor)\nIntegrated developer environment (IDEs) can make you more efficient as a programmer!\nQuarto is an open-source scientific and technical publishing system to create reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, and more\nYou can think of Quarto as a natural successor to RMarkdown"
+  },
+  {
+    "objectID": "lectures/00-course-intro/index.html#additional-practice",
+    "href": "lectures/00-course-intro/index.html#additional-practice",
+    "title": "Welcome to the course",
+    "section": "Additional practice",
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nIn either RStudio or VSCode, create a new Quarto document. Read the instructions. Practice running the chunks individually. Then render the document and practice the appropriate keyboard short cut. Verify that you can modify the code, re-run it, and see modified output.\nCreate one new Quarto document for each of the three built-in formats: HTML, PDF and Word. Render each of the three documents. How do the outputs differ? How do the inputs differ? (You may need to install LaTeX in order to build the PDF output — RStudio will prompt you if this is necessary.)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Welcome to the Course Website for PH.140.777 Statistical Programming Paradigms and Workflows!"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Welcome",
+    "section": "Overview",
+    "text": "Overview\nComputing and programming are fundamental skills for applied statisticians to efficiently demonstrate the performance of their models with data, to develop reproducible data analyses or robust software, and to effectively communicate their own research interests. However, these skills are often not taught in the classroom, often making it challenging to learn these skills “on the job”.\nThis hands-on course will cover advanced statistical computing programming paradigms and workflows required for the research and application of statistical methods. Students will be expected to complete readings prior to class, attend lectures to dive deeper into those topics in class, participate in classroom activities, complete projects (both solo and group) practicing and reinforcing the computing and programming skills. There will be a final group project, which will include a major class presentation."
+  },
+  {
+    "objectID": "index.html#course-information",
+    "href": "index.html#course-information",
+    "title": "Welcome",
+    "section": "Course Information",
+    "text": "Course Information\n\nCourse Staff: Prof. Stephanie Hicks, Joe Sartini, and Wenxuan Lu\nLectures: 1:30-2:50pm Tuesday and Thursday. See CoursePlus for location details.\nOffice Hours: See CoursePlus for location details."
+  },
+  {
+    "objectID": "index.html#course-details",
+    "href": "index.html#course-details",
+    "title": "Welcome",
+    "section": "Course Details",
+    "text": "Course Details\nAll course details are available on the Course page. The syllabus is available on CoursePlus."
+  },
+  {
+    "objectID": "lectures.html",
+    "href": "lectures.html",
+    "title": "Course content",
+    "section": "",
+    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html",
+    "href": "lectures/01-command-line/index.html",
+    "title": "Introduction to the command-line",
+    "section": "",
+    "text": "The next lecture falls on 👻 Halloween ! I plan to give the lecture dressed up in a costume. This is entirely optional, but I encourage students to come in costume if you wish! Candy 🍬 will be offered to anyone in costume!"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html#acknowledgements",
+    "href": "lectures/01-command-line/index.html#acknowledgements",
+    "title": "Introduction to the command-line",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nSoftware Carpentry: The Unix Shell\nData Science at the Command line\nApplied Computational Genomics"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html#learning-objectives",
+    "href": "lectures/01-command-line/index.html#learning-objectives",
+    "title": "Introduction to the command-line",
+    "section": "Learning objectives",
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nUnderstand what is a command shell and why would use one.\nCreate, copy, move, rename, and delete files and folders.\nSearch for regular expressions in files.\nExecute R commands and scripts in the command line.\nRedirect a command’s output to a file with redirect operators (&gt;, &gt;&gt;).\nConstruct command pipelines with two or more stages with the pipe operator (|).\nWrite a loop that applies one or more commands separately to each file in a set of files.\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can practice your command-line skills with the Command Challenge"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html#slides",
+    "href": "lectures/01-command-line/index.html#slides",
+    "title": "Introduction to the command-line",
+    "section": "Slides",
+    "text": "Slides\n\nLecture 01: Introduction to the command-line"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html#summary",
+    "href": "lectures/01-command-line/index.html#summary",
+    "title": "Introduction to the command-line",
+    "section": "Summary",
+    "text": "Summary\n\nShell is a text based application for viewing, handling and manipulating files\nIt is also known by the following names\n\nCLI (Command Line Interface)\nTerminal\nBash (Bourne Again Shell)\n\nUse Rscript -e or R -e to execute R scripts from the command line\nRStudio includes a Terminal (from version 1.1.383)\nExecute commands from shell script in RStudio using Ctrl + Enter\nRMarkdown and Quarto supports bash, sh and awk"
+  },
+  {
+    "objectID": "lectures/01-command-line/index.html#additional-practice",
+    "href": "lectures/01-command-line/index.html#additional-practice",
+    "title": "Introduction to the command-line",
+    "section": "Additional practice",
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nMove around the computer, get used to moving in and out of directories, see how different file types appear in the Unix shell. Be sure to use the pwd and cd commands, and the different flags for the ls commands.\nPractice using “Tab for Auto-complete” in the shell to autocomplete commands or file names.\nExplore the manual pages of date in the command line to show you what that looks like. Try to figure out what is the argument to print the date since the Unix epoch or 00:00:00 UTC on 1 January 1970 as a function of the number of seconds. Then try to identify what is the argument to display the date in UTC.\nPractice your command line knowledge with Command Challenge."
+  },
+  {
+    "objectID": "lectures/06-ml-paradigms-workflows/index.html",
+    "href": "lectures/06-ml-paradigms-workflows/index.html",
+    "title": "Machine learning paradigms and workflows",
+    "section": "",
+    "text": "Important\n\n\n\nIn advance of class, please\n\nTBA\n\n\n\nIn addition, please read through\n\nTBA\n\n\n\n\n\n\n\nHow much should I prepare for before class?\n\n\n\nTBA"
+  },
+  {
+    "objectID": "lectures/06-ml-paradigms-workflows/index.html#acknowledgements",
+    "href": "lectures/06-ml-paradigms-workflows/index.html#acknowledgements",
+    "title": "Machine learning paradigms and workflows",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from"
+  },
+  {
+    "objectID": "lectures/06-ml-paradigms-workflows/index.html#learning-objectives",
+    "href": "lectures/06-ml-paradigms-workflows/index.html#learning-objectives",
+    "title": "Machine learning paradigms and workflows",
+    "section": "Learning objectives",
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nState the differences between machine learning paradigms including supervised, unsupervised, semi-supervised, and reinforcement Learning\nDescribe when you might want to use different paradigms\nDescribe some common methods for each of the ML paradigms\nDescribe some evaluation techniques"
+  },
+  {
+    "objectID": "lectures/06-ml-paradigms-workflows/index.html#slides",
+    "href": "lectures/06-ml-paradigms-workflows/index.html#slides",
+    "title": "Machine learning paradigms and workflows",
+    "section": "Slides",
+    "text": "Slides\n\nWill be added here."
+  },
+  {
+    "objectID": "lectures/06-ml-paradigms-workflows/index.html#additional-practice",
+    "href": "lectures/06-ml-paradigms-workflows/index.html#additional-practice",
+    "title": "Machine learning paradigms and workflows",
+    "section": "Additional practice",
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions\n\n\n\n\nTBA"
+  },
+  {
+    "objectID": "projects/02-project/index.html",
+    "href": "projects/02-project/index.html",
+    "title": "Project 2",
+    "section": "",
+    "text": "Background\nDue date: November 15 at 11:59pm\nThe goal of this assignment is to practice some of the skills we have been learning about in class around data collection paradigms and functional programming.\n\nTo submit your project\nYou need to create a private GitHub Classroom repository (only one per group) for you and your partner, which will be posted in CoursePlus. This creates an empty GitHub repository. You need to show all your code and submit both the .qmd file and the rendered HTML file. Please include section headers for each of the components below. All plots should have titles, subtitles, captions, and human-understandable axis labels. The TAs will grade the contents in the GitHub Classroom repo by cloning the repo and checking for all the things described below.\nBecause you will work with a partner, please be sure to include the names, emails, and JHED IDs for both individuals in your submitted work.\n\n\n\nPart 1\nHere, you and your partner will practice using a API and making data visualizations.\nThe API we will use is tidycensus (https://walker-data.com/tidycensus), which is an R package that allows users to interface with a select number of the US Census Bureau’s data APIs and return tidyverse-ready data frames, optionally with simple feature geometry included.\nThe goal of this part is to create a set of data visualizations using the US Census Bureau’s data.\n\n\n\n\n\n\nImportant\n\n\n\nTo use this API, you must obtain and API key, which can be found at the top of this page:\n\nhttps://walker-data.com/tidycensus/articles/basic-usage\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nWhen you use an API, you want to figure out the data you want to extract and then save it locally so that you are not using the API each time you knit or render your data analysis.\nMost APIs have limits on the number of times you can ping it in a given hour and your IP address can be blocked if you try to ping it too many times within a short time.\nTherefore, it is strongly suggested that you create a new folder called data locally and save the output from extracting data from the tidycensus API. In this way, you can read the data in locally each time you knit/render the document, rather than continue to pull data from the API each time you knit/render the document.\n\n\n\nChoose a question to investigate. Describe what is the question you aim to answer with the data and what you want to visualize.\nExtract data from the tidycensus API. Use at least three different calls to the tidycensus API to extract out different datasets. For example, these could be across years, locations, or variables.\nClean the data. Include some form of data wrangling and data visualization using packages such as dplyr or tidyr. Other packages that might be helpful to you include lubridate, stringr, and forcats. You must use at least two functions from purrr.\nVisualize the data. Create data visualizations of your choice. However, your analysis should include at least three plots with you using at least two different geom_*() functions from ggplot2 (or another package with geom_*() functions).\nReport your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in pulling data from the API or the analysis. Be sure to comment and organize your code so is easy to understand what you are doing.\n\n\n\nPart 2\nIn this part, you and your partner will use the rvest package to scrape data from a website, wrangle and analyze the data, and summarize your findings.\n\nChoose a website to scrape. Select a website with structured data in HTML tables or well-defined sections. Some examples could include:\n\nA movie database like IMDb or Rotten Tomatoes (scraping movie titles, ratings, release years, etc.)\nA job listing site like Indeed or LinkedIn (scraping job titles, companies, and locations)\nA sports statistics site like ESPN or Baseball Reference (scraping team statistics, player info, etc.)\n\nExtract data with rvest. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use rvest functions like read_html(), html_nodes(), and html_text() or html_table() to retrieve the data.\nClean the data. Next, perform some basic wrangling, such as remove extra whitespace, handle missing values, and convert data types as needed. You might find the functions from dplyr or tidyr useful for any additional transformations, such as renaming columns, filtering rows, or creating new variables.\nAnalyze the data. Perform a simple analysis of your choice. For example, you could\n\nCount how many times specific words or themes appear.\nCreate a summary statistic (e.g., average rating, job salary, team win percentage).\nCreate a data visualization (e.g., bar chart, histogram) of an interesting metric.\n\nReport your findings. Provide a paragraph summarizing your methods and key findings. Include any limitations or potential biases in your scraping or analysis. Be sure to comment and organize your code so is easy to understand what you are doing.\n\n\n\n\n\n\n\nEnsure ethical use of web scraping\n\n\n\nBefore scraping a site, it’s a good practice to check if the site allows scraping in its terms of service or look at the robots.txt file. While robots.txt does not legally prevent access, it reflects the site’s preferred limits on automated access.\nSome web scraping tools and libraries allow you to specify a “polite” setting that follows the robots.txt rules by default, which is often a good practice to follow.\nIt’s typically located at the root of the domain (e.g., https://example.com/robots.txt) and follows a simple format to specify rules."
   },
   {
     "objectID": "projects/04-project/index.html",
