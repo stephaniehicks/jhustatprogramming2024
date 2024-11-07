@@ -9,7 +9,6 @@ description: "Introduction to scrape (or harvest) data from web pages"
 date: 2024-11-07
 ---
 
-
 # Introduction
 
 [`rvest`](https://rvest.tidyverse.org) is an R package that helps you scrape (or harvest) data from web pages. 
@@ -448,7 +447,7 @@ library(here)
 knitr::include_graphics(path = here("readings", "04-data-collection-html", "images", "selectorgadget-hover.png"), dpi = 144)
 ```
 
-3.  Click on the movie name to select it. The element you selected will be highlighted in green. SelectorGadget guesses which css selector you want (`h2` in this case), and highlights all matches in yellow (see total count equal to 7 as indicated on on the "Clear" button).
+3.  Click on the movie name to select it. The element you selected will be highlighted in green. SelectorGadget guesses which css selector you want (`#main h2` in this case), and highlights all matches in yellow (see total count equal to 7 as indicated on on the "Clear" button).
 
 ```{r}
 #| echo: false
@@ -461,7 +460,7 @@ knitr::include_graphics(here::here("readings", "04-data-collection-html",
 
 ```{r}
 html %>% 
-  html_element("h2") %>% 
+  html_elements("#main h2") %>% 
   html_text2()
 ```
 
