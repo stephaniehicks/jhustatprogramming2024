@@ -65,7 +65,7 @@ Material for this lecture was borrowed and adopted from
 
 # Class activity 
 
-For the rest of the time in class, we will practice using `rvest` to learn how to scrape data from HTML pages. To do this, we will load the following packages. 
+For the rest of the time in class, we will practice using `rvest` to learn how to scrape data from HTML pages. To do this, we will load the following packages and extract data from the [FIFA Women's World Cup](https://en.wikipedia.org/wiki/FIFA_Women%27s_World_Cup) HTML page. 
 
 ```{r}
 #| message: false
@@ -93,7 +93,7 @@ If any tables are nested within specific sections, you may need to target them i
 
 ## Part 1: Extracting tables 
 
-- Use `html_table` to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first table under "Results". 
+- Use `html_table` to extract a table containing the [FIFA Women's World Cup](https://en.wikipedia.org/wiki/FIFA_Women%27s_World_Cup) and the corresponding runner-up for each World Cup year. This is the first table under "Results". 
 - Show the first few rows with `head()`.
 
 ::: {.callout-tip collapse="true"}
@@ -161,7 +161,7 @@ page %>%
 
 Here, we will extract a list of external links related to the FIFA Women’s World Cup from the "References" section at the bottom.
 
-- Use `html_elements()` to select the list of references (`<".references li">` tags). 
+- Use `html_elements()` to select all the references. 
 - Use `html_elements()` to select all links (`<a>` tags) in the references section.
 - Use `html_attr()` to extract the URLs (`href`) for these links.
 - Display a list of all unique URLs (hint: use `unique()` function)
@@ -171,11 +171,13 @@ Here, we will extract a list of external links related to the FIFA Women’s Wor
 
 ```{r}
 page %>%
-  html_elements(".references li") %>% 
+  html_elements(".mw-references-columns") %>% 
+  html_elements("li") %>% 
   html_elements("a") %>%
   html_attr("href") %>%
   unique()
 ```
+
 
 :::
 
