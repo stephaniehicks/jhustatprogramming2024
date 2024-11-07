@@ -260,7 +260,7 @@ The basic steps to using an API are:
 New web APIs can be found on API marketplaces and API directories, such as:
 
 - [Rapid API](https://rapidapi.com/) – One of the largest global API markets (10k+ public APIs). Users to test APIs directly on the platform before committing to purchase.
-- [Public REST APIs](https://documenter.getpostman.com/view/8854915/Szf7znEe) – Groups REST APIs into categories, making it easier to browse and find the right one to meet your needs.
+- [Public REST APIs](https://www.postman.com/cs-demo/public-rest-apis/collection/tfzpqfc/public-rest-apis) – Groups REST APIs into categories, making it easier to browse and find the right one to meet your needs.
 - [APIForThat](https://apiforthat.posthaven.com/) and [APIList](https://apilist.fun) – Both these websites have lists of 500+ web APIs, along with in-depth information on how to use them.    
 
 
@@ -441,11 +441,7 @@ API access keys for the GitHub API are called **personal access tokens** (PAT) a
 
 First, **please be careful with your PATs and never publish them.**
 
-If you want guidance on where you should store them, I like this post: 
-
-- <https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/> 
-
-It is suggested you keep them in you `.Renviron` file which looks something like this on the inside: 
+It is suggested you keep them in your `.Renviron` file which looks something like this on the inside: 
 
 ```
 GITHUB_PAT = <add my GitHub PAT here> 
@@ -457,7 +453,13 @@ If you do not have an `.Renviron` file in your home directory, you can make one:
 cd ~
 touch .Renviron
 ```
+
+If you want additional guidance on where you should store them, I like this post: 
+
+- <https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/> 
+
 :::
+
 
 Assuming you have created and stored an API key in the `.Renviron` file in your home directory, you can fetch it with the `Sys.getenv()` function and use the PAT in our `httr2` request. 
 

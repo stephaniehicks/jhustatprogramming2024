@@ -32,7 +32,6 @@ In addition, please read through
 - [Data collection with APIs](../../readings/04-data-collection-apis/index.qmd)
 - [Data collection from HTMLs](../../readings/04-data-collection-html/index.qmd)
 
-
 # Lecture 
 
 ## Acknowledgements
@@ -50,20 +49,19 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Describe what the difference is between "raw" vs "clean" data
-- Learn about what are JSON files and how we can convert them into data frames in R 
-- Describe some best practices on sharing data with collaborators
+- Introduce the JSON file format
+- Demonstrate how to convert JSON file format into data frames in R 
 - Know what does API mean and state four types of API architectures
 - Practice with the GitHub API and make authenticated requests
 - Practice a range of `rvest` functions to scrape data from HTML pages
-- Recongize various HTML elements on the page (text, links, images, lists, etc.)
+- Recognize various HTML elements on the page (text, links, images, lists, etc.)
 
 :::
 
 
 ## Slides 
 
-- <add here>
+- [Lecture 04: Data collection paradigms](https://docs.google.com/presentation/d/14gae5qmv_cHAZP0zX-XMZbGN26BY4aCnTDqPEa_vmFU/edit?usp=sharing)
 
 # Class activity 
 
@@ -95,7 +93,8 @@ If any tables are nested within specific sections, you may need to target them i
 
 ## Part 1: Extracting tables 
 
-- Use `rvest` to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first  table under "Results". 
+- Use `html_table` to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first table under "Results". 
+- Show the first few rows with `head()`.
 
 ::: {.callout-tip collapse="true"}
 ### Solution
@@ -118,14 +117,14 @@ if(!file.exists(html_worldcup)){
 ```{r}
 # Extract the table and show the first few rows
 page %>%
-  html_table(fill = TRUE) %>%
+  html_table() %>%
   .[[5]] %>% 
   head()
 ```
 
 :::
 
-- Use `rvest` to extract a table containing the number of goal scored by country. This is the second table under "Top goalscores". 
+- Use `html_table()` to extract a table containing the number of goal scored by country. This is the second table under "Top goalscores". 
 
 ::: {.callout-tip collapse="true"}
 ### Solution
@@ -133,7 +132,7 @@ page %>%
 ```{r}
 # Extract the table and show the first few rows
 page %>%
-  html_table(fill = TRUE) %>%
+  html_table() %>%
   .[[9]] %>% 
   head()
 ```
@@ -142,18 +141,17 @@ page %>%
 
 ## Part 2: Extract text 
 
-- Use `html_nodes()` to select the introductory paragraph(s) of text (e.g., the first three `<p>` tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup  is provided. 
-- Use `html_text()` to retrieve the text and clean it up if necessary.
+- Use `html_elements()` to select the introductory paragraph(s) of text (e.g., the first three `<p>` tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup  is provided. 
+- Use `html_text2()` to retrieve the text.
 
 ::: {.callout-tip collapse="true"}
 ### Solution
 
 ```{r}
 page %>%
-  html_nodes("p") %>%   # Selecting the first few paragraphs
+  html_elements("p") %>%   # Selecting the first few paragraphs
   .[1:3] %>%            # Adjust based on the number of paragraphs you want
-  html_text() %>%
-  paste(collapse = " ")
+  html_text2() 
 ```
 
 :::
@@ -163,17 +161,17 @@ page %>%
 
 Here, we will extract a list of external links related to the FIFA Women’s World Cup from the "References" section at the bottom.
 
-- Use `html_nodes()` to select the list of references. 
+- Use `html_elements()` to select the list of references (`<".references li">` tags). 
 - Use `html_elements()` to select all links (`<a>` tags) in the references section.
 - Use `html_attr()` to extract the URLs (`href`) for these links.
-- Display a list of all unique URLs.
+- Display a list of all unique URLs (hint: use `unique()` function)
 
 ::: {.callout-tip collapse="true"}
 ### Solution
 
 ```{r}
 page %>%
-  html_nodes(".references li") %>% 
+  html_elements(".references li") %>% 
   html_elements("a") %>%
   html_attr("href") %>%
   unique()
@@ -185,7 +183,7 @@ page %>%
 
 Here we will extract the URLs for images on the page, particularly images related to tournament trophies or logos.
 
-- Use `html_nodes()` to select <img> tags.
+- Use `html_elements()` to select <img> tags.
 - Use `html_attr()` to get the image source (`src`) URLs.
 - Filter for images that contain keywords like "FIFA", "World Cup", or "Logo" in their src using the `grepl` function.
 
@@ -194,7 +192,7 @@ Here we will extract the URLs for images on the page, particularly images relate
 
 ```{r}
 page %>%
-  html_nodes("img") %>%
+  html_elements("img") %>%
   html_attr("src") %>%
   tibble(url = .) %>% 
   filter(grepl("FIFA|World_Cup|Logo", url))
