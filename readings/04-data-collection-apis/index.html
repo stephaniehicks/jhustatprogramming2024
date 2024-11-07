@@ -496,7 +496,7 @@ Purpose of APIs
 <p>New web APIs can be found on API marketplaces and API directories, such as:</p>
 <ul>
 <li><a href="https://rapidapi.com/">Rapid API</a> – One of the largest global API markets (10k+ public APIs). Users to test APIs directly on the platform before committing to purchase.</li>
-<li><a href="https://documenter.getpostman.com/view/8854915/Szf7znEe">Public REST APIs</a> – Groups REST APIs into categories, making it easier to browse and find the right one to meet your needs.</li>
+<li><a href="https://www.postman.com/cs-demo/public-rest-apis/collection/tfzpqfc/public-rest-apis">Public REST APIs</a> – Groups REST APIs into categories, making it easier to browse and find the right one to meet your needs.</li>
 <li><a href="https://apiforthat.posthaven.com/">APIForThat</a> and <a href="https://apilist.fun">APIList</a> – Both these websites have lists of 500+ web APIs, along with in-depth information on how to use them.</li>
 </ul>
 </section>
@@ -1065,15 +1065,15 @@ Where to store API keys
 </div>
 <div class="callout-body-container callout-body">
 <p>First, <strong>please be careful with your PATs and never publish them.</strong></p>
-<p>If you want guidance on where you should store them, I like this post:</p>
-<ul>
-<li><a href="https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/" class="uri">https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/</a></li>
-</ul>
-<p>It is suggested you keep them in you <code>.Renviron</code> file which looks something like this on the inside:</p>
+<p>It is suggested you keep them in your <code>.Renviron</code> file which looks something like this on the inside:</p>
 <pre><code>GITHUB_PAT = &lt;add my GitHub PAT here&gt; </code></pre>
 <p>If you do not have an <code>.Renviron</code> file in your home directory, you can make one:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> .Renviron</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you want additional guidance on where you should store them, I like this post:</p>
+<ul>
+<li><a href="https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/" class="uri">https://www.r-bloggers.com/2015/11/how-to-store-and-use-webservice-keys-and-authentication-details-with-r/</a></li>
+</ul>
 </div>
 </div>
 <p>Assuming you have created and stored an API key in the <code>.Renviron</code> file in your home directory, you can fetch it with the <code>Sys.getenv()</code> function and use the PAT in our <code>httr2</code> request.</p>

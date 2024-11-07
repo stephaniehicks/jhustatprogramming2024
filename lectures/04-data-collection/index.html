@@ -296,13 +296,12 @@ Learning objectives
 <div class="callout-body-container callout-body">
 <p><strong>At the end of this lesson you will:</strong></p>
 <ul>
-<li>Describe what the difference is between “raw” vs “clean” data</li>
-<li>Learn about what are JSON files and how we can convert them into data frames in R</li>
-<li>Describe some best practices on sharing data with collaborators</li>
+<li>Introduce the JSON file format</li>
+<li>Demonstrate how to convert JSON file format into data frames in R</li>
 <li>Know what does API mean and state four types of API architectures</li>
 <li>Practice with the GitHub API and make authenticated requests</li>
 <li>Practice a range of <code>rvest</code> functions to scrape data from HTML pages</li>
-<li>Recongize various HTML elements on the page (text, links, images, lists, etc.)</li>
+<li>Recognize various HTML elements on the page (text, links, images, lists, etc.)</li>
 </ul>
 </div>
 </div>
@@ -310,7 +309,7 @@ Learning objectives
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
 <ul>
-<li><add here=""></add></li>
+<li><a href="https://docs.google.com/presentation/d/14gae5qmv_cHAZP0zX-XMZbGN26BY4aCnTDqPEa_vmFU/edit?usp=sharing">Lecture 04: Data collection paradigms</a></li>
 </ul>
 </section>
 </section>
@@ -354,7 +353,8 @@ Tip
 <section id="part-1-extracting-tables" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-extracting-tables">Part 1: Extracting tables</h2>
 <ul>
-<li>Use <code>rvest</code> to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first table under “Results”.</li>
+<li>Use <code>html_table</code> to extract a table containing the World Cup champions and the corresponding runner-up for each World Cup year. This is the first table under “Results”.</li>
+<li>Show the first few rows with <code>head()</code>.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -385,7 +385,7 @@ Solution
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the table and show the first few rows</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">5</span>]] <span class="sc">%&gt;%</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -404,7 +404,7 @@ Solution
 </div>
 </div>
 <ul>
-<li>Use <code>rvest</code> to extract a table containing the number of goal scored by country. This is the second table under “Top goalscores”.</li>
+<li>Use <code>html_table()</code> to extract a table containing the number of goal scored by country. This is the second table under “Top goalscores”.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
@@ -421,7 +421,7 @@ Solution
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the table and show the first few rows</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">9</span>]] <span class="sc">%&gt;%</span> </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -443,8 +443,8 @@ Solution
 <section id="part-2-extract-text" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-extract-text">Part 2: Extract text</h2>
 <ul>
-<li>Use <code>html_nodes()</code> to select the introductory paragraph(s) of text (e.g., the first three <code>&lt;p&gt;</code> tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup is provided.</li>
-<li>Use <code>html_text()</code> to retrieve the text and clean it up if necessary.</li>
+<li>Use <code>html_elements()</code> to select the introductory paragraph(s) of text (e.g., the first three <code>&lt;p&gt;</code> tags under the main content) from the introductory section of the Wikipedia page, where key information about the World Cup is provided.</li>
+<li>Use <code>html_text2()</code> to retrieve the text.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -460,12 +460,13 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"p"</span>) <span class="sc">%&gt;%</span>   <span class="co"># Selecting the first few paragraphs</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"p"</span>) <span class="sc">%&gt;%</span>   <span class="co"># Selecting the first few paragraphs</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="sc">%&gt;%</span>            <span class="co"># Adjust based on the number of paragraphs you want</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text2</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "\n The FIFA Women's World Cup is an international association football competition contested by the senior women's national teams of the members of Fédération Internationale de Football Association (FIFA), the sport's international governing body. The competition has been held every four years and one year after the men's FIFA World Cup since 1991, when the inaugural tournament, then called the FIFA Women's World Championship, was held in China. Under the tournament's current format, national teams vie for the remaining 31 slots in a three-year qualification phase. The host nation's team is automatically entered as the first slot. The tournament, called the World Cup Finals, is contested at venues within the host nation(s) over about one month.\n The nine FIFA Women's World Cup tournaments have been won by five national teams. The United States have won four times. The other winners are Germany, with two titles, and Japan, Norway, and Spain with one title each.\n"</code></pre>
+<pre><code>[1] ""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+[2] "The FIFA Women's World Cup is an international association football competition contested by the senior women's national teams of the members of Fédération Internationale de Football Association (FIFA), the sport's international governing body. The competition has been held every four years and one year after the men's FIFA World Cup since 1991, when the inaugural tournament, then called the FIFA Women's World Championship, was held in China. Under the tournament's current format, national teams vie for the remaining 31 slots in a three-year qualification phase. The host nation's team is automatically entered as the first slot. The tournament, called the World Cup Finals, is contested at venues within the host nation(s) over about one month."
+[3] "The nine FIFA Women's World Cup tournaments have been won by five national teams. The United States have won four times. The other winners are Germany, with two titles, and Japan, Norway, and Spain with one title each."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </code></pre>
 </div>
 </div>
 </div>
@@ -476,10 +477,10 @@ Solution
 <h2 class="anchored" data-anchor-id="part-3-extract-external-links">Part 3: Extract external links</h2>
 <p>Here, we will extract a list of external links related to the FIFA Women’s World Cup from the “References” section at the bottom.</p>
 <ul>
-<li>Use <code>html_nodes()</code> to select the list of references.</li>
+<li>Use <code>html_elements()</code> to select the list of references (<code>&lt;".references li"&gt;</code> tags).</li>
 <li>Use <code>html_elements()</code> to select all links (<code>&lt;a&gt;</code> tags) in the references section.</li>
 <li>Use <code>html_attr()</code> to extract the URLs (<code>href</code>) for these links.</li>
-<li>Display a list of all unique URLs.</li>
+<li>Display a list of all unique URLs (hint: use <code>unique()</code> function)</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -495,7 +496,7 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">".references li"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".references li"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"a"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">"href"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -631,7 +632,7 @@ Solution
 <h2 class="anchored" data-anchor-id="part-4-extract-links-from-images">Part 4: Extract links from images</h2>
 <p>Here we will extract the URLs for images on the page, particularly images related to tournament trophies or logos.</p>
 <ul>
-<li>Use <code>html_nodes()</code> to select <img> tags.</li>
+<li>Use <code>html_elements()</code> to select <img> tags.</li>
 <li>Use <code>html_attr()</code> to get the image source (<code>src</code>) URLs.</li>
 <li>Filter for images that contain keywords like “FIFA”, “World Cup”, or “Logo” in their src using the <code>grepl</code> function.</li>
 </ul>
@@ -649,7 +650,7 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>page <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"img"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"img"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">"src"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">url =</span> .) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"FIFA|World_Cup|Logo"</span>, url))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
