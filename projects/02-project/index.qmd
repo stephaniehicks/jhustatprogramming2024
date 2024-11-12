@@ -72,7 +72,7 @@ In this part, you and your partner will use the `rvest` package to scrape data f
    - A job listing site like Indeed or LinkedIn (scraping job titles, companies, and locations)
    - A sports statistics site like ESPN or Baseball Reference (scraping team statistics, player info, etc.)
 
-2. Extract data with `rvest`. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use `rvest` functions like `read_html()`, `html_nodes()`, and `html_text()` or `html_table()` to retrieve the data.
+2. Extract data with `rvest`. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use `rvest` functions like `read_html()`, `html_elements()`, and `html_text()` or `html_table()` to retrieve the data.
 
 3. Clean the data. Next, perform some basic wrangling, such as remove extra whitespace, handle missing values, and convert data types as needed. You might find the functions from `dplyr` or `tidyr` useful for any additional transformations, such as renaming columns, filtering rows, or creating new variables.
 

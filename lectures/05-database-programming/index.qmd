@@ -85,7 +85,7 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- Will be added here. <add here>
+- [Lecture 05: Database programming paradigms](https://docs.google.com/presentation/d/1KzExDgW77QqyPbPRKpnd0GNHZbzfl9IgtLKIyEW6Bp0/edit?usp=sharing)
 
 # Class activity 
 
@@ -154,7 +154,9 @@ dbListTables(conn = mydb)
 ### Solution
 
 ```{r}
-results <- dbGetQuery(mydb, "SELECT * FROM songs WHERE streams_millions > 600;")
+results <- dbGetQuery(mydb, "SELECT * 
+                             FROM songs
+                             WHERE streams_millions > 600;")
 print(results)
 ```
 
@@ -166,7 +168,24 @@ print(results)
 ### Solution
 
 ```{r}
-results <- dbGetQuery(mydb, "SELECT title, release_year FROM songs WHERE release_year > 2010;")
+results <- dbGetQuery(mydb, "SELECT title, release_year 
+                             FROM songs 
+                             WHERE release_year > 2010;")
+print(results)
+```
+
+:::
+
+
+- Write a SQL query that counts the number of songs for each album.
+
+::: {.callout-tip collapse="true"}
+### Solution
+
+```{r}
+results <- dbGetQuery(mydb, "SELECT album_id, COUNT(song_id) AS song_count
+                             FROM songs
+                             GROUP BY album_id;")
 print(results)
 ```
 
@@ -178,7 +197,7 @@ print(results)
 ### Solution
 
 ```{r}
-results <- dbGetQuery(mydb, "SELECT album_id, SUM(streams_millions) AS total_streams 
+results <- dbGetQuery(mydb, "SELECT album_id, title, SUM(streams_millions) AS total_streams 
                              FROM songs 
                              GROUP BY album_id;")
 print(results)
@@ -186,38 +205,26 @@ print(results)
 
 :::
 
-- Join the songs and albums tables using SQL to get the album title for each song. Select the song title, album title, and release year.
+- Identify the least streamed song for each release year.
 
 ::: {.callout-tip collapse="true"}
 ### Solution
 
 ```{r}
-results <- dbGetQuery(mydb, "SELECT s.title AS song_title, a.album_title, s.release_year 
-                             FROM songs s 
-                             JOIN albums a ON s.album_id = a.album_id;")
+results <- dbGetQuery(mydb, "SELECT release_year, title, MIN(streams_millions) AS min_streams
+                             FROM songs
+                             GROUP BY release_year;")
 print(results)
 ```
-:::
 
-- Use SQL to find the average number of streams per album. Display the album title and the average streams.
 
-::: {.callout-tip collapse="true"}
-### Solution
-
-```{r}
-results <- dbGetQuery(mydb, "SELECT a.album_title, AVG(s.streams_millions) AS avg_streams 
-                             FROM songs s 
-                             JOIN albums a ON s.album_id = a.album_id 
-                             GROUP BY a.album_title;")
-print(results)
-```
 
 Close connection when done
 ```{r}
 dbDisconnect(conn = mydb)
 ```
-:::
 
+:::
 
 ## Part 3: Discussion
 

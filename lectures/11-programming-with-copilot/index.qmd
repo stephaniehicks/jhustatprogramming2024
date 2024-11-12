@@ -10,6 +10,7 @@ date: 2024-12-05
 draft: true
 ---
 
+https://arjun-raj-lab.gitbook.io/arjun-rajs-tools-for-science/how-to-do-science/using-ai-in-academia
 
 # Pre-lecture activities
 
