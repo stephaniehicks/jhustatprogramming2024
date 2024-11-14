@@ -6,6 +6,7 @@ results <- dbGetQuery(conn = connection,
                       statement = "SELECT * FROM Person ORDER BY id DESC;")
 print(results)
 
+
 # practice with iris 
 dbListTables(conn = connection) # show which tables are in database
 
@@ -19,3 +20,9 @@ dbListTables(conn = connection)
 dbRemoveTable(conn = connection, name = "iris")
 dbListTables(conn = connection)
 
+
+# chinook database
+connection <- dbConnect(drv = SQLite(), 
+                        dbname = here("readings", "05-database-programming", "data", "Chinook.sqlite"))
+dbListTables(connection)
+dbGetQuery(connection, "SELECT * FROM Artist")
