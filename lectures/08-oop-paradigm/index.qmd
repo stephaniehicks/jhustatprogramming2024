@@ -5,9 +5,8 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Introduction to S3, S4, or reference class with generics and methods"
 date: 2024-11-21
-draft: true
 ---
 
 
@@ -15,13 +14,18 @@ draft: true
 
 ::: callout-important
 
-In advance of class, please
+In advance of class, please read through: 
+
+- [Lecture 08: Object Oriented Programming](../../readings/08-oop-paradigm/index.qmd)
 
 :::
 
-In addition, please read through
+In addition, please have a brief look through these four sections of the book: 
 
-- 
+1. <https://adv-r.hadley.nz/oo>
+2. <https://adv-r.hadley.nz/base-types>
+3. <https://adv-r.hadley.nz/s3>
+4. <https://adv-r.hadley.nz/s4>
 
 ::: callout-note
 
@@ -36,7 +40,7 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- 
+- <https://adv-r.hadley.nz/oo>
 
 ## Learning objectives
 
@@ -45,7 +49,10 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   
+- Recognize the primary object-oriented systems in R: S3, S4, R6, and Reference Classes (RC). 
+- Understand the terminology of a **class**, **object**, **method**, **constructor** and **generic**.
+- Be able to create a new S3 or S4 with generics and methods
+
 :::
 
 
@@ -63,7 +70,20 @@ For the rest of the time in class, you and your team will work on the final proj
 
 ## Summary 
 
-- 
+- R has three object oriented systems: S3, S4, and Reference Classes. 
+- Reference Classes are the most similar to classes and objects in other
+programming languages.
+- Classes are blueprints for an object.
+- Objects are individual instances of a class.
+- Methods are functions that are associated with a particular class.
+- Constructors are methods that create objects.
+- Everything in R is an object.
+- S3 is a liberal object oriented system that allows you to assign a class to
+any object.
+- S4 is a more strict object oriented system that build upon ideas in S3.
+- Reference Classes are a modern object oriented system that is similar to Java,
+C++, Python, or Ruby.
+
 
 ## Additional practice
 
