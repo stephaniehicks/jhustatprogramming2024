@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stephanie Hicks">
+<meta name="dcterms.date" content="2024-12-03">
+<meta name="description" content="Introduction to building dashboards in R with flexdashboard">
+
+<title>Building dashboards with flexdashboard – Statistical Programming Paradigms and Workflows</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Statistical Programming Paradigms and Workflows</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-home" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../lectures.html"> <i class="bi bi-book-half" role="img">
+</i> 
+<span class="menu-text">Course</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-box-seam-fill" role="img">
+</i> 
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../readings.html">
+ <span class="dropdown-text">Pre-reading</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/stephaniehicks/jhustatprogramming2024"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Building dashboards with <code>flexdashboard</code></h1>
+                  <div>
+        <div class="description">
+          Introduction to building dashboards in R with <code>flexdashboard</code>
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://stephaniehicks.com">Stephanie Hicks</a> </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Department of Biostatistics, Johns Hopkins
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 3, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
+  </ul></li>
+  <li><a href="#flexdashboard" id="toc-flexdashboard" class="nav-link" data-scroll-target="#flexdashboard">Flexdashboard</a>
+  <ul class="collapse">
+  <li><a href="#a-quick-view" id="toc-a-quick-view" class="nav-link" data-scroll-target="#a-quick-view">A quick view</a>
+  <ul class="collapse">
+  <li><a href="#yaml" id="toc-yaml" class="nav-link" data-scroll-target="#yaml">YAML</a></li>
+  <li><a href="#code-chunks-and-text" id="toc-code-chunks-and-text" class="nav-link" data-scroll-target="#code-chunks-and-text">Code chunks and text</a></li>
+  <li><a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings">Headings</a></li>
+  <li><a href="#section-attributes" id="toc-section-attributes" class="nav-link" data-scroll-target="#section-attributes">Section attributes</a></li>
+  <li><a href="#diamonds-dashboard" id="toc-diamonds-dashboard" class="nav-link" data-scroll-target="#diamonds-dashboard">Diamonds dashboard</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#shiny" id="toc-shiny" class="nav-link" data-scroll-target="#shiny">Shiny</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings">Settings</a></li>
+  <li><a href="#shiny-syntax" id="toc-shiny-syntax" class="nav-link" data-scroll-target="#shiny-syntax">Shiny syntax</a>
+  <ul class="collapse">
+  <li><a href="#the-first-argument" id="toc-the-first-argument" class="nav-link" data-scroll-target="#the-first-argument">The first argument</a></li>
+  <li><a href="#the-second-argument" id="toc-the-second-argument" class="nav-link" data-scroll-target="#the-second-argument">The second argument</a></li>
+  </ul></li>
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a>
+  <ul class="collapse">
+  <li><a href="#geyser-dashboard" id="toc-geyser-dashboard" class="nav-link" data-scroll-target="#geyser-dashboard">Geyser dashboard</a></li>
+  <li><a href="#mile-per-gallon-dashboard" id="toc-mile-per-gallon-dashboard" class="nav-link" data-scroll-target="#mile-per-gallon-dashboard">Mile per gallon dashboard</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#getting-started-with-project-4" id="toc-getting-started-with-project-4" class="nav-link" data-scroll-target="#getting-started-with-project-4">Getting started with Project 4</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>If we were not familiar with data dashboards before the pandemic, many of us learned just how useful they are for displaying data in a way that is visual, concise and easy to update.</p>
+<p>Dashboards like JHU’s COVID-19 <a href="https://coronavirus.jhu.edu/data">trackers</a> were an amazing resource for anyone interested in understanding more about the progression of the pandemic, from cases to vaccine rates to emerging variants. One of the creators, Lauren Gardner, recently won a <a href="https://coronavirus.jhu.edu/from-our-experts/covid-19-data-dashboard-creator-lauren-gardner-wins-lasker-award">prestigious award</a> for her work, acknowledging the <strong>importance of good data communication to the broad public</strong> to improve public health.</p>
+<p>Data dashboards allow you to <strong>communicate large amounts of information visually and quickly</strong> with the added benefit of allowing the user to interact with the data directly in the dashboard.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>flexdashboard</code> is a method of creating dashboards using R Markdown with panels and pages. The dashboard content can be</p>
+<ul>
+<li>text</li>
+<li>static figures/tables</li>
+<li>interactive graphics</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advantages of <code>flexdashboard</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>It requires minimal non-standard R coding - with very little practice you can quickly create a dashboard.</li>
+<li>The dashboard can usually be emailed to colleagues as a self-contained HTML file - no server required.</li>
+<li>You can combine flexdashboard with <code>shiny</code>, <code>ggplotly</code>, and other “html widgets” to add interactivity.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Disadvantages of <code>flexdashboard</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Less customization as compared to using shiny alone to create a dashboard</li>
+</ul>
+</div>
+</div>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>Here’s an example of what a <code>flexdashboard</code> might look like:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/dashboards/example_dashboard.png" class="img-fluid figure-img"></p>
+<figcaption>A screenshot of a dashboard created with <code>flexdashboard</code></figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For more examples of <code>flexdashboard</code> dashboards, check out here:</p>
+<ul>
+<li><a href="https://pkgs.rstudio.com/flexdashboard/articles/examples" class="uri">https://pkgs.rstudio.com/flexdashboard/articles/examples</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+<p>To author a <code>flexdashboard</code> you create an R Markdown document within RStudio using the New R Markdown dialog:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/dashboards/NewRMarkdown.png" class="img-fluid figure-img"></p>
+<figcaption>A screenshot of opening a new RMarkdown with a flexdashboard template</figcaption>
+</figure>
+</div>
+<p>To create a new dashboard, use the menus at the top of RStudio:</p>
+<ul>
+<li>Select <strong>File</strong></li>
+<li>Select <strong>New File</strong></li>
+<li>Select <strong>R Markdown…</strong><br>
+</li>
+<li>Choose <strong>From Template</strong> in the box on the left</li>
+<li>Select <strong>Flex Dashboard</strong> from the box on the right</li>
+<li>Then click <strong>OK</strong></li>
+</ul>
+<p>This will open up a dashboard template.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This option will only appear once you have installed the <code>flexdashboard</code> package.</p>
+</div>
+</div>
+<p>You can knit this file just as you would a regular R Markdown document.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s try this out. We will:</p>
+<ol type="1">
+<li>Create a new Project.</li>
+<li>Create a new R Markdown with the <code>flexdashbard</code> template following instructions above.</li>
+<li>Knit the file and take a look at what we get!</li>
+</ol>
+<p><strong>Note</strong>: you will have to save this file first before knitting. Save it in your project directory as <code>trial_dashboard.Rmd</code> when prompted.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="flexdashboard" class="level1">
+<h1>Flexdashboard</h1>
+<section id="a-quick-view" class="level2">
+<h2 class="anchored" data-anchor-id="a-quick-view">A quick view</h2>
+<p>Let’s explore the R Markdown a bit.</p>
+<section id="yaml" class="level3">
+<h3 class="anchored" data-anchor-id="yaml">YAML</h3>
+<p>Similar to other R Markdown and Quarto documents, there is a YAML at the top of the file. The YAML parameter <code>output:</code> is required and specifies the type of file to be produced (e.g.&nbsp;<code>html_document</code>, <code>pdf_document</code>, <code>word_document</code>, or <code>powerpoint_presentation</code>).</p>
+<p>For <strong>flexdashboard</strong>, <code>output</code> must be set as <code>output:flexdashboard::flex_dashboard</code>, which is a bit confusing looking.</p>
+<p>To make thing even more confusing, there is often <strong>an additional colon</strong> and indented <strong>sub-parameter</strong> (see <code>orientation:</code> and <code>vertical_layout:</code> parameters below).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">"Untitled"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  flexdashboard<span class="sc">::</span>flex_dashboard<span class="sc">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    orientation<span class="sc">:</span> columns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    vertical_layout<span class="sc">:</span> fill</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Two spaces are important to define the subparameters.</li>
+<li>Use an additional colon after things like <code>key:value</code> if you want to further define subparameters.</li>
+<li>If appropriate, logical values should be given in YAML in lowercase (<code>true</code>, <code>false</code>, <code>null</code>).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="code-chunks-and-text" class="level3">
+<h3 class="anchored" data-anchor-id="code-chunks-and-text">Code chunks and text</h3>
+<p>Similar to other R Markdown files, these files also can contain multiple <strong>code chunks</strong>.</p>
+<p>They are structured in the same way you would structure them with three back-ticks and curly brackets with a lowercase “r” within.</p>
+<p>You can write <strong>narrative text</strong> similarly as well with all the markdown syntax you are already familiar with with italics, bold, bullets, numbering, etc.</p>
+</section>
+<section id="headings" class="level3">
+<h3 class="anchored" data-anchor-id="headings">Headings</h3>
+<p>Notice the layout of the blank document is given by the hash (#) signs. In general:</p>
+<ul>
+<li>Each level 1 header (#) begins a <em>new page</em> in the dashboard.</li>
+<li>Each level 2 header (##) begins a <em>new column or a row</em> depending on your <code>orientation:</code> parameter.</li>
+<li>Each level 3 header (###) create panels for plots, charts, tables, text, etc.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># First-level heading (page)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Second level heading (row or column)  </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Third-level heading (pane for plot, chart, etc.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In our blank document, you see the blank output with the <code>title: "Untitled"</code> and then three rows of charts (<strong>Chart A</strong>, <strong>Chart B</strong>, and <strong>Chart C</strong>.</p>
+<p>The code in the three sections with these three titles are all blank.</p>
+</section>
+<section id="section-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="section-attributes">Section attributes</h3>
+<p>Another thing you might notice is that you can specify <strong>section attributes</strong> to apply to parts of the dashboard in a <code>key=value</code> structure after the heading and within curly brackets <code>{ }</code>.</p>
+<p>For example, the <code>{data-width=}</code> and <code>{data-height=}</code> attributes set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Column {data-width=650}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>These attributes are written after a <em>heading</em> in a text portion of the script.</li>
+<li>These are different than the <strong>knitr</strong> options inserted within at the top of R code chunks, such as <code>out.height =</code>.</li>
+</ul>
+</div>
+</div>
+<p>Some section attributes specific to <strong>flexdashboard</strong> include:</p>
+<ul>
+<li><code>{data-orientation=}</code> Set to either <code>rows</code> or <code>columns</code>. If your dashboard has multiple pages, add this attribute to each page to indicate orientation.<br>
+</li>
+<li><code>{data-width=}</code> and <code>{data-height=}</code> set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical).
+<ul>
+<li>Height of charts also depends on whether you set the YAML parameter <code>vertical_layout: fill</code> or <code>vertical_layout: scroll</code>. If set to scroll, figure height will reflect the traditional <code>fig.height =</code> option in the R code chunk.<br>
+</li>
+<li>See complete size documentation at the <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#sizing">flexdashboard website</a><br>
+</li>
+</ul></li>
+<li><code>{.hidden}</code> Use this to exclude a specific page from the navigation bar<br>
+</li>
+<li><code>{data-navbar=}</code> Use this in a page-level heading to nest it within a navigation bar drop-down menu. Provide the name (in quotes) of the drop-down menu. See example below.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Group exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the next 5 minutes, pair up with a partner (or try it alone) and explore the template dashboard and adjust the layout in the following ways:</p>
+<ul>
+<li>Try adding pages, columns/rows, and charts with R Markdown headings (e.g.&nbsp;#, ##, or ###)<br>
+</li>
+<li>Adjust the <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#orientation">orientation</a> using the YAML parameter <code>orientation:</code> to either <code>rows</code> or <code>columns</code></li>
+<li>Specify whether the layout fills the browser or allows for a <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#scrolling-layout">scrolling layout</a></li>
+<li>Add <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#tabsets">tabs to a particular section heading</a> using the <code>{.tabset}</code> attribute</li>
+<li>Add a <a href="https://epirhandbook.com/en/dashboards-with-r-markdown.html#pages">navigation menu or side bar</a> using the <code>{data-navmenu}</code> attribute or the <code>{.sidebar}</code> attribute, respectively.</li>
+</ul>
+<p>Be sure to open the resulting dashboard in a browser window to really see it; you won’t be able to view it very well in the small viewer pane within RStudio.</p>
+</div>
+</div>
+</section>
+<section id="diamonds-dashboard" class="level3">
+<h3 class="anchored" data-anchor-id="diamonds-dashboard">Diamonds dashboard</h3>
+<p>There are several example dashboards included in the <a href="https://github.com/stephaniehicks/jhustatprogramming2023/tree/main/posts/2023-12-12-flexdashboard">folder containing today’s lecture</a>.</p>
+<p>Here is is a dashboard using the <code>diamonds</code> dataset in the <code>ggplot2</code> package:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>---
+title: "Diamonds distribution dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+knitr::opts_chunk$set(fig.width = 5, fig.asp = 1/3)
+```
+
+## Column 1
+
+### Carat
+
+```{r}
+diamonds |&gt; 
+  ggplot(aes(carat)) + 
+  geom_histogram(binwidth = 0.1)
+```
+
+### Cut
+
+```{r}
+diamonds |&gt; 
+  ggplot(aes(cut)) + 
+  geom_bar()
+```
+
+### Colour
+
+```{r}
+diamonds |&gt; 
+  ggplot(aes(color)) + 
+  geom_bar()
+```
+
+## Column 2
+
+### The largest diamonds
+
+```{r}
+diamonds %&gt;% 
+  arrange(desc(carat)) %&gt;% 
+  head(100) %&gt;% 
+  select(carat, cut, color, price) %&gt;% 
+  DT::datatable()
+```</code></pre>
+</div>
+</div>
+<p>Above, you can see there are two columns (designated by ##) and various rows within each column (designated with ###).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This code relies on the <a href="https://pkgs.rstudio.com/flexdashboard/articles/using.html#tabular-data"><code>DT</code> package</a>, which is an interface to the DataTables JavaScript library.</p>
+<p>The <code>DT</code> package provides a nice way to display R matrices or data frames as interactive HTML tables that support filtering, pagination, and sorting.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Group exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the next 5 minutes, pair up with a partner (or try it alone), open the file <code>Diamond_dashboard_example.Rmd</code> and knit it. Explore to see if you can make the following changes:</p>
+<ul>
+<li>Can you change the titles of each of the graphs in the column on the left?</li>
+<li>How could you change the first graph on the left to be a histogram of prices instead of carats?</li>
+<li>Or could you add a fourth graph to the dashboard that shows price?</li>
+</ul>
+<p>Note that to get access to the <code>diamonds</code> dataset that the dashboard uses, you will have to have loaded the <code>ggplot2</code> package, which is part of the <code>tidyverse</code>. You can see that the dashboard uses this package by looking at the first set-up code chunk in the dashboard .Rmd file.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="shiny" class="level1">
+<h1>Shiny</h1>
+<p>Thus far, we have used <code>flexdashbard</code>. Now we will talk about how integrating the R package <code>shiny</code> can make your dashboard <strong>even more reactive to user input</strong>.</p>
+<p>For example, a use can change something in the dashboard (e.g.&nbsp;a date range or filter for a specific subset of the data) and they will <strong>see the results immediately</strong> without needing to re-knit the document.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use <strong>shiny</strong> to produce apps/dashboards <em>without</em> flexdashboard too.</p>
+<p>The <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny basics</a> gives an overview and includes primers on <strong>shiny</strong> syntax, app file structure, and options for sharing/publishing. Generally, these syntax translate to <strong>flexdashboard</strong> as well.</p>
+</div>
+</div>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p>Embedding <strong>shiny</strong> in <strong>flexdashboard</strong> is however, a fundamental change to your flexdashboard. It will no longer produce an HTML output that you can send by email and anyone could open and view.</p>
+<p>Instead, it will be an “app”. The “Knit” button at the top of the script will be replaced by a “Run document” icon, which will open an instance of the interactive the dashboard locally on your computer.</p>
+<p>Sharing your dashboard will now require that you either:</p>
+<ul>
+<li>Send the Rmd script to the viewer, they open it in R on their computer, and run the app, or<br>
+</li>
+<li>The app/dashboard is hosted on a server accessible to the viewer (most typical scenario)</li>
+</ul>
+<p>Thus, there are benefits to integrating <strong>shiny</strong>, but also complications.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deploy on a server
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Shiny documents need to be deployed to a Shiny Server to be shared broadly.</p>
+<p>See instructions for creating a free account at <a href="http://www.shinyapps.io/" class="uri">http://www.shinyapps.io/</a> and <a href="https://bookdown.org/yihui/rmarkdown/shiny-documents.html#deployment">instructions on how to publish to the web</a>.</p>
+</div>
+</div>
+</section>
+<section id="settings" class="level2">
+<h2 class="anchored" data-anchor-id="settings">Settings</h2>
+<p>To embed <strong>shiny</strong> reactivity into <strong>flexdashboard</strong>, you need only make a few changes to your <strong>flexdashboard</strong> R Markdown script.</p>
+<p>Specifically, you need to add the YAML parameter <code>runtime: shiny</code> at the same indentation level as <code>output:</code>, as below:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Outbreak dashboard (Shiny demo)"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">  flexdashboard::flex_dashboard:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    orientation: columns</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    vertical_layout: fill</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="an">runtime:</span><span class="co"> shiny</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It is also convenient to enable a “side bar” to hold the shiny input widgets that will collect information from the user.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pro-tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a column and indicate the <code>{.sidebar}</code> option to create a side bar on the left side.</p>
+<p>You can add text and R chunks containing the <strong>shiny</strong> <code>input</code> commands within this column.</p>
+</div>
+</div>
+<p>If your app/dashboard is hosted on a server and may have multiple simultaneous users, <strong>name the first R code chunk</strong> as <code>global</code>.</p>
+<ul>
+<li>Include the commands to import/load your data in this chunk.</li>
+<li>This special named chunk is treated differently, and the data imported within it are only imported once (not continuously) and are available for all users.</li>
+<li>This improves the start-up speed of the app.</li>
+</ul>
+</section>
+<section id="shiny-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="shiny-syntax">Shiny syntax</h2>
+<p>You can have input that is text, numeric, selecting from a menu, or checking a box, as shown below. (Don’t run this code, it’s just there to show you what the syntax looks like!)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What is your name?"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">numericInput</span>(<span class="st">"age"</span>, <span class="st">"How old are you?"</span>, <span class="cn">NA</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">150</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">selectInput</span>(<span class="st">"variable"</span>, <span class="st">"Variable:"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"Cylinders (cyl)"</span> <span class="ot">=</span> <span class="st">"cyl"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Transmission (am)"</span> <span class="ot">=</span> <span class="st">"am"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Gears (gear)"</span> <span class="ot">=</span> <span class="st">"gear"</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">checkboxInput</span>(<span class="st">"outliers"</span>, <span class="st">"Show outliers"</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is happening above?</p>
+<section id="the-first-argument" class="level3">
+<h3 class="anchored" data-anchor-id="the-first-argument">The first argument</h3>
+<p>The <strong>input values</strong> are stored in the object given by the <strong>first argument</strong> of these input functions. For example,</p>
+<ul>
+<li>The text input is stored in an object called <code>name</code></li>
+<li>The numeric input is stored in an object called <code>age</code></li>
+</ul>
+<p>You can then refer to the values with <code>input$name</code> and <code>input$age</code>, and the code that uses them will be automatically re-run whenever they change.</p>
+</section>
+<section id="the-second-argument" class="level3">
+<h3 class="anchored" data-anchor-id="the-second-argument">The second argument</h3>
+<p>The second argument gives the text that is displayed to the user to prompt their input. For example,</p>
+<ul>
+<li>The input area for <code>name</code> will show “What is your name?” and so on.</li>
+</ul>
+<p>Later arguments for each type give additional information about that input, such as minimum and maximum allowed values for numeric input and menu options for the select input.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Shiny best practices
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To add Shiny components to a flex dashboard you will want to do the following:</p>
+<ul>
+<li>Add <code>runtime: shiny</code> to the YAML header at the top of the document.</li>
+<li>Add the <code>{.sidebar}</code> attribute to the first column of the dashboard to make it a host for Shiny input controls (note this step isn’t strictly required, but many Shiny based dashboards will want to do this).</li>
+<li>Add Shiny inputs and outputs as appropriate using the input functions.</li>
+<li>When including plots, be sure to wrap them in a call to <code>renderPlot</code>. This is important not only for dynamically responding to changes but also to ensure that they are automatically re-sized when their container changes.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="examples-1" class="level2">
+<h2 class="anchored" data-anchor-id="examples-1">Examples</h2>
+<p>There are a couple examples of simple flex dashboards that use Shiny in the following files that are <a href="https://github.com/stephaniehicks/jhustatprogramming2023/tree/main/posts/2023-12-12-flexdashboard">included with this lecture</a>.</p>
+<p>Open each one of these files and run it by clicking the “Run document” button that is where the “Knit” button usually is.</p>
+<p>Shiny apps must be run rather than knitted, but the idea is the same! Be sure to open the output in a browser tab.</p>
+<section id="geyser-dashboard" class="level3">
+<h3 class="anchored" data-anchor-id="geyser-dashboard">Geyser dashboard</h3>
+<p>Here is a dashboard using the <code>faithful</code> dataset in base R, which contains the waiting time between eruptions and the duration of the eruption for the <a href="https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm">Old Faithful geyser</a> in Yellowstone National Park, Wyoming, USA.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>---
+title: "Old Faithful Eruptions"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+# load data in 'global' chunk so it can be shared by all users of the dashboard
+library(datasets)
+data(faithful)
+```
+
+## Column {.sidebar}
+
+Waiting time between eruptions and the duration of the eruption for the
+Old Faithful geyser in Yellowstone National Park, Wyoming, USA.
+
+```{r}
+selectInput("n_breaks", label = "Number of bins:",
+            choices = c(10, 20, 35, 50), selected = 20)
+
+sliderInput("bw_adjust", label = "Bandwidth adjustment:",
+            min = 0.2, max = 2, value = 1, step = 0.2)
+```
+
+## Column
+
+### Geyser Eruption Duration
+
+```{r}
+renderPlot({
+  hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
+       xlab = "Duration (minutes)", main = "Geyser Eruption Duration")
+  
+  dens &lt;- density(faithful$eruptions, adjust = input$bw_adjust)
+  lines(dens, col = "blue")
+})
+```</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Group exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the next 5 minutes, pair up with a partner (or try it alone) and explore Geyser flexdashboard, which includes interactive elements from Shiny.</p>
+<ul>
+<li>Play with the user input options in the left hand sidebar to see how the user can interact with the data through the dashboard.</li>
+<li>Then look at both the code and the output to see how the code relates to what is shown in the dashboard.</li>
+<li>Play around with the options in the code chunks to see if you can get a sense of what they are doing.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="mile-per-gallon-dashboard" class="level3">
+<h3 class="anchored" data-anchor-id="mile-per-gallon-dashboard">Mile per gallon dashboard</h3>
+<p>One thing to point out in the <code>MPGFlexDashboard.Rmd</code> file is the following chunk of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>formulaText <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">"mpg ~"</span>, input<span class="sc">$</span>variable)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This chunk of code allows the title of the graph to change depending on the input given by the user.</p>
+<p>It uses the <code>reactive()</code> function to <strong>specify that the text is not static but will change</strong> depending on what is selected by the user.</p>
+<p>You can see here the object <code>formulaText</code> will contain text consisting of pasting together “mpg ~” and the variable value selected from the user in the drop-down menu.</p>
+<p>Then, this <code>formulaText</code> object is used as the title in the plot! And even more importantly, it is used in the call to the <code>boxplot</code> function, to determine which variable to display in the plot.</p>
+<p>Super cool!</p>
+</section>
+</section>
+</section>
+<section id="getting-started-with-project-4" class="level1">
+<h1>Getting started with Project 4</h1>
+<p>For Project 4, you will need to build and deploy a dashboard. Here are some instructions and some example dashboards to help get you started.</p>
+<section id="deploying-a-dashboard" class="level4">
+<h4 class="anchored" data-anchor-id="deploying-a-dashboard">Deploying a dashboard</h4>
+<p>Here are some helpful pointers for getting a free <code>Shinyapps.io</code> account and then publishing your dashboard to the web:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deploying a Shiny app in RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Sign up for a free account on <a href="http://www.shinyapps.io/">http://www.shinyapps.io/</a></li>
+<li>Within RStudio, install the rsconnect package: <code>install.packages("rsconnect")</code></li>
+<li>Within RStudio Cloud, select “Tools” then “Global Options…” and then select “Publishing” from the left-hard menu. (Within the non-cloud RStudio, under the “Preferences” menu, click on “Publishing”.) Click the “Connect” button next to the publishing accounts box and then “Shinypps.io” to link your shinyapps.io account to your RStudio. Click on “Shinyapps.io” from the pop-up menu, and then follow the instructions to link your account. This involves copying and pasting a token from your account into the box in R Studio.</li>
+<li>Now you are ready to publish! Click the “Run Document” button to create your app; then click “Publish” in the upper right hand corner of your app (the publish icon is a blue circle with blue curves around it). Choose “Publish just this document” from the pop-up menu. Make sure the selected destination account is your shinyapps.io account. You can change the name of the app if you want. Then click publish!</li>
+<li>If you want to delete the app (unpublish it), you need to do this from within your shinyapps.io account. Go to <a href="http://www.shinyapps.io/">http://www.shinyapps.io/</a> and log in to your account. Click on applications to manage your applications. You must first archive your app before you can delete it.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="stephanies-dashboard" class="level4">
+<h4 class="anchored" data-anchor-id="stephanies-dashboard">Stephanie’s dashboard</h4>
+<p>I have deployed the Old Faithful dashboard to my own Shiny account and linked the public github repo (on GitHub Classroom) to give as an example:</p>
+<ul>
+<li>Deployed dashboard: <a href="https://stephaniehicks.shinyapps.io/OldFaithfulGeyser" class="uri">https://stephaniehicks.shinyapps.io/OldFaithfulGeyser</a></li>
+<li>GitHub repository: <a href="https://github.com/jhu-statprogramming-fall-2023/biostat777-project4-stephaniehicks" class="uri">https://github.com/jhu-statprogramming-fall-2023/biostat777-project4-stephaniehicks</a></li>
+</ul>
+</section>
+<section id="some-example-dashboards-from-last-year" class="level4">
+<h4 class="anchored" data-anchor-id="some-example-dashboards-from-last-year">Some example dashboards from last year</h4>
+<ul>
+<li><a href="https://acolumbus.shinyapps.io/biostat840-project4" class="uri">https://acolumbus.shinyapps.io/biostat840-project4</a></li>
+<li><a href="https://lilykoff.shinyapps.io/METransport" class="uri">https://lilykoff.shinyapps.io/METransport</a></li>
+<li><a href="https://anikbuman.shinyapps.io/pr4shiny" class="uri">https://anikbuman.shinyapps.io/pr4shiny</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/stephaniehicks\.github\.io\/jhustatprogramming2024\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
