@@ -6,7 +6,8 @@
       "/readings/03-functional-programming/index.html",
       "/readings/04-data-collection-apis/index.html",
       "/readings/04-data-collection-html/index.html",
-      "/readings/05-database-programming/index.html"
+      "/readings/05-database-programming/index.html",
+      "/readings/07-strategies-big-data/index.html"
     ]
   },
   {
@@ -27,7 +28,8 @@
       "/lectures/03-functional-programming/index.html",
       "/lectures/04-data-collection/index.html",
       "/lectures/05-database-programming/index.html",
-      "/lectures/06-ml-paradigms-workflows/index.html"
+      "/lectures/06-ml-paradigms-workflows/index.html",
+      "/lectures/07-parallel-programming/index.html"
     ]
   }
 ]
