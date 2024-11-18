@@ -5,23 +5,37 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Introduction to building and documenting R packages"
 date: 2024-11-26
-draft: true
 ---
-
 
 # Pre-lecture activities
 
 ::: callout-important
 
-In advance of class, please
+In advance of class, please install two additional packages:
+
+* `devtools` - this provides many additional tools for building packages
+* `roxygen2` - this provides tools for writing documentation
+* `pkgdown`  - this helps you to build a package website with little effort
+* `usethis`  - an automation package that simplifies project creation and setup
+
+You can do this by calling
+
+```{r}
+#| eval: false
+install.packages(c("devtools", "roxygen2",
+                   "usethis", "pkgdown"))
+```
+
+In addition, please read through: 
+
+- <https://pkgdown.r-lib.org/articles/pkgdown.html>
+- <https://r-pkgs.org>
+- <https://stat545.com/package-overview>
+- <https://usethis.r-lib.org>
 
 :::
-
-In addition, please read through
-
-- 
 
 ::: callout-note
 
@@ -36,7 +50,9 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- 
+- <https://pkgdown.r-lib.org/index.html>
+- <https://bookdown.org/yihui/rmarkdown/pkgdown-components.html>
+
 
 ## Learning objectives
 
@@ -44,10 +60,15 @@ Material for this lecture was borrowed and adopted from
 ### Learning objectives
 
 **At the end of this lesson you will:**
+ 
+- Create an empty R package 
+- Design a R function and write documentation
+- Describe what a `DESCRIPTION` file is and what goes in it
+- Be able to build and install a R package
+- Build a website for your package
+- Deploy your website on GitHub
 
--   
 :::
-
 
 
 ## Slides 
