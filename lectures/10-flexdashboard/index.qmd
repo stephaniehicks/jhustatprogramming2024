@@ -5,23 +5,34 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Introduction to building dashboards in R with `flexdashboard`"
 date: 2024-12-03
-draft: true
 ---
-
 
 # Pre-lecture activities
 
 ::: callout-important
 
-In advance of class, please
+In advance of class, please install three additional packages:
+
+* `flexdashboard` - this provides tools for easily building dashboards
+* `DT` - this provides built-in data display functionality
+* `shiny` - this provides functionality to create interactive dashboard elements
+
+You can do this by calling
+
+```{r}
+#| eval: false
+install.packages(c("flexdashboard", "DT", "shiny"))
+```
 
 :::
 
 In addition, please read through
 
-- 
+1. Information about creating dashboards: <https://pkgs.rstudio.com/flexdashboard>
+2. Examples of `flexdashboard` dashboards: <https://pkgs.rstudio.com/flexdashboard/articles/examples>
+
 
 ::: callout-note
 
@@ -36,7 +47,9 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- 
+- "R for Data Science" by Grolemund and Wickham, sections [29.6](https://r4ds.had.co.nz/r-markdown-formats.html#dashboards) and [29.7.2](https://r4ds.had.co.nz/r-markdown-formats.html#shiny). It is based on lecture notes initially developed by Margaret Taub and Leah Jager.
+- <https://epirhandbook.com/en/dashboards-with-r-markdown.html>
+
 
 ## Learning objectives
 
@@ -45,7 +58,10 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   
+- Know how to create a basic dashboard to display data analysis elements using `flexdashboard`
+- Add interactive elements to your dashboard using tools from the `shiny` package
+- Have resources to assist you in developing your own more complex dashboard to clearly present data and interactive elements
+
 :::
 
 
@@ -59,12 +75,16 @@ Material for this lecture was borrowed and adopted from
 
 For the rest of the time in class, you and your team will work on the final project. Stephanie will walk around to answer questions and to help in anyway I can. 
 
-
 # Post-lecture
 
-## Summary 
+::: callout-tip
+Here are a list of resources on Shiny (more involved than Flex Dashboard):
 
-- 
+* Main page: <http://shiny.rstudio.com>
+* Awesome tutorial: <http://shiny.rstudio.com/tutorial/>
+* An example app that Ruthe (former Biostats ScM student) made in a class: <https://gunben.shinyapps.io/Pneumonia426/>
+
+:::
 
 ## Additional practice
 
@@ -73,5 +93,8 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+1.  Starting with the `GeyserFlexDashboard.Rmd` file, modify the file to also create a data display related to the `waiting` variable. This display could be on another tab, or you could create an entire new page. You could allow the user to specify if they want a histogram or a boxplot with a dropdown selector.
+2. Alternatively, keep the layout simple with a single pane for the plot, but allow the user to select whether they want to display a histogram of the `waiting` variable or the `eruptions` variable. Make sure to update the main plot label to indicate the selected variable.
+3. Similar modifications can be made to the `MPGFlexDashboard.Rmd` example. Create an interface that allows the user to select two different variables from the `mpg` data set and then create an appropriate data display to illustrate the relationship between these two variables, updating any plot labels to reflect the selected variables.
+
 :::

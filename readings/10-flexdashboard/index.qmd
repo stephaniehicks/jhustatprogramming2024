@@ -1,0 +1,454 @@
+---
+title: "Building dashboards with `flexdashboard`"
+author: 
+  - name: Stephanie Hicks
+    url: https://stephaniehicks.com
+    affiliation: Department of Biostatistics, Johns Hopkins
+    affiliation_url: https://publichealth.jhu.edu
+description: "Introduction to building dashboards in R with `flexdashboard`"
+date: 2024-12-03
+---
+
+
+# Introduction
+
+If we were not familiar with data dashboards before the pandemic, many of us learned just how useful they are for displaying data in a way that is visual, concise and easy to update. 
+
+Dashboards like JHU's COVID-19 [trackers](https://coronavirus.jhu.edu/data) were an amazing resource for anyone interested in understanding more about the progression of the pandemic, from cases to vaccine rates to emerging variants. One of the creators, Lauren Gardner, recently won a [prestigious award](https://coronavirus.jhu.edu/from-our-experts/covid-19-data-dashboard-creator-lauren-gardner-wins-lasker-award) for her work, acknowledging the **importance of good data communication to the broad public** to improve public health.
+
+Data dashboards allow you to **communicate large amounts of information visually and quickly** with the added benefit of allowing the user to interact with the data directly in the dashboard. 
+
+:::{.callout-important}
+
+`flexdashboard` is a method of creating dashboards using R Markdown with panels and pages. The dashboard content can be 
+
+- text
+- static figures/tables
+- interactive graphics
+
+:::
+
+:::{.callout-note}
+
+### Advantages of `flexdashboard`
+
+- It requires minimal non-standard R coding - with very little practice you can quickly create a dashboard.
+- The dashboard can usually be emailed to colleagues as a self-contained HTML file - no server required. 
+- You can combine flexdashboard with `shiny`, `ggplotly`, and other "html widgets" to add interactivity. 
+
+:::
+
+:::{.callout-note}
+
+### Disadvantages of `flexdashboard`
+
+- Less customization as compared to using shiny alone to create a dashboard
+
+:::
+
+## Examples 
+
+Here's an example of what a `flexdashboard` might look like:
+
+![A screenshot of a dashboard created with `flexdashboard`](../../images/dashboards/example_dashboard.png)
+
+
+:::{.callout-tip}
+
+For more examples of `flexdashboard` dashboards, check out here: 
+
+- <https://pkgs.rstudio.com/flexdashboard/articles/examples>
+
+:::
+
+
+## Getting started
+
+To author a `flexdashboard` you create an R Markdown document within RStudio using the New R Markdown dialog:
+
+![A screenshot of opening a new RMarkdown with a flexdashboard template](../../images/dashboards/NewRMarkdown.png)
+
+To create a new dashboard, use the menus at the top of RStudio:
+
+- Select **File**
+- Select **New File**
+- Select **R Markdown...**  
+- Choose **From Template** in the box on the left 
+- Select **Flex Dashboard** from the box on the right
+- Then click **OK**
+
+This will open up a dashboard template. 
+
+:::{.callout-note}
+
+This option will only appear once you have installed the `flexdashboard` package. 
+
+:::
+
+
+You can knit this file just as you would a regular R Markdown document. 
+
+:::{.callout-note}
+
+### Try it out 
+
+Let's try this out. We will: 
+
+1. Create a new Project.
+2. Create a new R Markdown with the `flexdashbard` template following instructions above.
+3. Knit the file and take a look at what we get!
+
+**Note**: you will have to save this file first before knitting. Save it in your project directory as `trial_dashboard.Rmd` when prompted.
+
+:::
+
+
+# Flexdashboard 
+
+## A quick view
+
+Let's explore the R Markdown a bit. 
+
+### YAML
+
+Similar to other R Markdown and Quarto documents, there is a YAML at the top of the file. The YAML parameter `output: ` is required and specifies the type of file to be produced (e.g. `html_document`, `pdf_document`, `word_document`, or `powerpoint_presentation`). 
+
+For **flexdashboard**, `output` must be set as `output:flexdashboard::flex_dashboard`, which is a bit confusing looking. 
+
+To make thing even more confusing, there is often **an additional colon** and indented **sub-parameter** (see `orientation: ` and `vertical_layout: ` parameters below).  
+
+```{r}
+#| eval: false
+title: "Untitled"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+```
+
+:::{.callout-note}
+
+- Two spaces are important to define the subparameters. 
+- Use an additional colon after things like `key:value` if you want to further define subparameters. 
+- If appropriate, logical values should be given in YAML in lowercase (`true`, `false`, `null`). 
+
+:::
+
+
+### Code chunks and text
+
+Similar to other R Markdown files, these files also can contain multiple **code chunks**. 
+
+They are structured in the same way you would structure them with three back-ticks and curly brackets with a lowercase "r" within. 
+
+You can write **narrative text** similarly as well with all the markdown syntax you are already familiar with with italics, bold, bullets, numbering, etc.
+
+### Headings
+
+Notice the layout of the blank document is given by the hash (#) signs. In general:
+
+* Each level 1 header (#) begins a *new page* in the dashboard.
+* Each level 2 header (##) begins a *new column or a row* depending on your `orientation:` parameter.
+* Each level 3 header (###) create panels for plots, charts, tables, text, etc. 
+
+```md
+# First-level heading (page)
+
+## Second level heading (row or column)  
+
+### Third-level heading (pane for plot, chart, etc.)
+```
+
+In our blank document, you see the blank output with the `title: "Untitled"` and then three rows of charts (**Chart A**, **Chart B**, and **Chart C**.
+
+The code in the three sections with these three titles are all blank. 
+
+
+
+### Section attributes  
+
+Another thing you might notice is that you can specify **section attributes** to apply to parts of the dashboard in a `key=value` structure after the heading and within curly brackets `{ }`. 
+
+For example, the `{data-width=}` and `{data-height=}` attributes set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical).
+
+```md
+## Column {data-width=650}
+```
+
+:::{.callout-note}
+
+- These attributes are written after a *heading* in a text portion of the script. 
+- These are different than the **knitr** options inserted within at the top of R code chunks, such as `out.height = `.
+:::
+
+Some section attributes specific to **flexdashboard** include:  
+
+* `{data-orientation=}` Set to either `rows` or `columns`. If your dashboard has multiple pages, add this attribute to each page to indicate orientation.  
+* `{data-width=}` and `{data-height=}` set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical). 
+     * Height of charts also depends on whether you set the YAML parameter `vertical_layout: fill` or `vertical_layout: scroll`. If set to scroll, figure height will reflect the traditional `fig.height = ` option in the R code chunk.  
+     * See complete size documentation at the [flexdashboard website](https://pkgs.rstudio.com/flexdashboard/articles/using.html#sizing)  
+* `{.hidden}` Use this to exclude a specific page from the navigation bar  
+* `{data-navbar=}` Use this in a page-level heading to nest it within a navigation bar drop-down menu. Provide the name (in quotes) of the drop-down menu. See example below.  
+
+:::{.callout-note}
+
+### Group exercise
+
+For the next 5 minutes, pair up with a partner (or try it alone) and explore the template dashboard and adjust the layout in the following ways: 
+
+- Try adding pages, columns/rows, and charts with R Markdown headings (e.g. #, ##, or ###)  
+- Adjust the [orientation](https://pkgs.rstudio.com/flexdashboard/articles/using.html#orientation) using the YAML parameter `orientation:` to either `rows` or `columns`
+- Specify whether the layout fills the browser or allows for a [scrolling layout](https://pkgs.rstudio.com/flexdashboard/articles/using.html#scrolling-layout)
+- Add [tabs to a particular section heading](https://pkgs.rstudio.com/flexdashboard/articles/using.html#tabsets) using the `{.tabset}` attribute
+- Add a [navigation menu or side bar](https://epirhandbook.com/en/dashboards-with-r-markdown.html#pages) using the `{data-navmenu}` attribute or the `{.sidebar}` attribute, respectively. 
+
+Be sure to open the resulting dashboard in a browser window to really see it; you won't be able to view it very well in the small viewer pane within RStudio.
+
+:::
+
+
+### Diamonds dashboard
+
+There are several example dashboards included in the [folder containing today's lecture](https://github.com/stephaniehicks/jhustatprogramming2023/tree/main/posts/2023-12-12-flexdashboard). 
+
+Here is is a dashboard using the `diamonds` dataset in the `ggplot2` package: 
+
+```{r}
+#| echo: false
+#| comment: ""
+cat(htmltools::includeText("Diamond_dashboard_example.Rmd"))
+```
+
+Above, you can see there are two columns (designated by ##) and various rows within each column (designated with ###).
+
+:::{.callout-tip}
+
+This code relies on the [`DT` package](https://pkgs.rstudio.com/flexdashboard/articles/using.html#tabular-data), which is an interface to the DataTables JavaScript library. 
+
+The `DT` package provides a nice way to display R matrices or data frames as interactive HTML tables that support filtering, pagination, and sorting.
+
+:::
+
+:::{.callout-note}
+
+### Group exercise
+
+For the next 5 minutes, pair up with a partner (or try it alone), open the file `Diamond_dashboard_example.Rmd` and knit it. Explore to see if you can make the following changes: 
+
+- Can you change the titles of each of the graphs in the column on the left?
+- How could you change the first graph on the left to be a histogram of prices instead of carats?
+- Or could you add a fourth graph to the dashboard that shows price?
+
+Note that to get access to the `diamonds` dataset that the dashboard uses, you will have to have loaded the `ggplot2` package, which is part of the `tidyverse`.  You can see that the dashboard uses this package by looking at the first set-up code chunk in the dashboard .Rmd file.
+
+:::
+
+
+# Shiny
+
+Thus far, we have used `flexdashbard`. Now we will talk about how integrating the R package `shiny` can make your dashboard **even more reactive to user input**. 
+
+For example, a use can change something in the dashboard (e.g. a date range or filter for a specific subset of the data) and they will **see the results immediately** without needing to re-knit the document. 
+
+:::{.callout-tip}
+
+You can use **shiny** to produce apps/dashboards *without* flexdashboard too. 
+
+The [Shiny basics](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html) gives an overview and includes primers on **shiny** syntax, app file structure, and options for sharing/publishing. Generally, these syntax translate to **flexdashboard** as well. 
+
+:::
+
+## 
+
+Embedding **shiny** in **flexdashboard** is however, a fundamental change to your flexdashboard. It will no longer produce an HTML output that you can send by email and anyone could open and view. 
+
+Instead, it will be an "app". The "Knit" button at the top of the script will be replaced by a "Run document" icon, which will open an instance of the interactive the dashboard locally on your computer.  
+
+Sharing your dashboard will now require that you either:  
+
+* Send the Rmd script to the viewer, they open it in R on their computer, and run the app, or  
+* The app/dashboard is hosted on a server accessible to the viewer (most typical scenario)
+
+Thus, there are benefits to integrating **shiny**, but also complications. 
+
+:::{.callout-note}
+
+### Deploy on a server
+
+Shiny documents need to be deployed to a Shiny Server to be shared broadly.
+
+See instructions for creating a free account at <http://www.shinyapps.io/> and [instructions on how to publish to the web](https://bookdown.org/yihui/rmarkdown/shiny-documents.html#deployment). 
+
+:::
+
+
+
+## Settings
+
+To embed **shiny** reactivity into **flexdashboard**, you need only make a few changes to your **flexdashboard** R Markdown script. 
+
+Specifically, you need to add the YAML parameter `runtime: shiny` at the same indentation level as `output: `, as below:  
+
+```md
+---
+title: "Outbreak dashboard (Shiny demo)"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```
+
+It is also convenient to enable a "side bar" to hold the shiny input widgets that will collect information from the user. 
+
+:::{.callout-tip}
+
+### Pro-tip
+
+Create a column and indicate the `{.sidebar}` option to create a side bar on the left side. 
+
+You can add text and R chunks containing the **shiny** `input` commands within this column.  
+
+:::
+
+If your app/dashboard is hosted on a server and may have multiple simultaneous users, **name the first R code chunk** as `global`. 
+
+- Include the commands to import/load your data in this chunk. 
+- This special named chunk is treated differently, and the data imported within it are only imported once (not continuously) and are available for all users. 
+- This improves the start-up speed of the app.  
+
+
+## Shiny syntax 
+
+You can have input that is text, numeric, selecting from a menu, or checking a box, as shown below.  (Don't run this code, it's just there to show you what the syntax looks like!)
+
+```{r}
+#| eval: false
+textInput("name", "What is your name?")
+numericInput("age", "How old are you?", NA, min = 0, max = 150)
+selectInput("variable", "Variable:",
+                  c("Cylinders (cyl)" = "cyl",
+                    "Transmission (am)" = "am",
+                    "Gears (gear)" = "gear"))
+checkboxInput("outliers", "Show outliers", TRUE)
+```
+
+What is happening above? 
+
+### The first argument 
+
+The **input values** are stored in the object given by the **first argument** of these input functions. For example, 
+
+- The text input is stored in an object called `name` 
+- The numeric input is stored in an object called `age`
+
+You can then refer to the values with `input$name` and `input$age`, and the code that uses them will be automatically re-run whenever they change.
+
+### The second argument 
+
+The second argument gives the text that is displayed to the user to prompt their input. For example, 
+
+- The input area for `name` will show "What is your name?" and so on. 
+
+Later arguments for each type give additional information about that input, such as minimum and maximum allowed values for numeric input and menu options for the select input.
+
+:::{.callout-note}
+
+### Shiny best practices
+
+To add Shiny components to a flex dashboard you will want to do the following:
+
+* Add `runtime: shiny` to the YAML header at the top of the document.
+* Add the `{.sidebar}` attribute to the first column of the dashboard to make it a host for Shiny input controls (note this step isn’t strictly required, but many Shiny based dashboards will want to do this).
+* Add Shiny inputs and outputs as appropriate using the input functions.
+* When including plots, be sure to wrap them in a call to `renderPlot`. This is important not only for dynamically responding to changes but also to ensure that they are automatically re-sized when their container changes.
+
+:::
+
+## Examples
+
+There are a couple examples of simple flex dashboards that use Shiny in the following files that are [included with this lecture](https://github.com/stephaniehicks/jhustatprogramming2023/tree/main/posts/2023-12-12-flexdashboard).
+
+Open each one of these files and run it by clicking the "Run document" button that is where the "Knit" button usually is.  
+
+Shiny apps must be run rather than knitted, but the idea is the same!  Be sure to open the output in a browser tab.  
+
+
+### Geyser dashboard
+
+Here is a dashboard using the `faithful` dataset in base R, which contains the waiting time between eruptions and the duration of the eruption for the [Old Faithful geyser](https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm) in Yellowstone National Park, Wyoming, USA.
+
+```{r}
+#| echo: false
+#| comment: ""
+cat(htmltools::includeText("GeyserFlexDashboard.Rmd"))
+```
+
+
+
+:::{.callout-note}
+
+### Group exercise
+
+For the next 5 minutes, pair up with a partner (or try it alone) and explore Geyser flexdashboard, which includes interactive elements from Shiny. 
+
+- Play with the user input options in the left hand sidebar to see how the user can interact with the data through the dashboard.
+- Then look at both the code and the output to see how the code relates to what is shown in the dashboard. 
+- Play around with the options in the code chunks to see if you can get a sense of what they are doing. 
+
+:::
+
+
+### Mile per gallon dashboard
+
+One thing to point out in the `MPGFlexDashboard.Rmd` file is the following chunk of code:
+```{r}
+#| eval: false
+formulaText <- reactive({
+    paste("mpg ~", input$variable)
+  })
+```
+
+This chunk of code allows the title of the graph to change depending on the input given by the user.
+
+It uses the `reactive()` function to **specify that the text is not static but will change** depending on what is selected by the user. 
+
+You can see here the object `formulaText` will contain text consisting of pasting together "mpg ~" and the variable value selected from the user in the drop-down menu. 
+
+Then, this `formulaText` object is used as the title in the plot! And even more importantly, it is used in the call to the `boxplot` function, to determine which variable to display in the plot.
+
+Super cool! 
+
+# Getting started with Project 4 
+
+For Project 4, you will need to build and deploy a dashboard. Here are some instructions and some example dashboards to help get you started. 
+
+#### Deploying a dashboard
+
+Here are some helpful pointers for getting a free `Shinyapps.io` account and then publishing your dashboard to the web:
+
+::: callout-tip
+
+### Deploying a Shiny app in RStudio
+
+1. Sign up for a free account on [http://www.shinyapps.io/](http://www.shinyapps.io/)
+2. Within RStudio, install the rsconnect package: `install.packages("rsconnect")`
+3. Within RStudio Cloud, select "Tools" then "Global Options..." and then select "Publishing" from the left-hard menu.  (Within the non-cloud RStudio, under the "Preferences" menu, click on "Publishing".)  Click the "Connect" button next to the publishing accounts box and then "Shinypps.io" to link your shinyapps.io account to your RStudio.  Click on "Shinyapps.io" from the pop-up menu, and then follow the instructions to link your account. This involves copying and pasting a token from your account into the box in R Studio.
+4. Now you are ready to publish! Click the "Run Document" button to create your app; then click "Publish" in the upper right hand corner of your app (the publish icon is a blue circle with blue curves around it). Choose "Publish just this document" from the pop-up menu.  Make sure the selected destination account is your shinyapps.io account.  You can change the name of the app if you want.  Then click publish!
+5. If you want to delete the app (unpublish it), you need to do this from within your shinyapps.io account.  Go to [http://www.shinyapps.io/](http://www.shinyapps.io/) and log in to your account.  Click on applications to manage your applications.  You must first archive your app before you can delete it.
+:::
+
+#### Stephanie's dashboard 
+
+I have deployed the Old Faithful dashboard to my own Shiny account and linked the public github repo (on GitHub Classroom) to give as an example: 
+
+- Deployed dashboard: <https://stephaniehicks.shinyapps.io/OldFaithfulGeyser>
+- GitHub repository: <https://github.com/jhu-statprogramming-fall-2023/biostat777-project4-stephaniehicks>
+
+#### Some example dashboards from last year
+
+- <https://acolumbus.shinyapps.io/biostat840-project4>
+- <https://lilykoff.shinyapps.io/METransport>
+- <https://anikbuman.shinyapps.io/pr4shiny>
