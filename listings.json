@@ -1,13 +1,16 @@
 [
   {
-    "listing": "/readings.html",
+    "listing": "/lectures.html",
     "items": [
-      "/readings/00-quarto/index.html",
-      "/readings/03-functional-programming/index.html",
-      "/readings/04-data-collection-apis/index.html",
-      "/readings/04-data-collection-html/index.html",
-      "/readings/05-database-programming/index.html",
-      "/readings/07-strategies-big-data/index.html"
+      "/lectures/00-course-intro/index.html",
+      "/lectures/01-command-line/index.html",
+      "/lectures/02-version-control/index.html",
+      "/lectures/03-functional-programming/index.html",
+      "/lectures/04-data-collection/index.html",
+      "/lectures/05-database-programming/index.html",
+      "/lectures/06-ml-paradigms-workflows/index.html",
+      "/lectures/07-parallel-programming/index.html",
+      "/lectures/08-oop-paradigm/index.html"
     ]
   },
   {
@@ -20,16 +23,15 @@
     ]
   },
   {
-    "listing": "/lectures.html",
+    "listing": "/readings.html",
     "items": [
-      "/lectures/00-course-intro/index.html",
-      "/lectures/01-command-line/index.html",
-      "/lectures/02-version-control/index.html",
-      "/lectures/03-functional-programming/index.html",
-      "/lectures/04-data-collection/index.html",
-      "/lectures/05-database-programming/index.html",
-      "/lectures/06-ml-paradigms-workflows/index.html",
-      "/lectures/07-parallel-programming/index.html"
+      "/readings/00-quarto/index.html",
+      "/readings/03-functional-programming/index.html",
+      "/readings/04-data-collection-apis/index.html",
+      "/readings/04-data-collection-html/index.html",
+      "/readings/05-database-programming/index.html",
+      "/readings/07-strategies-big-data/index.html",
+      "/readings/08-oop-paradigm/index.html"
     ]
   }
 ]
