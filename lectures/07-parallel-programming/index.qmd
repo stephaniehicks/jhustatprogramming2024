@@ -43,7 +43,7 @@ In addition, please read through
 
 ## How much should I prepare for before class?
 
-You should have `future` installed and be familiar with the three basic functions - `future()`, `resolved()`, and `value()`. 
+You should have `future` installed and be familiar with the three basic functions - `plan()`, `future()`, and `value()`. 
 
 We will learn more about these functions in class. 
 
@@ -66,7 +66,7 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
-- Understand the basics of parallel and distributed computing
+- Understand the basics of parallel computing
 - Become familiar with basic functions in the `future` package
 - Recognize different file formats to work with large data not locally
 - Implement three ways to work with large data: 
@@ -74,25 +74,23 @@ Material for this lecture was borrowed and adopted from
   2. "chunk and pull"
   3. "push compute to data"
 
-
 :::
-
-
 
 ## Slides 
 
-- <add here>
+- [Lecture 07: Parallel computing (and dealing with large data)](https://docs.google.com/presentation/d/1jaMlB3SibUmF-rVFnKf3Hz-8_biX4HO80qt6Kx2Wrd0/edit?usp=sharing)
 
 
-# Post-lecture
+# Class activity 
 
+For the rest of the time in class, we will practice using the `future` package.
+There are two tutorials for you to work through own your own developed by 
+Henrik Bengtsson from the UseR! 2024 conference: 
 
-## Additional practice
+- [Lab: Futureverse 1](https://henrikbengtsson.github.io/future-tutorial-user2024/lab1.html)
+- [Lab: Futureverse 2](https://henrikbengtsson.github.io/future-tutorial-user2024/lab2.html)
 
-Here are some additional practice questions to help you think about the material discussed.
+Also, if you would like to try out the three strategies we learned about in 
+class today for dealing with large data, try working through the pre-reading: 
 
-::: callout-note
-### Questions
-
-1. 
-:::
+- [Strategies for dealing with large data](../../readings/07-strategies-big-data/index.qmd)
