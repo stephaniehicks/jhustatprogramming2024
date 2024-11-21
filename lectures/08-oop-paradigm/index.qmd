@@ -1,5 +1,5 @@
 ---
-title: "Object oriented programming"
+title: "Object-oriented programming"
 author: 
   - name: Stephanie Hicks
     url: https://stephaniehicks.com
@@ -16,22 +16,13 @@ date: 2024-11-21
 
 In advance of class, please read through: 
 
-- [Lecture 08: Object Oriented Programming](../../readings/08-oop-paradigm/index.qmd)
+- [Lecture 08: Object-Oriented Programming](../../readings/08-oop-paradigm/index.qmd)
 
 :::
 
 In addition, please have a brief look through these four sections of the book: 
 
-1. <https://adv-r.hadley.nz/oo>
-2. <https://adv-r.hadley.nz/base-types>
-3. <https://adv-r.hadley.nz/s3>
-4. <https://adv-r.hadley.nz/s4>
-
-::: callout-note
-
-## How much should I prepare for before class? 
-
-:::
+- <https://adv-r.hadley.nz/oo> (Chapters 12-16)
 
 
 # Lecture 
@@ -40,7 +31,7 @@ In addition, please have a brief look through these four sections of the book:
 
 Material for this lecture was borrowed and adopted from
 
-- <https://adv-r.hadley.nz/oo>
+- <https://adv-r.hadley.nz/oo> (Chapters 12-16)
 
 ## Learning objectives
 
@@ -55,15 +46,13 @@ Material for this lecture was borrowed and adopted from
 
 :::
 
-
-
 ## Slides 
 
-- <add here>
+- [Lecture 08: Object-oriented programming](https://docs.google.com/presentation/d/1LZKegMEbiF1Q3uk7ddQ_rEhD2AA3HO6pwCZQcB29-og/edit?usp=sharing)
 
 # Class activity 
 
-For the rest of the time in class, you and your team will work on the final project. Stephanie will walk around to answer questions and to help in anyway I can. 
+For the rest of the time in class, you and your team will work on the final project. Stephanie will walk around to answer questions and to help answer questions and support team projects. 
 
 
 # Post-lecture
@@ -81,16 +70,13 @@ programming languages.
 - S3 is a liberal object oriented system that allows you to assign a class to
 any object.
 - S4 is a more strict object oriented system that build upon ideas in S3.
-- Reference Classes are a modern object oriented system that is similar to Java,
-C++, Python, or Ruby.
-
 
 ## Additional practice
 
 Here are some additional practice questions to help you think about the material discussed.
 
-::: callout-note
-### Questions
+- <https://adv-r.hadley.nz/s3.html#exercises-38>
+- <https://adv-r.hadley.nz/s3.html#exercises-39>
+- <https://adv-r.hadley.nz/s3.html#exercises-40>
+- <https://adv-r.hadley.nz/s3.html#exercises-42>
 
-1. 
-:::
