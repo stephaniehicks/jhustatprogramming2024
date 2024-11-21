@@ -424,7 +424,7 @@
     "href": "lectures/09-r-pkg-dev/index.html",
     "title": "R package development and pkgdown",
     "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please install two additional packages:\n\ndevtools - this provides many additional tools for building packages\nroxygen2 - this provides tools for writing documentation\npkgdown - this helps you to build a package website with little effort\nusethis - an automation package that simplifies project creation and setup\n\nYou can do this by calling\n\ninstall.packages(c(\"devtools\", \"roxygen2\",\n                   \"usethis\", \"pkgdown\"))\n\nIn addition, please read through:\n\nhttps://pkgdown.r-lib.org/articles/pkgdown.html\nhttps://r-pkgs.org\nhttps://stat545.com/package-overview\nhttps://usethis.r-lib.org\n\n\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
+    "text": "Important\n\n\n\nIn advance of class, please install two additional packages:\n\ndevtools - this provides many additional tools for building packages\nroxygen2 - this provides tools for writing documentation\npkgdown - this helps you to build a package website with little effort\nusethis - an automation package that simplifies project creation and setup\n\nYou can do this by calling\n\ninstall.packages(c(\"devtools\", \"roxygen2\",\n                   \"usethis\", \"pkgdown\"))\n\nIn addition, please read through:\n\nhttps://r-pkgs.org\nhttps://stat545.com/package-overview\nhttps://usethis.r-lib.org\nhttps://pkgdown.r-lib.org/articles/pkgdown"
   },
   {
     "objectID": "lectures/09-r-pkg-dev/index.html#acknowledgements",
@@ -438,7 +438,7 @@
     "href": "lectures/09-r-pkg-dev/index.html#learning-objectives",
     "title": "R package development and pkgdown",
     "section": "Learning objectives",
-    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nCreate an empty R package\nDesign a R function and write documentation\nDescribe what a DESCRIPTION file is and what goes in it\nBe able to build and install a R package\nBuild a website for your package\nDeploy your website on GitHub"
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nCreate an empty R package\nDesign a R function and write documentation\nDescribe what a DESCRIPTION file is and what goes in it\nBe able to build and install a R package\nBuild a website for your package"
   },
   {
     "objectID": "lectures/09-r-pkg-dev/index.html#slides",
