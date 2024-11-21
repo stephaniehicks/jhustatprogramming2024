@@ -557,7 +557,7 @@
     "href": "lectures.html",
     "title": "Course content",
     "section": "",
-    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n2024-11-19\n\n\nParallel programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-21\n\n\nObject oriented programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-26\n\n\nR package development and pkgdown\n\n\nStephanie Hicks\n\n\n\n\n2024-12-03\n\n\nBuilding dashboards with flexdashboard\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n2024-11-19\n\n\nParallel programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-21\n\n\nObject-oriented programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-26\n\n\nR package development and pkgdown\n\n\nStephanie Hicks\n\n\n\n\n2024-12-03\n\n\nBuilding dashboards with flexdashboard\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -709,44 +709,44 @@
   {
     "objectID": "lectures/08-oop-paradigm/index.html",
     "href": "lectures/08-oop-paradigm/index.html",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please read through:\n\nLecture 08: Object Oriented Programming\n\n\n\nIn addition, please have a brief look through these four sections of the book:\n\nhttps://adv-r.hadley.nz/oo\nhttps://adv-r.hadley.nz/base-types\nhttps://adv-r.hadley.nz/s3\nhttps://adv-r.hadley.nz/s4\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
+    "text": "Important\n\n\n\nIn advance of class, please read through:\n\nLecture 08: Object-Oriented Programming\n\n\n\nIn addition, please have a brief look through these four sections of the book:\n\nhttps://adv-r.hadley.nz/oo (Chapters 12-16)"
   },
   {
     "objectID": "lectures/08-oop-paradigm/index.html#acknowledgements",
     "href": "lectures/08-oop-paradigm/index.html#acknowledgements",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nhttps://adv-r.hadley.nz/oo"
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\nhttps://adv-r.hadley.nz/oo (Chapters 12-16)"
   },
   {
     "objectID": "lectures/08-oop-paradigm/index.html#learning-objectives",
     "href": "lectures/08-oop-paradigm/index.html#learning-objectives",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "Learning objectives",
     "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:\n\nRecognize the primary object-oriented systems in R: S3, S4, R6, and Reference Classes (RC).\nUnderstand the terminology of a class, object, method, constructor and generic.\nBe able to create a new S3 or S4 with generics and methods"
   },
   {
     "objectID": "lectures/08-oop-paradigm/index.html#slides",
     "href": "lectures/08-oop-paradigm/index.html#slides",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "Slides",
-    "text": "Slides"
+    "text": "Slides\n\nLecture 08: Object-oriented programming"
   },
   {
     "objectID": "lectures/08-oop-paradigm/index.html#summary",
     "href": "lectures/08-oop-paradigm/index.html#summary",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "Summary",
-    "text": "Summary\n\nR has three object oriented systems: S3, S4, and Reference Classes.\nReference Classes are the most similar to classes and objects in other programming languages.\nClasses are blueprints for an object.\nObjects are individual instances of a class.\nMethods are functions that are associated with a particular class.\nConstructors are methods that create objects.\nEverything in R is an object.\nS3 is a liberal object oriented system that allows you to assign a class to any object.\nS4 is a more strict object oriented system that build upon ideas in S3.\nReference Classes are a modern object oriented system that is similar to Java, C++, Python, or Ruby."
+    "text": "Summary\n\nR has three object oriented systems: S3, S4, and Reference Classes.\nReference Classes are the most similar to classes and objects in other programming languages.\nClasses are blueprints for an object.\nObjects are individual instances of a class.\nMethods are functions that are associated with a particular class.\nConstructors are methods that create objects.\nEverything in R is an object.\nS3 is a liberal object oriented system that allows you to assign a class to any object.\nS4 is a more strict object oriented system that build upon ideas in S3."
   },
   {
     "objectID": "lectures/08-oop-paradigm/index.html#additional-practice",
     "href": "lectures/08-oop-paradigm/index.html#additional-practice",
-    "title": "Object oriented programming",
+    "title": "Object-oriented programming",
     "section": "Additional practice",
-    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\n\n\n\n\n\nQuestions"
+    "text": "Additional practice\nHere are some additional practice questions to help you think about the material discussed.\n\nhttps://adv-r.hadley.nz/s3.html#exercises-38\nhttps://adv-r.hadley.nz/s3.html#exercises-39\nhttps://adv-r.hadley.nz/s3.html#exercises-40\nhttps://adv-r.hadley.nz/s3.html#exercises-42"
   },
   {
     "objectID": "projects/02-project/index.html",
