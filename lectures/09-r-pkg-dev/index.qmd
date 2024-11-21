@@ -30,18 +30,13 @@ install.packages(c("devtools", "roxygen2",
 
 In addition, please read through: 
 
-- <https://pkgdown.r-lib.org/articles/pkgdown.html>
 - <https://r-pkgs.org>
 - <https://stat545.com/package-overview>
 - <https://usethis.r-lib.org>
+- <https://pkgdown.r-lib.org/articles/pkgdown>
 
 :::
 
-::: callout-note
-
-## How much should I prepare for before class? 
-
-:::
 
 
 # Lecture 
@@ -66,7 +61,6 @@ Material for this lecture was borrowed and adopted from
 - Describe what a `DESCRIPTION` file is and what goes in it
 - Be able to build and install a R package
 - Build a website for your package
-- Deploy your website on GitHub
 
 :::
 
