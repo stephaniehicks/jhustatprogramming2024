@@ -1,18 +1,5 @@
 [
   {
-    "listing": "/readings.html",
-    "items": [
-      "/readings/00-quarto/index.html",
-      "/readings/03-functional-programming/index.html",
-      "/readings/04-data-collection-apis/index.html",
-      "/readings/04-data-collection-html/index.html",
-      "/readings/05-database-programming/index.html",
-      "/readings/07-strategies-big-data/index.html",
-      "/readings/08-oop-paradigm/index.html",
-      "/readings/10-flexdashboard/index.html"
-    ]
-  },
-  {
     "listing": "/projects.html",
     "items": [
       "/projects/03-project/index.html",
@@ -35,6 +22,19 @@
       "/lectures/08-oop-paradigm/index.html",
       "/lectures/09-r-pkg-dev/index.html",
       "/lectures/10-flexdashboard/index.html"
+    ]
+  },
+  {
+    "listing": "/readings.html",
+    "items": [
+      "/readings/00-quarto/index.html",
+      "/readings/03-functional-programming/index.html",
+      "/readings/04-data-collection-apis/index.html",
+      "/readings/04-data-collection-html/index.html",
+      "/readings/05-database-programming/index.html",
+      "/readings/07-strategies-big-data/index.html",
+      "/readings/08-oop-paradigm/index.html",
+      "/readings/10-flexdashboard/index.html"
     ]
   }
 ]
