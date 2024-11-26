@@ -1,7 +1,7 @@
 ---
 title: "Programming with GitHub Copilot"
 author: 
-  - name: Stephanie Hicks
+  - name: Stephanie Hicks & Kinnary Shah
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
@@ -16,7 +16,7 @@ https://arjun-raj-lab.gitbook.io/arjun-rajs-tools-for-science/how-to-do-science/
 
 ::: callout-important
 
-In advance of class, please
+In advance of class, please set up your GitHub student account on this website: https://education.github.com/discount_requests/application. This process may take up to 72 hours.
 
 :::
 
