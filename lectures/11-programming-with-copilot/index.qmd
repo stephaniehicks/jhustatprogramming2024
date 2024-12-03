@@ -5,12 +5,9 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Learning how to use Co-Pilot for programming"
 date: 2024-12-05
-draft: true
 ---
-
-https://arjun-raj-lab.gitbook.io/arjun-rajs-tools-for-science/how-to-do-science/using-ai-in-academia
 
 # Pre-lecture activities
 
@@ -20,24 +17,9 @@ In advance of class, please set up your GitHub student account on this website: 
 
 :::
 
-In addition, please read through
-
-- 
-
-::: callout-note
-
-## How much should I prepare for before class? 
-
-:::
-
 
 # Lecture 
 
-## Acknowledgements
-
-Material for this lecture was borrowed and adopted from
-
-- 
 
 ## Learning objectives
 
@@ -53,25 +35,9 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- <add here>
+- [Lecture 11: Programming with Co-Pilot](https://docs.google.com/presentation/d/18YPgRGSiN-OpQpKtnhIyK5crbnFDiaUw-jNJgNwKEQU/edit?usp=sharing)
 
 # Class activity 
 
 For the rest of the time in class, you and your team will work on the final project. Stephanie will walk around to answer questions and to help in anyway I can. 
 
-
-# Post-lecture
-
-## Summary 
-
-- 
-
-## Additional practice
-
-Here are some additional practice questions to help you think about the material discussed.
-
-::: callout-note
-### Questions
-
-1. 
-:::
