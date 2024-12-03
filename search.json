@@ -553,6 +553,27 @@
     "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-11-12\n\n\nProject 3\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nProject 2\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nProject 4\n\n\nStephanie Hicks\n\n\n\n\n2024-10-24\n\n\nProject 1\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
   },
   {
+    "objectID": "lectures/11-programming-with-copilot/index.html",
+    "href": "lectures/11-programming-with-copilot/index.html",
+    "title": "Programming with GitHub Copilot",
+    "section": "",
+    "text": "Important\n\n\n\nIn advance of class, please set up your GitHub student account on this website: https://education.github.com/discount_requests/application. This process may take up to 72 hours."
+  },
+  {
+    "objectID": "lectures/11-programming-with-copilot/index.html#learning-objectives",
+    "href": "lectures/11-programming-with-copilot/index.html#learning-objectives",
+    "title": "Programming with GitHub Copilot",
+    "section": "Learning objectives",
+    "text": "Learning objectives\n\n\n\n\n\n\nLearning objectives\n\n\n\nAt the end of this lesson you will:"
+  },
+  {
+    "objectID": "lectures/11-programming-with-copilot/index.html#slides",
+    "href": "lectures/11-programming-with-copilot/index.html#slides",
+    "title": "Programming with GitHub Copilot",
+    "section": "Slides",
+    "text": "Slides\n\nLecture 11: Programming with Co-Pilot"
+  },
+  {
     "objectID": "lectures/09-r-pkg-dev/index.html",
     "href": "lectures/09-r-pkg-dev/index.html",
     "title": "R package development and pkgdown",
@@ -746,7 +767,7 @@
     "href": "lectures.html",
     "title": "Course content",
     "section": "",
-    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n2024-11-19\n\n\nParallel programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-21\n\n\nObject-oriented programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-26\n\n\nR package development and pkgdown\n\n\nStephanie Hicks\n\n\n\n\n2024-12-03\n\n\nBuilding dashboards with flexdashboard\n\n\nStephanie Hicks\n\n\n\n\n\nNo matching items"
+    "text": "Course content for each lecture is below:\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\n2024-10-24\n\n\nWelcome to the course\n\n\nStephanie Hicks\n\n\n\n\n2024-10-29\n\n\nIntroduction to the command-line\n\n\nStephanie Hicks\n\n\n\n\n2024-10-31\n\n\nIntroduction to version control\n\n\nStephanie Hicks\n\n\n\n\n2024-11-05\n\n\nFunctional programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-07\n\n\nData Collection\n\n\nStephanie Hicks\n\n\n\n\n2024-11-12\n\n\nDatabase programming paradigms\n\n\nStephanie Hicks\n\n\n\n\n2024-11-14\n\n\nMachine learning paradigms and workflows\n\n\nStephanie Hicks\n\n\n\n\n2024-11-19\n\n\nParallel programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-21\n\n\nObject-oriented programming\n\n\nStephanie Hicks\n\n\n\n\n2024-11-26\n\n\nR package development and pkgdown\n\n\nStephanie Hicks\n\n\n\n\n2024-12-03\n\n\nBuilding dashboards with flexdashboard\n\n\nStephanie Hicks\n\n\n\n\n2024-12-05\n\n\nProgramming with GitHub Copilot\n\n\nStephanie Hicks & Kinnary Shah\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
