@@ -1085,6 +1085,20 @@
     "text": "Slides\n\nLecture 10: Building dashboards with flexdashboard"
   },
   {
+    "objectID": "lectures/10-flexdashboard/index.html#deploying-a-dashboard",
+    "href": "lectures/10-flexdashboard/index.html#deploying-a-dashboard",
+    "title": "Building dashboards with flexdashboard",
+    "section": "Deploying a dashboard",
+    "text": "Deploying a dashboard\nHere are some helpful pointers for getting a free Shinyapps.io account and then publishing your dashboard to the web:\n\n\n\n\n\n\nDeploying a Shiny app in RStudio\n\n\n\n\nSign up for a free account on http://www.shinyapps.io/\nWithin RStudio, install the rsconnect package: install.packages(\"rsconnect\")\nWithin RStudio Cloud, select “Tools” then “Global Options…” and then select “Publishing” from the left-hard menu. (Within the non-cloud RStudio, under the “Preferences” menu, click on “Publishing”.) Click the “Connect” button next to the publishing accounts box and then “Shinypps.io” to link your shinyapps.io account to your RStudio. Click on “Shinyapps.io” from the pop-up menu, and then follow the instructions to link your account. This involves copying and pasting a token from your account into the box in R Studio.\nNow you are ready to publish! Click the “Run Document” button to create your app; then click “Publish” in the upper right hand corner of your app (the publish icon is a blue circle with blue curves around it). Choose “Publish just this document” from the pop-up menu. Make sure the selected destination account is your shinyapps.io account. You can change the name of the app if you want. Then click publish!\nIf you want to delete the app (unpublish it), you need to do this from within your shinyapps.io account. Go to http://www.shinyapps.io/ and log in to your account. Click on applications to manage your applications. You must first archive your app before you can delete it."
+  },
+  {
+    "objectID": "lectures/10-flexdashboard/index.html#stephanies-dashboard",
+    "href": "lectures/10-flexdashboard/index.html#stephanies-dashboard",
+    "title": "Building dashboards with flexdashboard",
+    "section": "Stephanie’s dashboard",
+    "text": "Stephanie’s dashboard\nI have deployed the Old Faithful dashboard to my own Shiny account and linked the public github repo (on GitHub Classroom) to give as an example:\n\nDeployed dashboard: https://stephaniehicks.shinyapps.io/OldFaithfulGeyser\nGitHub repository: https://github.com/jhu-statprogramming-fall-2024/project4-stephanieteam"
+  },
+  {
     "objectID": "lectures/10-flexdashboard/index.html#additional-practice",
     "href": "lectures/10-flexdashboard/index.html#additional-practice",
     "title": "Building dashboards with flexdashboard",

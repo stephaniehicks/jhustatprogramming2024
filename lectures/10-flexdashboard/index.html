@@ -179,6 +179,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#deploying-a-dashboard" id="toc-deploying-a-dashboard" class="nav-link" data-scroll-target="#deploying-a-dashboard">Deploying a dashboard</a></li>
+  <li><a href="#stephanies-dashboard" id="toc-stephanies-dashboard" class="nav-link" data-scroll-target="#stephanies-dashboard">Stephanie’s dashboard</a></li>
   </ul></li>
   <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a></li>
   <li><a href="#post-lecture" id="toc-post-lecture" class="nav-link" data-scroll-target="#post-lecture">Post-lecture</a>
@@ -300,6 +302,37 @@ Learning objectives
 <li><a href="https://docs.google.com/presentation/d/1ZaZIPhhu_VtSoKAGcfkViDc_S3sghdagbGQeYhpNpAg/edit?usp=sharing">Lecture 10: Building dashboards with flexdashboard</a></li>
 </ul>
 </section>
+<section id="deploying-a-dashboard" class="level2">
+<h2 class="anchored" data-anchor-id="deploying-a-dashboard">Deploying a dashboard</h2>
+<p>Here are some helpful pointers for getting a free <code>Shinyapps.io</code> account and then publishing your dashboard to the web:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Deploying a Shiny app in RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Sign up for a free account on <a href="http://www.shinyapps.io/">http://www.shinyapps.io/</a></li>
+<li>Within RStudio, install the rsconnect package: <code>install.packages("rsconnect")</code></li>
+<li>Within RStudio Cloud, select “Tools” then “Global Options…” and then select “Publishing” from the left-hard menu. (Within the non-cloud RStudio, under the “Preferences” menu, click on “Publishing”.) Click the “Connect” button next to the publishing accounts box and then “Shinypps.io” to link your shinyapps.io account to your RStudio. Click on “Shinyapps.io” from the pop-up menu, and then follow the instructions to link your account. This involves copying and pasting a token from your account into the box in R Studio.</li>
+<li>Now you are ready to publish! Click the “Run Document” button to create your app; then click “Publish” in the upper right hand corner of your app (the publish icon is a blue circle with blue curves around it). Choose “Publish just this document” from the pop-up menu. Make sure the selected destination account is your shinyapps.io account. You can change the name of the app if you want. Then click publish!</li>
+<li>If you want to delete the app (unpublish it), you need to do this from within your shinyapps.io account. Go to <a href="http://www.shinyapps.io/">http://www.shinyapps.io/</a> and log in to your account. Click on applications to manage your applications. You must first archive your app before you can delete it.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="stephanies-dashboard" class="level2">
+<h2 class="anchored" data-anchor-id="stephanies-dashboard">Stephanie’s dashboard</h2>
+<p>I have deployed the Old Faithful dashboard to my own Shiny account and linked the public github repo (on GitHub Classroom) to give as an example:</p>
+<ul>
+<li>Deployed dashboard: <a href="https://stephaniehicks.shinyapps.io/OldFaithfulGeyser" class="uri">https://stephaniehicks.shinyapps.io/OldFaithfulGeyser</a></li>
+<li>GitHub repository: <a href="https://github.com/jhu-statprogramming-fall-2024/project4-stephanieteam" class="uri">https://github.com/jhu-statprogramming-fall-2024/project4-stephanieteam</a></li>
+</ul>
+</section>
 </section>
 <section id="class-activity" class="level1">
 <h1>Class activity</h1>
@@ -321,7 +354,6 @@ Tip
 <ul>
 <li>Main page: <a href="http://shiny.rstudio.com" class="uri">http://shiny.rstudio.com</a></li>
 <li>Awesome tutorial: <a href="http://shiny.rstudio.com/tutorial/" class="uri">http://shiny.rstudio.com/tutorial/</a></li>
-<li>An example app that Ruthe (former Biostats ScM student) made in a class: <a href="https://gunben.shinyapps.io/Pneumonia426/" class="uri">https://gunben.shinyapps.io/Pneumonia426/</a></li>
 </ul>
 </div>
 </div>
