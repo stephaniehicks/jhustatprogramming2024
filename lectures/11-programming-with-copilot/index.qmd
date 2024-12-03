@@ -5,7 +5,7 @@ author:
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "Learning how to use Co-Pilot for programming"
+description: "Learning how to use Copilot for programming"
 date: 2024-12-05
 ---
 
@@ -28,14 +28,17 @@ In advance of class, please set up your GitHub student account on this website: 
 
 **At the end of this lesson you will:**
 
--   
+-   Know the basic terminology and logic of GitHub Copilot
+-   Have helpful tips to optimize your use of GitHub Copilot
+-   Have resources to create a free student account to GitHub Copilot and install it in RStudio 
+
 :::
 
 
 
 ## Slides 
 
-- [Lecture 11: Programming with Co-Pilot](https://docs.google.com/presentation/d/18YPgRGSiN-OpQpKtnhIyK5crbnFDiaUw-jNJgNwKEQU/edit?usp=sharing)
+- [Lecture 11: Programming with Copilot](https://docs.google.com/presentation/d/18YPgRGSiN-OpQpKtnhIyK5crbnFDiaUw-jNJgNwKEQU/edit?usp=sharing)
 
 # Class activity 
 
