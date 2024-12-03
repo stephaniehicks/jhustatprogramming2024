@@ -63,6 +63,30 @@ Material for this lecture was borrowed and adopted from
 - [Lecture 10: Building dashboards with flexdashboard](https://docs.google.com/presentation/d/1ZaZIPhhu_VtSoKAGcfkViDc_S3sghdagbGQeYhpNpAg/edit?usp=sharing)
 
 
+## Deploying a dashboard
+
+Here are some helpful pointers for getting a free `Shinyapps.io` account and then publishing your dashboard to the web:
+
+::: callout-tip
+
+### Deploying a Shiny app in RStudio
+
+1. Sign up for a free account on [http://www.shinyapps.io/](http://www.shinyapps.io/)
+2. Within RStudio, install the rsconnect package: `install.packages("rsconnect")`
+3. Within RStudio Cloud, select "Tools" then "Global Options..." and then select "Publishing" from the left-hard menu.  (Within the non-cloud RStudio, under the "Preferences" menu, click on "Publishing".)  Click the "Connect" button next to the publishing accounts box and then "Shinypps.io" to link your shinyapps.io account to your RStudio.  Click on "Shinyapps.io" from the pop-up menu, and then follow the instructions to link your account. This involves copying and pasting a token from your account into the box in R Studio.
+4. Now you are ready to publish! Click the "Run Document" button to create your app; then click "Publish" in the upper right hand corner of your app (the publish icon is a blue circle with blue curves around it). Choose "Publish just this document" from the pop-up menu.  Make sure the selected destination account is your shinyapps.io account.  You can change the name of the app if you want.  Then click publish!
+5. If you want to delete the app (unpublish it), you need to do this from within your shinyapps.io account.  Go to [http://www.shinyapps.io/](http://www.shinyapps.io/) and log in to your account.  Click on applications to manage your applications.  You must first archive your app before you can delete it.
+:::
+
+## Stephanie's dashboard 
+
+I have deployed the Old Faithful dashboard to my own Shiny account and linked the public github repo (on GitHub Classroom) to give as an example: 
+
+- Deployed dashboard: <https://stephaniehicks.shinyapps.io/OldFaithfulGeyser>
+- GitHub repository: <https://github.com/jhu-statprogramming-fall-2024/project4-stephanieteam>
+
+
+
 # Class activity 
 
 For the rest of the time in class, you and your team will work on the final project. Stephanie will walk around to answer questions and to help in anyway I can. 
@@ -74,7 +98,6 @@ Here are a list of resources on Shiny (more involved than Flex Dashboard):
 
 * Main page: <http://shiny.rstudio.com>
 * Awesome tutorial: <http://shiny.rstudio.com/tutorial/>
-* An example app that Ruthe (former Biostats ScM student) made in a class: <https://gunben.shinyapps.io/Pneumonia426/>
 
 :::
 

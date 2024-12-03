@@ -9,3 +9,5 @@
 
 *.dat
 results/
+
+*.Rproj
