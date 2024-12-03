@@ -1061,14 +1061,14 @@
     "href": "lectures/10-flexdashboard/index.html",
     "title": "Building dashboards with flexdashboard",
     "section": "",
-    "text": "Important\n\n\n\nIn advance of class, please install three additional packages:\n\nflexdashboard - this provides tools for easily building dashboards\nDT - this provides built-in data display functionality\nshiny - this provides functionality to create interactive dashboard elements\n\nYou can do this by calling\n\ninstall.packages(c(\"flexdashboard\", \"DT\", \"shiny\"))\n\n\n\nIn addition, please read through\n\nInformation about creating dashboards: https://pkgs.rstudio.com/flexdashboard\nExamples of flexdashboard dashboards: https://pkgs.rstudio.com/flexdashboard/articles/examples\n\n\n\n\n\n\n\nHow much should I prepare for before class?"
+    "text": "Important\n\n\n\nIn advance of class, please install three additional packages:\n\nflexdashboard - this provides tools for easily building dashboards\nDT - this provides built-in data display functionality\nshiny - this provides functionality to create interactive dashboard elements\n\nYou can do this by calling\n\ninstall.packages(c(\"flexdashboard\", \"DT\", \"shiny\"))\n\n\n\nIn addition, please read through\n\nInformation about creating dashboards: https://pkgs.rstudio.com/flexdashboard\nExamples of flexdashboard dashboards: https://pkgs.rstudio.com/flexdashboard/articles/examples"
   },
   {
     "objectID": "lectures/10-flexdashboard/index.html#acknowledgements",
     "href": "lectures/10-flexdashboard/index.html#acknowledgements",
     "title": "Building dashboards with flexdashboard",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\n“R for Data Science” by Grolemund and Wickham, sections 29.6 and 29.7.2. It is based on lecture notes initially developed by Margaret Taub and Leah Jager.\nhttps://epirhandbook.com/en/dashboards-with-r-markdown.html"
+    "text": "Acknowledgements\nMaterial for this lecture was borrowed and adopted from\n\n“R for Data Science” by Grolemund and Wickham, sections 29.6 and 29.7.2. It is based on lecture notes initially developed by Margaret Taub and Leah Jager."
   },
   {
     "objectID": "lectures/10-flexdashboard/index.html#learning-objectives",
@@ -1082,7 +1082,7 @@
     "href": "lectures/10-flexdashboard/index.html#slides",
     "title": "Building dashboards with flexdashboard",
     "section": "Slides",
-    "text": "Slides"
+    "text": "Slides\n\nLecture 10: Building dashboards with flexdashboard"
   },
   {
     "objectID": "lectures/10-flexdashboard/index.html#additional-practice",
