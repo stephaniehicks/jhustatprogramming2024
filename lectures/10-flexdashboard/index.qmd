@@ -34,13 +34,6 @@ In addition, please read through
 2. Examples of `flexdashboard` dashboards: <https://pkgs.rstudio.com/flexdashboard/articles/examples>
 
 
-::: callout-note
-
-## How much should I prepare for before class? 
-
-:::
-
-
 # Lecture 
 
 ## Acknowledgements
@@ -48,7 +41,6 @@ In addition, please read through
 Material for this lecture was borrowed and adopted from
 
 - "R for Data Science" by Grolemund and Wickham, sections [29.6](https://r4ds.had.co.nz/r-markdown-formats.html#dashboards) and [29.7.2](https://r4ds.had.co.nz/r-markdown-formats.html#shiny). It is based on lecture notes initially developed by Margaret Taub and Leah Jager.
-- <https://epirhandbook.com/en/dashboards-with-r-markdown.html>
 
 
 ## Learning objectives
@@ -68,7 +60,7 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- <add here>
+- [Lecture 10: Building dashboards with flexdashboard](https://docs.google.com/presentation/d/1ZaZIPhhu_VtSoKAGcfkViDc_S3sghdagbGQeYhpNpAg/edit?usp=sharing)
 
 
 # Class activity 
