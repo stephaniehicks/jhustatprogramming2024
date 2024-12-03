@@ -15,6 +15,8 @@ date: 2024-12-05
 
 In advance of class, please set up your GitHub student account on this website: <https://education.github.com/discount_requests/application>. This process may take up to 72 hours.
 
+Once you've been granted access, you can follow these instructions to install Copilot in RStudio: <https://drive.google.com/file/d/1Y_BLnYYWxujbJuxlWXjCtU93mghKG-2s/view?usp=sharing>.
+
 :::
 
 
