@@ -1,11 +1,16 @@
 [
   {
-    "listing": "/projects.html",
+    "listing": "/readings.html",
     "items": [
-      "/projects/03-project/index.html",
-      "/projects/02-project/index.html",
-      "/projects/04-project/index.html",
-      "/projects/01-project/index.html"
+      "/readings/00-quarto/index.html",
+      "/readings/03-functional-programming/index.html",
+      "/readings/04-data-collection-apis/index.html",
+      "/readings/04-data-collection-html/index.html",
+      "/readings/05-database-programming/index.html",
+      "/readings/07-strategies-big-data/index.html",
+      "/readings/08-oop-paradigm/index.html",
+      "/readings/10-flexdashboard/index.html",
+      "/readings/12-programming-in-python/index.html"
     ]
   },
   {
@@ -22,20 +27,17 @@
       "/lectures/08-oop-paradigm/index.html",
       "/lectures/09-r-pkg-dev/index.html",
       "/lectures/10-flexdashboard/index.html",
-      "/lectures/11-programming-with-copilot/index.html"
+      "/lectures/11-programming-with-copilot/index.html",
+      "/lectures/12-programming-in-python/index.html"
     ]
   },
   {
-    "listing": "/readings.html",
+    "listing": "/projects.html",
     "items": [
-      "/readings/00-quarto/index.html",
-      "/readings/03-functional-programming/index.html",
-      "/readings/04-data-collection-apis/index.html",
-      "/readings/04-data-collection-html/index.html",
-      "/readings/05-database-programming/index.html",
-      "/readings/07-strategies-big-data/index.html",
-      "/readings/08-oop-paradigm/index.html",
-      "/readings/10-flexdashboard/index.html"
+      "/projects/03-project/index.html",
+      "/projects/02-project/index.html",
+      "/projects/04-project/index.html",
+      "/projects/01-project/index.html"
     ]
   }
 ]
