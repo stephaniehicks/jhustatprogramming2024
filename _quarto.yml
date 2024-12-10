@@ -8,6 +8,7 @@ project:
     - "!readings/09-r-pkg-dev-1/*.qmd"
     - "!readings/01-command-line-1/*.qmd"
     - "!lectures/12-programming-in-python/quarto-with*.qmd"
+    - "!lectures/12-programming-in-python/code-demo.qmd"
     
 website:
   title: "Statistical Programming Paradigms and Workflows"

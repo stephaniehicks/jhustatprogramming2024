@@ -5,7 +5,8 @@ format: html
 
 ```{r}
 library(reticulate)
-use_python("/opt/homebrew/Caskroom/miniforge/base/envs/biostats777/bin/python")
+# you need to change the location of your python path 
+use_python("/opt/homebrew/Caskroom/miniforge/base/envs/biostats777/bin/python") 
 ```
 
 
