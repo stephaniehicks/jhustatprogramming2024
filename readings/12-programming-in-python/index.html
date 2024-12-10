@@ -326,18 +326,18 @@ Pro-tip for installing python
 </div>
 <p>For example, I can define the path explicitly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/opt/homebrew/Caskroom/miniforge/base/bin/python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/opt/homebrew/Caskroom/miniforge/base/envs/biostats777/bin/python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can confirm that <code>reticulate</code> is using the correct version of python that you requested using the <code>py_discover_config</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">py_discover_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>python:         /opt/homebrew/Caskroom/miniforge/base/bin/python
-libpython:      /opt/homebrew/Caskroom/miniforge/base/lib/libpython3.9.dylib
-pythonhome:     /opt/homebrew/Caskroom/miniforge/base:/opt/homebrew/Caskroom/miniforge/base
-version:        3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 21:38:11)  [Clang 14.0.6 ]
-numpy:          /opt/homebrew/Caskroom/miniforge/base/lib/python3.9/site-packages/numpy
-numpy_version:  1.26.4
+<pre><code>python:         /opt/homebrew/Caskroom/miniforge/base/envs/biostats777/bin/python
+libpython:      /opt/homebrew/Caskroom/miniforge/base/envs/biostats777/lib/libpython3.13.dylib
+pythonhome:     /opt/homebrew/Caskroom/miniforge/base/envs/biostats777:/opt/homebrew/Caskroom/miniforge/base/envs/biostats777
+version:        3.13.1 | packaged by conda-forge | (main, Dec  5 2024, 21:09:18) [Clang 18.1.8 ]
+numpy:          /opt/homebrew/Caskroom/miniforge/base/envs/biostats777/lib/python3.13/site-packages/numpy
+numpy_version:  2.2.0
 
 NOTE: Python version was forced by use_python() function</code></pre>
 </div>
@@ -374,7 +374,7 @@ NOTE: Python version was forced by use_python() function</code></pre>
 <p>and the <strong>interactive mode</strong> will open up. You can write code in the interactive mode and Python will <em>interpret</em> the code using the <strong>python interpreter</strong>.</p>
 <p>Another way to pass code to Python is to store code in a file ending in <code>.py</code>, and execute the file in the <strong>script mode</strong> using</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> myscript.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> hello.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To check what version of Python you are using, type the following in the shell:</p>
 <div class="cell">
