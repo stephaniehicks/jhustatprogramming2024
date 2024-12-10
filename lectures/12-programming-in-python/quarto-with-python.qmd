@@ -1,0 +1,51 @@
+---
+title: "Using Python with Quarto files"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+# Example 1 
+```{python}
+print("Hello, World!")
+```
+
+
+# Example 2
+
+Using `pandas` in Python, we will import the `nycflights` dataset
+
+```{python}
+import pandas
+flights_path = "/Users/stephaniehicks/Documents/github/teaching/jhustatprogramming2024/data/flights.csv"
+flights = pandas.read_csv(flights_path)
+flights = flights[flights['dest'] == "ORD"]
+flights = flights[['carrier', 'dep_delay', 'arr_delay']]
+flights = flights.dropna()
+flights
+```
+
+
+
+# Example 3 
+
+For a demonstration of a line plot on a polar axis, see @fig-polar.
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```

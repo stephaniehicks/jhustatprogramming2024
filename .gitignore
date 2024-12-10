@@ -11,3 +11,7 @@
 results/
 
 *.Rproj
+
+lectures/12-programming-in-python/*_cache
+lectures/12-programming-in-python/*_files
+lectures/12-programming-in-python/*.html

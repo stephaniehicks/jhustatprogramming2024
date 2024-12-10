@@ -35,8 +35,9 @@ In addition, please read through the pre-reading:
 And if there is time, these are useful too: 
 
 1. <https://rstudio.github.io/reticulate>
-2.  <https://py-pkgs.org/02-setup>
-3.  [The Python Tutorial](https://docs.python.org/3/tutorial)
+2. <https://py-pkgs.org/02-setup>
+3. [The Python Tutorial](https://docs.python.org/3/tutorial)
+4. <https://docs.posit.co/ide/user/ide/guide/environments/py/python.html>
 
 
 
@@ -65,7 +66,7 @@ Material for this lecture was borrowed and adopted from
 
 ## Slides 
 
-- <add here>
+- [Lecture 12: Programming with Python in R with reticulate](https://docs.google.com/presentation/d/1xk2ViA2-YPHYtvus6ikwHDuvTIcxUH4EoH-EylvJAwE/edit?usp=sharing)
 
 
 # Class activity 

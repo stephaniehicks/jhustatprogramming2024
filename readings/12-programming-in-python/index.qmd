@@ -77,10 +77,11 @@ The `use_python()` function enables you to specify an alternate version, for exa
 use_python("/usr/<new>/<path>/local/bin/python")
 ```
 
+
 For example, I can define the path explicitly:
 
 ```{r}
-use_python("/opt/homebrew/Caskroom/miniforge/base/bin/python")
+use_python("/opt/homebrew/Caskroom/miniforge/base/envs/biostats777/bin/python")
 ```
 
 You can confirm that `reticulate` is using the correct version of python that you requested using the `py_discover_config` function:
@@ -128,7 +129,7 @@ and the **interactive mode** will open up. You can write code in the interactive
 Another way to pass code to Python is to store code in a file ending in `.py`, and execute the file in the **script mode** using
 
 ```{bash, eval=FALSE}
-python3 myscript.py
+python hello.py
 ```
 
 To check what version of Python you are using, type the following in the shell:
