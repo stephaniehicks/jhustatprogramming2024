@@ -1,13 +1,12 @@
 ---
-title: "Programming with Python"
+title: "Programming with Python with reticulate"
 author: 
   - name: Stephanie Hicks
     url: https://stephaniehicks.com
     affiliation: Department of Biostatistics, Johns Hopkins
     affiliation_url: https://publichealth.jhu.edu
-description: "add here"
+description: "Introduction to using Python in R and the reticulate package"
 date: 2024-12-10
-draft: true
 ---
 
 
@@ -15,19 +14,30 @@ draft: true
 
 ::: callout-important
 
-In advance of class, please
+In advance of class, please install:
+
+* `reticulate` - this provides an interface between R and python
+
+You can do this by calling
+
+```{r}
+#| eval: false
+install.packages(c("reticulate"))
+```
+
 
 :::
 
-In addition, please read through
+In addition, please read through the pre-reading: 
 
-- 
+- [Lecture 12: Programming in Python with reticulate](../../readings/12-programming-in-python/index.qmd)
 
-::: callout-note
+And if there is time, these are useful too: 
 
-## How much should I prepare for before class? 
+1. <https://rstudio.github.io/reticulate>
+2.  <https://py-pkgs.org/02-setup>
+3.  [The Python Tutorial](https://docs.python.org/3/tutorial)
 
-:::
 
 
 # Lecture 
@@ -36,7 +46,7 @@ In addition, please read through
 
 Material for this lecture was borrowed and adopted from
 
-- 
+- <https://rstudio.github.io/reticulate>
 
 ## Learning objectives
 
@@ -45,7 +55,10 @@ Material for this lecture was borrowed and adopted from
 
 **At the end of this lesson you will:**
 
--   
+1.  Install the `reticulate` R package on your machine (I'm assuming you have python installed already)
+2.  Learn about `reticulate` to work interoperability between Python and R
+3.  Be able to translate between R and Python objects
+ 
 :::
 
 
@@ -62,10 +75,6 @@ For the rest of the time in class, you and your team will work on the final proj
 
 # Post-lecture
 
-## Summary 
-
-- 
-
 ## Additional practice
 
 Here are some additional practice questions to help you think about the material discussed.
@@ -73,5 +82,7 @@ Here are some additional practice questions to help you think about the material
 ::: callout-note
 ### Questions
 
-1. 
+1.  Try to use tab completion for a function.
+2.  Try to install and load a different python module in R using `import()`.
+
 :::
